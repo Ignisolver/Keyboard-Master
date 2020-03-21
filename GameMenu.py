@@ -13,3 +13,4 @@ class GameMenu(tk.Frame):
         button2 = tk.Button(text="Załaduj grę", command=lambda: controller.show_frame("LoadGame"))
         button1.pack()
         button2.pack()
+pass
