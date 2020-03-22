@@ -4,32 +4,36 @@ from GameMenu import GameMenu
 from LoadGame import LoadGame
 from NewGame import NewGame
 
+LARGE_FONT = ("Verdana", 12)
 
-class AppStartup(tk.Tk):
+
+class Application(tk.Tk):
 
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
-
         container = tk.Frame(self)
+        self.overrideredirect(True)
+        self.geometry("{0}x{1}+0+0".format(self.winfo_screenwidth(), self.winfo_screenheight()))
         container.pack(side="top", fill="both", expand=True)
+
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
 
         self.frames = {}
-        for F in (GameMenu, LoadGame, NewGame):
-            page_name = F.__name__
-            frame = F(parent=container, controller=self)
-            self.frames[page_name] = frame
 
-        frame.grid(row=0, column=0, sticky="nsew")
+        for F in (GameMenu, NewGame, LoadGame):
+            frame = F(container, self)
 
-        self.show_frame("GameMenu")
+            self.frames[F] = frame
 
-    def show_frame(self, page_name):
-        frame = self.frames[page_name]
+            frame.grid(row=0, column=0, sticky="nsew")
+
+        self.show_frame(GameMenu)
+
+    def show_frame(self, cont):
+        frame = self.frames[cont]
         frame.tkraise()
 
 
-if __name__ == "__main__":
-    app = AppStartup()
-    app.mainloop()
+app = Application()
+app.mainloop()
