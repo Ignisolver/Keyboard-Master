@@ -1,15 +1,22 @@
 import tkinter as tk
 
+from LoadGame import LoadGame
+from NewGame import NewGame
+
+LARGE_FONT = ("Verdana", 12)
+
 
 class GameMenu(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        self.controller = controller
-        label = tk.Label(self, text="Menu główne")
-        label.pack(side="top", fill="x", pady=10)
+        label = tk.Label(self, text="Mistrz Klawiatury", font=LARGE_FONT)
+        label.pack(pady=10, padx=10)
 
-        button1 = tk.Button(text="Nowy gracz", command=lambda: controller.show_frame("NewGame")) #TODO: czemu nie przerzucaja ramek?
-        button2 = tk.Button(text="Załaduj grę", command=lambda: controller.show_frame("LoadGame"))
-        button1.pack()
+        button = tk.Button(self, text="Nowa gra",
+                           command=lambda: controller.show_frame(NewGame))
+        button.pack()
+
+        button2 = tk.Button(self, text="Załaduj grę",
+                            command=lambda: controller.show_frame(LoadGame))
         button2.pack()
