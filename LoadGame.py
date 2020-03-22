@@ -1,10 +1,13 @@
 import tkinter as tk
 
+LARGE_FONT = ("Verdana", 12)
+
 
 class LoadGame(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        self.controller = controller
-        label = tk.Label(self, text="Załaduj grę")
-        label.pack(side="top", fill="x", pady=10)
+        label = tk.Label(self, text="Załąduj grę", font=LARGE_FONT)
+        label.pack(pady=10, padx=10)
+
+        # TODO: Zaimplementować ładowanie stanu gry (proponuję z *.txt), do omówienia rodzaj zapisywanych statów
