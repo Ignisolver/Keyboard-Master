@@ -12,6 +12,8 @@ class Application(tk.Tk):
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
         container = tk.Frame(self)
+
+        # fullscreen
         self.overrideredirect(True)
         self.geometry("{0}x{1}+0+0".format(self.winfo_screenwidth(), self.winfo_screenheight()))
         container.pack(side="top", fill="both", expand=True)
@@ -21,6 +23,7 @@ class Application(tk.Tk):
 
         self.frames = {}
 
+        # wczytanie wszystkich ramek do krotki
         for F in (GameMenu, NewGame, LoadGame):
             frame = F(container, self)
 
@@ -30,10 +33,12 @@ class Application(tk.Tk):
 
         self.show_frame(GameMenu)
 
+    # metoda podnosząca wybraną ramkę
     def show_frame(self, cont):
         frame = self.frames[cont]
         frame.tkraise()
 
 
+# start aplikacji
 app = Application()
 app.mainloop()
