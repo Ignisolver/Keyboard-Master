@@ -3,6 +3,7 @@ import tkinter as tk
 from LoadGame import LoadGame
 from NewGame import NewGame
 
+# czcionka jako krotka
 LARGE_FONT = ("Verdana", 12)
 
 
@@ -10,6 +11,7 @@ class GameMenu(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
+
         label = tk.Label(self, text="Mistrz Klawiatury", font=LARGE_FONT)
         label.pack(pady=10, padx=10)
 
