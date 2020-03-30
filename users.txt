@@ -1,1 +1,6 @@
 {"name": "asd", "difficulty_level": 1}
+{"name": "asdasd", "difficulty_level": 1, "score_easy": 0, "score_medium": 0, "score_hard": 0}
+{"name": "test", "difficulty_level": 2, "score_easy": 0, "score_medium": 0, "score_hard": 0}
+{"name": "cxcx", "difficulty_level": 3, "score_easy": 0, "score_medium": 0, "score_hard": 0}
+{"name": "vv", "difficulty_level": 3, "score_easy": 0, "score_medium": 0, "score_hard": 0}
+{"name": "sss", "difficulty_level": 2, "score_easy": 0, "score_medium": 0, "score_hard": 0}

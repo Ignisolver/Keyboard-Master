@@ -1,6 +1,7 @@
 import tkinter as tk
 
 from GameMenu import GameMenu
+from GameScreen import GameScreen
 from LoadGame import LoadGame
 from NewGame import NewGame
 
@@ -24,7 +25,7 @@ class Application(tk.Tk):
         self.frames = {}
 
         # wczytanie wszystkich ramek do krotki
-        for F in (GameMenu, NewGame, LoadGame):
+        for F in (GameMenu, NewGame, LoadGame, GameScreen):
             frame = F(container, self)
 
             self.frames[F] = frame

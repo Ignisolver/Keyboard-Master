@@ -1,6 +1,8 @@
 import json
 import tkinter as tk
 
+import GameSession
+from GameScreen import GameScreen
 from Player import Player
 
 LARGE_FONT = ("Verdana", 12)
@@ -11,7 +13,7 @@ class NewGame(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
 
-        label = tk.Label(self, text="Nowa gra", font=LARGE_FONT)
+        label = tk.Label(self, text="Imię", font=LARGE_FONT)
         label.pack(pady=10, padx=10)
 
         user_name = tk.Entry(self)
@@ -31,6 +33,13 @@ class NewGame(tk.Frame):
             with open('users.txt', 'a') as outfile:
                 json.dump(player.__dict__, outfile)
 
-        # guzik zapisu
-        save_button = tk.Button(text='Zapisz', command=make_user)
-        save_button.pack()
+            GameSession.username = user_name.get()
+            GameSession.level = level_choice.get()
+            GameSession.score = 0
+
+        save_user = tk.Button(self, text='Zapisz profil', command=make_user)
+        save_user.pack()
+
+        # przycisk zapisu
+        play_button = tk.Button(text='Graj!', command=lambda: controller.show_frame(GameScreen))
+        play_button.pack()
