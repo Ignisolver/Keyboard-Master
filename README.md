@@ -14,4 +14,4 @@ main.py
 
 ## Struktura aplikacji
 
-### ```bash main.py ```
+### ``` main.py ```
