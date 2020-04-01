@@ -39,7 +39,7 @@ def show_frame(self, cont):
 
 W tej klasie zdefiniowano ramkę, która wczytywana jest zaraz po uruchomieniu aplikacji, wyposażone jest w przyciski służące do załadowania wcześniejszego stanu gry i do utworzenia nowego zapisu.
 
-```pyhton
+```python
 class GameMenu(tk.Frame):
 
     def __init__(self, parent, controller):
