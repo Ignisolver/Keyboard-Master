@@ -49,8 +49,8 @@ class GameMenu(tk.Frame):
         label.pack(pady=10, padx=10)
 
         button = tk.Button(self, text="Nowa gra",
-                           command=lambda: controller.show_frame(NewGame))
-        button.pack()
+                           command=lambda: controller.show_frame(NewGame)) # Przyciśnięcie spowoduje podniesienie ramki z kontrolkami
+        button.pack()                                                      # do tworzenia nowego zapisu.
 
         button2 = tk.Button(self, text="Załaduj grę",
                             command=lambda: controller.show_frame(LoadGame))
