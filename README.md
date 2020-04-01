@@ -11,3 +11,7 @@ Aby włączyć grę, należy w głównym katalogu projektu wykonać następując
 ```bash
 main.py
 ```
+
+## Struktura aplikacji
+
+### ```bash main.py ```
