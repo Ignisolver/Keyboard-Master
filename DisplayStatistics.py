@@ -1,5 +1,5 @@
 import pygame
-# inicjalizacja numpy
+# inicjalizacja pygame
 pygame.init()
 
 #ustawienia okna
@@ -7,7 +7,7 @@ size_x = 1200
 size_y = 650
 screen = pygame.display.set_mode((size_x, size_y))
 pygame.display.set_caption("Miszcz Klawiatury")
-icon = pygame.image.load('klawiatura.eps')
+icon = pygame.image.load('klawiatura.png')
 pygame.display.set_icon(icon)
 screen.fill((255, 255, 255))
 
@@ -40,7 +40,7 @@ pygame.draw.rect(screen, (0, 0, 200), pygame.Rect((x_max, y_max, 10, 10)))
 myimage = pygame.image.load("siatka.png")
 imagerect = myimage.get_rect()
 print(imagerect)
-image_loc = [-5,-22]
+image_loc = [-5, -22]
 screen.blit(myimage, [*image_loc,*imagerect[2:4]])
 
 #pętla rysowania
