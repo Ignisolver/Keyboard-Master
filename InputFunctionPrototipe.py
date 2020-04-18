@@ -49,6 +49,7 @@ SHIFT2 = 4098
 
 font = pygame.font.Font('freesansbold.ttf', 50)
 green = (0, 255, 0)
+
 napis = ''
 letter = ''
 text = font.render(napis, True, green)
