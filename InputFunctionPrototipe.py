@@ -42,9 +42,9 @@ myfont = pygame.font.SysFont("monospace", 30)
 CAPS = 12288
 SHIFT = 4097
 SHIFT2 = 4098
-NONE = 4096
-CAPS_SHIFT = 12289
-CAPS_SHIFT2 = 12290
+# NONE = 4096
+# CAPS_SHIFT = 12289
+# CAPS_SHIFT2 = 12290
 
 
 font = pygame.font.Font('freesansbold.ttf', 50)
