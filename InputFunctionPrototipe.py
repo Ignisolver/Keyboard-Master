@@ -49,9 +49,10 @@ SHIFT2 = 4098
 
 font = pygame.font.Font('freesansbold.ttf', 50)
 green = (0, 255, 0)
-blue = (0, 0, 128)
 napis = ''
 letter = ''
+text = font.render(napis, True, green)
+textRect = text.get_rect()
 display_surface.fill(white)
 while True:
     for event in pygame.event.get():
@@ -67,6 +68,7 @@ while True:
     mode = pygame.key.get_mods()
     if mode in (CAPS, SHIFT, SHIFT2):
         napis += letter.upper()
+        textRect
     else:
         napis += letter
     letter = ''
