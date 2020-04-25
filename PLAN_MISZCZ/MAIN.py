@@ -1,4 +1,4 @@
-# IMPORT PLIKOW
+# IMPORT PLIKÓW
 from Statistics import *
 from Login import *
 from Game import *
