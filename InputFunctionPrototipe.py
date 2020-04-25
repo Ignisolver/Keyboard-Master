@@ -46,7 +46,6 @@ SHIFT2 = 4098
 # CAPS_SHIFT = 12289
 # CAPS_SHIFT2 = 12290
 
-
 font = pygame.font.Font('freesansbold.ttf', 50)
 green = (0, 255, 0)
 #
