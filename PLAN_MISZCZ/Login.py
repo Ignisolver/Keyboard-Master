@@ -1,5 +1,6 @@
 def choose_player():
     """
+    #Adrian
     #czyści okno i rysuje swoje
     używa funkcji download_users do pobrania graczy
     rysuje w pygame ekran wyboru z prostokątem ktory podswietla aktualnego gracza
@@ -16,13 +17,16 @@ def choose_player():
 
 def download_users():
     """
+    # Gustaw
     pobiera niki użytkowników z hasłami
     :return gracze: lista ze słownikami {'nazwa gracza': 'hasło'}
     """
 
 def add_player():
     """
+    #Gustaw
     pozwala dodać gracza do bazy
     jest wywoływana z funkcji chose_player
+    sprawdza czy już istanieje gracz o tej nazwi
     :return:
     """

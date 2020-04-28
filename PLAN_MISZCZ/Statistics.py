@@ -1,5 +1,6 @@
 def download_input(period):
     """
+    # Gustaw
     pobiera dane z bazy danych do przedstawienia w statystykach
     :param period: okres czasu (jeden z :dziś / tydzień/ miesiąc/ od początku)
     :return period_scores: lista ze słownikami : {'date' : <numer gry w dniu / data dnia / nr tygodnia/ nazwa miesiąca>:
@@ -11,6 +12,7 @@ def download_input(period):
 
 def show_statistisc(period_scores):
     """
+    # Ignacy
     #czyści okno i rysuje swoje
     używa download_input
     rysuje statystyki za pomocą pygame - najlepiej w tym samym oknie co gra

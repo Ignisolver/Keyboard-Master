@@ -14,6 +14,7 @@ screen = None  # okno gry tworzone w window_maker
 # FUNKCJE INICJALIZACYJNE
 def do_order_in_database():
     """
+    Gustaw
     robi pożądek w bazie danych
     wykonuje się tuż po uruchomieniu
     jak niema plików to je tworzy
@@ -25,6 +26,7 @@ def do_order_in_database():
 
 def main_window():
     """
+    #Ignacy
     funkcja wyswietlająca ekran wyboru: trybu gry,poziomu,przejscia do statystyk, wylogowania
     pobiera z klawiatury literke i przechodzi do odpowiedniej funkcji
     :return chose_option: tablica [kod operacji, *args]
@@ -43,32 +45,35 @@ def main_window():
 
 def window_maker():
     """
+    #Ignacy
     tworzy okno o jakiś wymiarach - można spróbować dopasować do ekranu
     :return:
     """
-    # być może będzie trzeba zrobić jakieś konkretne i stałe żeby się nam
-    # nie rozjeżdżało i żeby było mniej roboty
-    # Przykładowe
-    # size_x = 1200
-    # size_y = 650
-    # global screen
-    # screen = pygame.display.set_mode((size_x, size_y))
-    # pygame.display.set_caption("Miszcz Klawiatury")
-    # icon = pygame.image.load('klawiatura.png')
-    # pygame.display.set_icon(icon)
-    # screen.fill((255, 255, 255))
+    size_x = 1200
+    size_y = 650
+    global screen
+    screen = pygame.display.set_mode((size_x, size_y))
+    pygame.display.set_caption("Miszcz Klawiatury")
+    icon = pygame.image.load('klawiatura.png')
+    pygame.display.set_icon(icon)
+    screen.fill((255, 255, 255))
 
 
 # GŁÓWNA FUNKCJA PROGRAMU
 def main():
     # inicjalizacja gry
+    # Ignacy
+    # inicjalizacja pygame
+    pygame.init()
+    # uporządkowanie bazy danych
     do_order_in_database()
+    # stworzenie okna
     window_maker()
 
     # wyboór gracza
     global player
     player = choose_player()
-
+    # słownik z funkcjami
     functions = {'sta': show_statistisc,
                  'ler': game_loop_learn,
                  'cha': game_loop_chalange,
@@ -78,7 +83,12 @@ def main():
     # pętla gry
     while True:
         option = main_window()
-        functions[option[0]](option[0:])
+        args = option[1:]
+        code = option[0]
+        if bool(args):
+            functions[code](args)
+        else:
+            functions[code]()
 
 
 # GRA

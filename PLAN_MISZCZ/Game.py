@@ -1,5 +1,6 @@
 def pg_str_input():
     """
+    #Ignacy
     odczytuje wciśnity na klawiaturze klawisz
     (funkcje należy umieśćić w pętli)
     uwzgldnia litery polskie,cyfry,cpacje,CAPS,SHIFT,BACKSPACE,ENTER
@@ -11,6 +12,7 @@ def pg_str_input():
 
 def game_loop_chalange(level):
     """
+    # Karol
     #czyści okno i rysuje swoje
     prowadzi grę w trybie wyzwanie czyli mierzy czas poprawnego wpisania wyrazu
     czysci okno (niech coś swojego rysuje)
@@ -27,6 +29,7 @@ def game_loop_chalange(level):
 
 def game_loop_learn():
     """
+    # Karol
     #czyści okno i rysuje swoje
     wyswietla litery
     wykorzystuje choose_letter
@@ -38,6 +41,7 @@ def game_loop_learn():
 
 def choose_word(level):
     """
+    # Adrian
     losuje hasło z bazy o zadanym lewelu
     uwzględnia czy hasło było ostatnio używane (baza powinna to obsługiwać przechowując
      powiązaną z każdym hasłem wartość [może też być dla każdego gracza własna]
@@ -50,6 +54,7 @@ def choose_word(level):
 
 def choose_letter():
     """
+    # Adrian
     funkcja analogiczna jak chose_word tylko zamiast haseł losuje lieterę
     może być prostsza ale fajnie jak by też jakoś minimalizowała powtórki
     :return litera:
@@ -58,6 +63,7 @@ def choose_letter():
 
 def save_score(level, score):
     """
+    # Gustaw
     mnoży score razy jakąś wagę zależną od level i zapisuje do bazy
     :param level: poziom gry (easy/medium/hard)
     :param score: wynik jako czas w decysekundach (1s/10)
