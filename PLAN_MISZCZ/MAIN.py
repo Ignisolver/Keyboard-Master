@@ -3,14 +3,6 @@ from Statistics import *
 from Login import *
 from Game import *
 
-# IMPORT PAKIETÓW  - potem można przerobić tak żeby się pobierały tylko używane funkcje
-from sys import exit as close
-import pygame
-# GLOBAL VARIABLES:
-player = ''  # nazwa gracza
-screen = None  # okno gry tworzone w window_maker
-
-
 # FUNKCJE INICJALIZACYJNE
 def do_order_in_database():
     """
@@ -49,9 +41,9 @@ def window_maker():
     tworzy okno o jakiś wymiarach - można spróbować dopasować do ekranu
     :return:
     """
-    size_x = 1200
+    global screen, size_x, size_y
+    size_x = 1200  # rozmiary okna
     size_y = 650
-    global screen
     screen = pygame.display.set_mode((size_x, size_y))
     pygame.display.set_caption("Miszcz Klawiatury")
     icon = pygame.image.load('klawiatura.png')
@@ -61,6 +53,8 @@ def window_maker():
 
 # GŁÓWNA FUNKCJA PROGRAMU
 def main():
+    # testy
+    window_maker()
     # inicjalizacja gry
     # Ignacy
     # inicjalizacja pygame
@@ -74,7 +68,7 @@ def main():
     global player
     player = choose_player()
     # słownik z funkcjami
-    functions = {'sta': show_statistisc,
+    functions = {'sta': show_statistics,
                  'ler': game_loop_learn,
                  'cha': game_loop_chalange,
                  'log': choose_player,
