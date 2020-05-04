@@ -42,6 +42,7 @@ def show_statistics(period, screen, size_x, size_y):
     pole_width = unit
     rectangles = [pygame.Rect(x0 + i * unit_q * int(unit), y_max, int(pole_width), 2) for i in range(amount_of_scores)]
 
+    # dane
     scores_points = [day['score'] for day in scores]
     scores_high = [y_max - y_length * i / 100 for i in scores_points]
 
