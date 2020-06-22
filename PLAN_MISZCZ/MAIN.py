@@ -37,7 +37,7 @@ def main_window():
 
 def window_maker():
     """
-    #Ignacy
+    #Ignacy - DONE
     tworzy okno o jakiś wymiarach - można spróbować dopasować do ekranu
     :return:
     """
