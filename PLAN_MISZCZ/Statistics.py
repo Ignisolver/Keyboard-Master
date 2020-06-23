@@ -1,4 +1,5 @@
 import sqlite3
+from sqlite3 import Error
 
 database = r"..\db\mistrz_klawiatury.db"
 cx = sqlite3.connect(database)
@@ -118,3 +119,15 @@ def show_statistics(period, screen, size_x, size_y):
                 if event.key == pygame.K_ESCAPE:
                     return None
         pygame.time.wait(100)
+
+
+def create_connection(db_file):
+    conn = None
+    try:
+        conn = sqlite3.connect(db_file)
+        print(sqlite3.version)
+    except Error as e:
+        print(e)
+    finally:
+        if conn:
+            conn.close()
