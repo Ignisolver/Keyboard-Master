@@ -141,16 +141,59 @@ def game_loop_chalange(level):
         pygame.display.flip()
 
 
+#Karol       
+def choose_letter():
+    rand = random.randint(97, 122)
+    return code2letter[rand]
+
+#Karol
 def game_loop_learn():
-    """
-    # Karol
-    #czyści okno i rysuje swoje
-    wyswietla litery
-    wykorzystuje choose_letter
-    jak jest poprawna podaje kolejną a jak nie to czeka aż będzie
-    enter przerywa grę
-    :return: None
-    """
+    # Inicjalizacja
+    pygame.init()
+
+    # Wartosci Pomocnicze
+    white = (255, 255, 255)
+    green = (0, 255, 0)
+
+
+    # Ustawienia Okna
+    res = (1200, 650)
+    screen = pygame.display.set_mode(res)
+    pygame.display.set_caption("Mistrz Klawiatury")
+    screen.fill(white)
+
+    # Wartosci Początkowe
+    char = choose_letter()
+    letter = ''
+    font = pygame.font.Font('freesansbold.ttf', 70)
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit(0)
+            elif event.type == pygame.KEYDOWN:
+                if event.key == 13:
+                    sys.exit(0)
+                letter = code2letter[event.key]
+                if letter == char:
+                    char = choose_letter()
+
+
+
+        # Rysowanie
+        pygame.display.update()
+        screen.fill(white)
+        # Litera Wylosowana
+        tekst = font.render(char, True, (0, 0, 0))
+        tekst_prost = tekst.get_rect()
+        tekst_prost.center = (600, 163)
+        screen.blit(tekst, tekst_prost)
+        # Litera Wpisana
+        tekst1 = font.render(letter, True, (0, 0, 0))
+        tekst1_prost = tekst1.get_rect()
+        tekst1_prost.center = (600, 325)
+        screen.blit(tekst1, tekst1_prost)
+        pygame.display.flip()
 
 
 def choose_word(level):
