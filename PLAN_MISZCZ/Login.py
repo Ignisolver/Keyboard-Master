@@ -1,3 +1,11 @@
+import sqlite3
+from sqlite3 import Error
+
+database = r"..\db\mistrz_klawiatury.db"
+cx = sqlite3.connect(database)
+cu = cx.cursor()
+
+
 def choose_player():
     """
     #Adrian
@@ -21,8 +29,13 @@ def download_users():
     pobiera niki użytkowników z hasłami
     :return gracze: lista ze słownikami {'nazwa gracza': 'hasło'}
     """
+    cu.execute("SELECT nick, password FROM players")
+    cx.commit()
+    gracze = cu.fetchall()
+    return gracze
 
-def add_player():
+
+def add_player(nick, password):
     """
     #Gustaw
     pozwala dodać gracza do bazy
@@ -30,3 +43,25 @@ def add_player():
     sprawdza czy już istanieje gracz o tej nazwi
     :return:
     """
+    cu.execute("SELECT COUNT(*) FROM players WHERE nick==?", (nick,))
+    cx.commit()
+    result = cu.fetchone()
+    if result == (0,):
+        cu.execute("INSERT INTO players (nick, password) VALUES (?,?)", (nick, password))
+        cx.commit()
+        cu.execute(
+            "CREATE TABLE " + nick + "_stat_today (id integer primary key, score int, date date)")
+    else:
+        pass
+
+
+def create_connection(db_file):
+    conn = None
+    try:
+        conn = sqlite3.connect(db_file)
+        print(sqlite3.version)
+    except Error as e:
+        print(e)
+    finally:
+        if conn:
+            conn.close()

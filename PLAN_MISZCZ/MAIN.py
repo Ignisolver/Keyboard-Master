@@ -6,6 +6,7 @@ from Game import *
 # IMPORT PAKIETÓW  - potem można przerobić tak żeby się pobierały tylko używane funkcje
 from sys import exit as close
 import pygame
+
 # GLOBAL VARIABLES:
 player = ''  # nazwa gracza
 screen = None  # okno gry tworzone w window_maker

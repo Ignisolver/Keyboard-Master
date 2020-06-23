@@ -1,3 +1,11 @@
+import sqlite3
+from sqlite3 import Error
+
+database = r"..\db\mistrz_klawiatury.db"
+cx = sqlite3.connect(database)
+cu = cx.cursor()
+
+
 def pg_str_input():
     """
     #Ignacy
@@ -9,37 +17,38 @@ def pg_str_input():
     :return: klawisz (klawisze) ktory został wciśnięty jako napis
     """
 
-    
-#Karol
+
+# Karol
 code2letter = {97: 'a',
-     98: 'b',
-     99: 'c',
-     100: 'd',
-     101: 'e',
-     102: 'f',
-     103: 'g',
-     104: 'h',
-     105: 'i',
-     106: 'j',
-     107: 'k',
-     108: 'l',
-     109: 'm',
-     110: 'n',
-     111: 'o',
-     112: 'p',
-     113: 'q',
-     114: 'r',
-     115: 's',
-     116: 't',
-     117: 'u',
-     118: 'v',
-     119: 'w',
-     120: 'x',
-     121: 'y',
-     122: 'z',
-     8: ' ',
-     13: '',
-     32: ' '}
+               98: 'b',
+               99: 'c',
+               100: 'd',
+               101: 'e',
+               102: 'f',
+               103: 'g',
+               104: 'h',
+               105: 'i',
+               106: 'j',
+               107: 'k',
+               108: 'l',
+               109: 'm',
+               110: 'n',
+               111: 'o',
+               112: 'p',
+               113: 'q',
+               114: 'r',
+               115: 's',
+               116: 't',
+               117: 'u',
+               118: 'v',
+               119: 'w',
+               120: 'x',
+               121: 'y',
+               122: 'z',
+               8: ' ',
+               13: '',
+               32: ' '}
+
 
 def game_loop_chalange(level):
     # Inicjalizacja
@@ -66,7 +75,6 @@ def game_loop_chalange(level):
     ipt = ""
     font = pygame.font.Font('freesansbold.ttf', 70)
     font1 = pygame.font.Font('freesansbold.ttf', 20)
-
 
     while True:
         for event in pygame.event.get():
@@ -96,7 +104,6 @@ def game_loop_chalange(level):
                     delta = 0
                     n += 1
 
-
         # Zarzadzanie kolorem czcionki
         if len(ipt) == 1:
             if ipt == word[0]:
@@ -110,10 +117,8 @@ def game_loop_chalange(level):
                 else:
                     colour = (255, 0, 0)
 
-
         # Zegar
-        delta += clock.tick()/1000.0
-
+        delta += clock.tick() / 1000.0
 
         # Rysowanie
         pygame.display.update()
@@ -141,12 +146,13 @@ def game_loop_chalange(level):
         pygame.display.flip()
 
 
-#Karol       
+# Karol
 def choose_letter():
     rand = random.randint(97, 122)
     return code2letter[rand]
 
-#Karol
+
+# Karol
 def game_loop_learn():
     # Inicjalizacja
     pygame.init()
@@ -154,7 +160,6 @@ def game_loop_learn():
     # Wartosci Pomocnicze
     white = (255, 255, 255)
     green = (0, 255, 0)
-
 
     # Ustawienia Okna
     res = (1200, 650)
@@ -177,8 +182,6 @@ def game_loop_learn():
                 letter = code2letter[event.key]
                 if letter == char:
                     char = choose_letter()
-
-
 
         # Rysowanie
         pygame.display.update()
@@ -218,7 +221,7 @@ def choose_letter():
     """
 
 
-def save_score(level, score):
+def save_score(level, score, nick):
     """
     # Gustaw
     mnoży score razy jakąś wagę zależną od level i zapisuje do bazy
@@ -226,3 +229,10 @@ def save_score(level, score):
     :param score: wynik jako czas w decysekundach (1s/10)
     :return:
     """
+
+    score_to_db = score * level
+    cu.execute("insert into " + nick + "_stat_today (score) values (?)", (score_to_db,))
+    cx.commit()
+
+
+
