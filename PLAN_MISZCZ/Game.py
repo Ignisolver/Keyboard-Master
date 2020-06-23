@@ -18,6 +18,24 @@ def pg_str_input():
     """
 
 
+
+
+
+    """
+    # Karol
+    #czyści okno i rysuje swoje
+    prowadzi grę w trybie wyzwanie czyli mierzy czas poprawnego wpisania wyrazu
+    czysci okno (niech coś swojego rysuje)
+    używa funkcji pg_str_input i chose_word
+    wyswietla napis który ma zostać wpisany
+    nie pozwala wpisywac wyrazu dluzszego niz przewidziany - zapala kontrolke z komunikatem
+    wyswietla litery wpisywane wraz z podświetleniem na kolor zielony - ok / czerwony - błędny wpis
+    mierzy czas wpisywania wyrazu od naciśnięcia enter do poprawnego skończenia / enter przerywa - nie zapisuje wyniku
+    wykorzystuje funkcję save_score której przekazuje poziom gry
+    :param level: poziom gry (easy/medium/hard)
+    :return: None
+    """
+
 # Karol
 code2letter = {97: 'a',
                98: 'b',
@@ -147,6 +165,21 @@ def game_loop_chalange(level):
 
 
 # Karol
+
+
+
+
+
+    """
+    # Karol
+    #czyści okno i rysuje swoje
+    wyswietla litery
+    wykorzystuje choose_letter
+    jak jest poprawna podaje kolejną a jak nie to czeka aż będzie
+    enter przerywa grę
+    :return: None
+    """
+#Karol
 def choose_letter():
     rand = random.randint(97, 122)
     return code2letter[rand]
@@ -197,6 +230,10 @@ def game_loop_learn():
         tekst1_prost.center = (600, 325)
         screen.blit(tekst1, tekst1_prost)
         pygame.display.flip()
+
+
+
+
 
 
 def choose_word(level):
