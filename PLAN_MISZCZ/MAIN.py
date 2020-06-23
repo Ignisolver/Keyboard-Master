@@ -74,16 +74,15 @@ def main():
     do_order_in_database()
     # stworzenie okna
     window_maker()
-
     # wyboór gracza
     global player
     player = choose_player()
     # słownik z funkcjami
-    functions = {'sta': show_statistisc,
+    functions = {'sta': show_statistics,
                  'ler': game_loop_learn,
                  'cha': game_loop_chalange,
                  'log': choose_player,
-                 'qui': close}
+                 'qui': exit}
 
     # pętla gry
     while True:

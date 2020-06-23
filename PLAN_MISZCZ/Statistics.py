@@ -1,11 +1,10 @@
 import sqlite3
 from sqlite3 import Error
+from sys import exit as close
 
 database = r"..\db\mistrz_klawiatury.db"
 cx = sqlite3.connect(database)
 cu = cx.cursor()
-
-from sys import exit as close
 
 import pygame
 
