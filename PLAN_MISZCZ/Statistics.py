@@ -19,7 +19,7 @@ def download_input(period, nick):
     :return period_scores: lista ze słownikami : {'date' : <numer gry w dniu / data dnia / nr tygodnia/ nazwa miesiąca>(nie dluższe niz 12 znaków),
     'score' : <wynik z danego czasu> (int między 0 a 100 włacznia)}
     Gustaw ustal jak tu podzielimy te okresy
-    (najlepiej żeby było max 30 wyników w jednym okresie żeby się pomieściły w oknie jakoś zgrabnie wraz z nazwami)
+    (najlepiej żeby było max 10 wyników w jednym okresie żeby się pomieściły w oknie jakoś zgrabnie wraz z nazwami)
     """
     # today
     period_scores = None
