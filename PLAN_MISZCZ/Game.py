@@ -10,6 +10,12 @@ cu = cx.cursor()
 
 
 class Keyborder:
+    """
+    aby korzystać z funkcji wprowadania tekstu nalerzy utworzyć obiekt tej klasy
+    - wywołanie funkcji pg_str_input spowoduje że w atrybucie current_input będzie się znajdował ciąg znaków
+    który cały czas będzie się aktualizował ( w zależności od tego co będzie wpisywae na klawiaturze) - działa w
+    osobnym wątku aż do naciśnięcia enter
+    """
     UPP = (12288, 4098, 4097, 28672, 20482, 20481, 12545, 12546, 8192, 2, 1, 24576, 16386, 16385, 8449, 8450)
     alt = (20480, 28672, 20482, 20481, 12545, 12546, 16384, 24576, 16386, 16385, 8449, 8450)
     code2letter = {97: 'a',
