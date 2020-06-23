@@ -1,4 +1,4 @@
-# plik na zmienne sesyjne
+#plik na zmienne sesyjne
 
 username = ''
 level = 0

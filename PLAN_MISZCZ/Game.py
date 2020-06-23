@@ -251,7 +251,7 @@ def save_score(level, score, nick):
     """
     # Gustaw
     mnoży score razy jakąś wagę zależną od level i zapisuje do bazy
-    :param level: poziom gry (easy/medium/hard)
+    :param level: poziom gry (1/2/3)
     :param score: wynik jako czas w decysekundach (1s/10)
     :param nick: nick
     :return:

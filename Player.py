@@ -1,4 +1,4 @@
-class Player:
+lass Player:
     def __init__(self, name, difficulty_level):
         self.name = name
         self.difficulty_level = difficulty_level

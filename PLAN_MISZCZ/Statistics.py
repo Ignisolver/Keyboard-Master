@@ -1,21 +1,41 @@
+import sqlite3
+
+database = r"..\db\mistrz_klawiatury.db"
+cx = sqlite3.connect(database)
+cu = cx.cursor()
+
 from sys import exit as close
 
 import pygame
 
 
-def download_input(period):
+def download_input(period, nick):
     """
     # Gustaw
     pobiera dane z bazy danych do przedstawienia w statystykach
     :param period: okres czasu (jeden z :dziś / tydzień/ miesiąc/ od początku)
+    :param nick:
     :return period_scores: lista ze słownikami : {'date' : <numer gry w dniu / data dnia / nr tygodnia/ nazwa miesiąca>(nie dluższe niz 12 znaków),
     'score' : <wynik z danego czasu> (int między 0 a 100 włacznia)}
     Gustaw ustal jak tu podzielimy te okresy
     (najlepiej żeby było max 30 wyników w jednym okresie żeby się pomieściły w oknie jakoś zgrabnie wraz z nazwami)
     """
+    # today
+    period_scores = None
+    if period == 'dziś':
+        cu.execute("select rowid, date, score from " + nick + "_stat_today")
+        cx.commit()
+        period_scores = cu.fetchall()
+
+        for el in period_scores:
+            print(el)
+    else:
+        pass
+
+    return period_scores
 
 
-    return period  # do zmiany - zrobione by Pycharm nie marudził
+download_input("dziś", "dfdfd")
 
 
 def show_statistics(period, screen, size_x, size_y):
