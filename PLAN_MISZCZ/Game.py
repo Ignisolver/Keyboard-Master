@@ -1,3 +1,6 @@
+from threading import Thread
+
+
 def pg_str_input():
     """
     #Ignacy
@@ -8,6 +11,40 @@ def pg_str_input():
     Ignacy to robi (prawie gotowe)
     :return: klawisz (klawisze) ktory został wciśnięty jako napis
     """
+    global input_enable
+    input_enable = True
+    Thread(target=input_Thread).start()
+
+
+def input_Thread():
+    """
+    - zapisuje aktualny imput klawiatury do zmiennej globalnej
+    - wymaga ustawienia imput_enable na True na początku i na False na końcu
+    :return:
+    """
+    global current_input, pygame, code2letter, alt, letter_alt, UPP
+    while True:
+        letter = ''
+        if input_enable:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    exit(0)
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_BACKSPACE:
+                        if len(current_input) > 0:
+                            current_input = current_input[:-1]
+                    letter = code2letter.get(event.key, '')
+            mode = pygame.key.get_mods()
+            print(current_input)
+            if mode in alt:
+                letter = letter_alt.get(letter, letter)
+            if mode in UPP:
+                current_input += letter.upper()
+            else:
+                current_input += letter
+        else:
+            current_input = ''
 
 
 def game_loop_chalange(level):

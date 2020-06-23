@@ -22,7 +22,6 @@ def show_statistics(period, screen, size_x, size_y):
     używa download_input
     rysuje statystyki za pomocą pygame - najlepiej w tym samym oknie co gra
     wychodzi z nich po nacisnieciu klawisza E - kończy funkcję
-    Ignacy to zrobi (już mam prawie gotowe bo się trochę bawiłem)
     wcisniecie q konczy funkcje
     :param period:
     :return:
