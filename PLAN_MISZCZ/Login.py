@@ -1,5 +1,4 @@
 import sqlite3
-from sqlite3 import Error
 
 database = r"..\db\mistrz_klawiatury.db"
 cx = sqlite3.connect(database)
@@ -31,7 +30,7 @@ def download_users():
     """
     cu.execute("SELECT nick, password FROM players")
     cx.commit()
-    gracze = cu.fetchall()
+    gracze = cu.fetchall()  # wynik jest w formie listy list, odwolujemy sie np. gracze[0][0]
     return gracze
 
 
@@ -57,15 +56,3 @@ def add_player(nick, password):
         return True  # jeśli true, to dodano nowego gracza
     else:
         return False  # dodanie nie powiodlo sie, nick juz wystepuje w bazie
-
-
-def create_connection(db_file):
-    conn = None
-    try:
-        conn = sqlite3.connect(db_file)
-        print(sqlite3.version)
-    except Error as e:
-        print(e)
-    finally:
-        if conn:
-            conn.close()
