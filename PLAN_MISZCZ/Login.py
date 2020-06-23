@@ -51,6 +51,9 @@ def add_player(nick, password):
         cx.commit()
         cu.execute(
             "CREATE TABLE " + nick + "_stat_today (id integer primary key, score int, date date)")
+        cu.execute(
+            "CREATE TABLE " + nick + "_stat_week (id integer primary key, score int, date date)")
+        cu.execute("insert into")
     else:
         pass
 

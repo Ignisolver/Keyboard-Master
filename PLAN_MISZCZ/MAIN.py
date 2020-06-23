@@ -1,15 +1,21 @@
 # IMPORT PLIKÓW
-from Statistics import *
-from Login import *
-from Game import *
-
+import sqlite3
 # IMPORT PAKIETÓW  - potem można przerobić tak żeby się pobierały tylko używane funkcje
 from sys import exit as close
+
 import pygame
+from Game import *
+from Login import *
+from Statistics import *
 
 # GLOBAL VARIABLES:
+from PLAN_MISZCZ.Statistics import show_statistics
+
 player = ''  # nazwa gracza
 screen = None  # okno gry tworzone w window_maker
+database = r"..\db\mistrz_klawiatury.db"
+cx = sqlite3.connect(database)
+cu = cx.cursor()
 
 
 # FUNKCJE INICJALIZACYJNE
@@ -75,7 +81,7 @@ def main():
     global player
     player = choose_player()
     # słownik z funkcjami
-    functions = {'sta': show_statistisc,
+    functions = {'sta': show_statistics,
                  'ler': game_loop_learn,
                  'cha': game_loop_chalange,
                  'log': choose_player,

@@ -1,5 +1,4 @@
 import sqlite3
-from sqlite3 import Error
 
 database = r"..\db\mistrz_klawiatury.db"
 cx = sqlite3.connect(database)
@@ -17,10 +16,6 @@ def pg_str_input():
     :return: klawisz (klawisze) ktory został wciśnięty jako napis
     """
 
-
-
-
-
     """
     # Karol
     #czyści okno i rysuje swoje
@@ -35,6 +30,7 @@ def pg_str_input():
     :param level: poziom gry (easy/medium/hard)
     :return: None
     """
+
 
 # Karol
 code2letter = {97: 'a',
@@ -163,12 +159,7 @@ def game_loop_chalange(level):
         screen.blit(tekst3, tekst3_prost)
         pygame.display.flip()
 
-
-# Karol
-
-
-
-
+    # Karol
 
     """
     # Karol
@@ -179,7 +170,9 @@ def game_loop_chalange(level):
     enter przerywa grę
     :return: None
     """
-#Karol
+
+
+# Karol
 def choose_letter():
     rand = random.randint(97, 122)
     return code2letter[rand]
@@ -232,10 +225,6 @@ def game_loop_learn():
         pygame.display.flip()
 
 
-
-
-
-
 def choose_word(level):
     """
     # Adrian
@@ -264,12 +253,10 @@ def save_score(level, score, nick):
     mnoży score razy jakąś wagę zależną od level i zapisuje do bazy
     :param level: poziom gry (easy/medium/hard)
     :param score: wynik jako czas w decysekundach (1s/10)
+    :param nick: nick
     :return:
     """
 
-    score_to_db = score * level
-    cu.execute("insert into " + nick + "_stat_today (score) values (?)", (score_to_db,))
+    score_to_db = str(score * level)
+    cu.execute("insert into " + nick + "_stat_today (score,date) values (" + score_to_db + ",date('now'))")
     cx.commit()
-
-
-

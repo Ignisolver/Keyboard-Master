@@ -1,5 +1,6 @@
-import pygame
 from sys import exit as close
+
+import pygame
 
 
 def download_input(period):
@@ -12,7 +13,7 @@ def download_input(period):
     Gustaw ustal jak tu podzielimy te okresy
     (najlepiej żeby było max 30 wyników w jednym okresie żeby się pomieściły w oknie jakoś zgrabnie wraz z nazwami)
     """
-    
+
 
     return period  # do zmiany - zrobione by Pycharm nie marudził
 
