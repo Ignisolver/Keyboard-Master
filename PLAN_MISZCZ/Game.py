@@ -268,7 +268,6 @@ def save_score(level, score, nick):
     :param nick: nick
     :return:
     """
-
     score_to_db = str(score * level)
     cu.execute("insert into " + nick + "_stat_today (score,date) values (" + score_to_db + ",date('now'))")
     cx.commit()
