@@ -1,8 +1,9 @@
-import sqlite3
-from threading import Thread
-import pygame
 import random
+import sqlite3
 import sys
+from threading import Thread
+
+import pygame
 
 database = r"..\db\mistrz_klawiatury.db"
 cx = sqlite3.connect(database)
@@ -247,6 +248,8 @@ def choose_word(level):
     :param level: poziom gry (easy/medium/hard)
     :return: słowo
     """
+
+
 def choose_letter():
     """
     # Adrian
@@ -254,11 +257,18 @@ def choose_letter():
     może być prostsza ale fajnie jak by też jakoś minimalizowała powtórki
     :return litera:
     """
-def save_score(level, score):
+
+
+def save_score(level, score, nick):
     """
     # Gustaw
     mnoży score razy jakąś wagę zależną od level i zapisuje do bazy
-    :param level: poziom gry (easy/medium/hard)
+    :param level: poziom gry (1/2/3)
     :param score: wynik jako czas w decysekundach (1s/10)
+    :param nick: nick
     :return:
     """
+
+    score_to_db = str(score * level)
+    cu.execute("insert into " + nick + "_stat_today (score,date) values (" + score_to_db + ",date('now'))")
+    cx.commit()
