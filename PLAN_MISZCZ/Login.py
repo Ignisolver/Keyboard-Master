@@ -1,8 +1,8 @@
 import sqlite3
 import sys
+
 import pygame
 from Game import Keyborder
-
 
 database = r"..\db\mistrz_klawiatury.db"
 cx = sqlite3.connect(database)
@@ -38,7 +38,7 @@ def choose_player():
 
     screen = pygame.display.set_mode((1200, 650))
     pygame.display.set_caption("Mistrz Klawiatury")
-    screen.fill((255,255,255))
+    screen.fill((255, 255, 255))
 
     # Pętla programu
 
@@ -66,24 +66,21 @@ def choose_player():
 
         # wypisanie nazw
         n = 0
-        instr = font.render("Wybór gracza:", True, (0,0,0))
-        screen.blit(instr, (100,100))
+        instr = font.render("Wybór gracza:", True, (0, 0, 0))
+        screen.blit(instr, (100, 100))
         for gracz in gracze:
             for nazwa in gracz.keys():
                 nazwa_ = nazwa
             if zaznaczenie == n:
-                wypis = font.render(nazwa_, True, (0,0,0), (175,255,100))
+                wypis = font.render(nazwa_, True, (0, 0, 0), (175, 255, 100))
             else:
                 wypis = font.render(nazwa_, True, (0, 0, 0))
-            screen.blit(wypis, (115,(n*60+160)))
-            n+=1
-        dodaj = font.render("+Nowy gracz", True, (0,0,0),
-                            ( (175,255,100) if zaznaczenie == n else (0,0,0) ))
-        screen.blit(dodaj,(115,(n*60+160)))
+            screen.blit(wypis, (115, (n * 60 + 160)))
+            n += 1
+        dodaj = font.render("+Nowy gracz", True, (0, 0, 0),
+                            ((175, 255, 100) if zaznaczenie == n else (0, 0, 0)))
+        screen.blit(dodaj, (115, (n * 60 + 160)))
         pygame.display.flip()
-
-
-
 
 
 def check_pass(gracz):
@@ -97,19 +94,17 @@ def check_pass(gracz):
         :return nazwa gracza (string): name - nazwa gracza
         """
 
-
     pygame.init()
 
-    #dane gracza
+    # dane gracza
     for g in gracz.keys():
         nazwa = g
         haslo = gracz[g]
 
-    #Zmienne pomocnicze
+    # Zmienne pomocnicze
     pob_str = Keyborder()
     tekst = "Wpisz hasło: ( " + nazwa + " )"
     check = False
-
 
     # Tworzenie okna
     screen = pygame.display.set_mode((1200, 650))
@@ -117,7 +112,7 @@ def check_pass(gracz):
     screen.fill((255, 255, 255))
     font = pygame.font.Font('freesansbold.ttf', 50)
 
-    #Pętla programu
+    # Pętla programu
     while True:
         wpis = pob_str.current_input
         dl_wpis = len(wpis)
@@ -138,7 +133,7 @@ def check_pass(gracz):
         # Rysowanie okna
         instr = font.render(tekst, True, (0, 0, 0))
         screen.blit(instr, (100, 100))
-        sym = font.render( (dl_wpis*"*") + (30-dl_wpis)*" " , True, (0, 0, 0), (220,220,220))
+        sym = font.render((dl_wpis * "*") + (30 - dl_wpis) * " ", True, (0, 0, 0), (220, 220, 220))
         screen.blit(sym, (100, 160))
         if check:
             error = font.render("Błędne hasło!", True, (200, 0, 0))
@@ -146,8 +141,6 @@ def check_pass(gracz):
         back = font.render("Powrót (ESC)", True, (0, 0, 0))
         screen.blit(back, (80, 280))
         pygame.display.flip()
-
-
 
 
 def sign_up():
@@ -189,7 +182,7 @@ def sign_up():
                         choose_player()
                 elif (event.type == pygame.KEYDOWN) and (event.key == pygame.K_RETURN):
                     if is_name_saved:
-                        same = add_player(nazwa,haslo)
+                        same = add_player(nazwa, haslo)
                         if same:
                             return nazwa
                         else:
@@ -205,12 +198,12 @@ def sign_up():
         # Rysowanie okna
         instr1 = font.render("Wpisz nazwę użytkownika:", True, (0, 0, 0))
         screen.blit(instr1, (100, 100))
-        ramka_n = font.render(nazwa + (30 - len(nazwa)) * " ", True, (0,0,0), (220,220,220))
+        ramka_n = font.render(nazwa + (30 - len(nazwa)) * " ", True, (0, 0, 0), (220, 220, 220))
         screen.blit(ramka_n, (100, 160))
         instr2 = font.render("Wpisz hasło:", True, (0, 0, 0))
         screen.blit(instr2, (100, 220))
         ramka_n = font.render(len(haslo) * "*" + (30 - len(haslo)) * " ",
-                                                True, (0, 0, 0), (220, 220, 220))
+                              True, (0, 0, 0), (220, 220, 220))
         screen.blit(ramka_n, (100, 280))
         if same:
             error = font.render("Istnieje użytkownik o takiej nazwie!", True, (200, 0, 0))
@@ -219,6 +212,7 @@ def sign_up():
         screen.blit(back, (80, 400))
 
         pygame.display.flip()
+
 
 def download_users():
     """
