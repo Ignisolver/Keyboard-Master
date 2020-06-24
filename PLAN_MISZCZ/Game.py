@@ -5,7 +5,7 @@ from threading import Thread
 
 import pygame
 
-database = r"..\db\mistrz_klawiatury.db"
+database = r"..\db\mistrz_klawiatury.db"  # db connection using relative path
 cx = sqlite3.connect(database)
 cu = cx.cursor()
 
@@ -116,7 +116,7 @@ def game_loop_chalange(level):
     screen.fill(white)
     # Wartosci Początkowe
     n = 0
-    word = choose_word()
+    word = choose_word()  # TODO: należy przekazać poziom (1, 2 lub 3), no i ta funkcja powinna coś zwracać
     czas = 0
     warn = ""
     ipt = ""
@@ -245,7 +245,7 @@ def choose_word(level):
      powiązaną z każdym hasłem wartość [może też być dla każdego gracza własna]
       True gdy hasło było użyte lub False gdy nie)
     jeżeli wszystkie hasła mają wartość true zmiania wszystkie na False i losuje
-    :param level: poziom gry (easy/medium/hard)
+    :param level: poziom gry (1/2/3)
     :return: słowo
     """
 
@@ -271,3 +271,4 @@ def save_score(level, score, nick):
     score_to_db = str(score * level)
     cu.execute("insert into " + nick + "_stat_today (score,date) values (" + score_to_db + ",date('now'))")
     cx.commit()
+    print('Score saved.')
