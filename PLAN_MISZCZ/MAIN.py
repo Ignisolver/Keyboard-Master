@@ -35,8 +35,16 @@ def do_order_in_database():
 
     for playerdb in nicks:
         cu.execute(
-            "SELECT SUM(\"score\"), \"date\" FROM "+playerdb+"_stat_today GROUP BY \"date\"")
-
+            "SELECT SUM(\"score\"), \"date\" FROM " + playerdb + "_stat_today GROUP BY \"date\"")
+        stats_from_today = cu.fetchall()
+        for el in stats_from_today:
+            # print(el[1])
+            cu.execute(
+                "INSERT INTO " + playerdb + "_stat_week (\"score\", \"date\") VALUES (" + str(el[0]) + ", \"" + str(
+                    el[1]) + "\")")
+            cx.commit()
+            cu.execute("DELETE FROM " + playerdb + "_stat_today")
+            cx.commit()
 
 
 def main_window():
