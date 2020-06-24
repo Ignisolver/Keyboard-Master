@@ -1,4 +1,6 @@
 import sqlite3
+import sys
+import pygame
 
 database = r"..\db\mistrz_klawiatury.db"
 cx = sqlite3.connect(database)
@@ -33,7 +35,7 @@ def choose_player():
     # Ustawienia Okna
 
     screen = pygame.display.set_mode((1200, 650))
-    pygame.display.set_caption("Miszcz Klawiatury")
+    pygame.display.set_caption("Mistrz Klawiatury")
     screen.fill((255,255,255))
 
     # Pętla programu
@@ -80,17 +82,21 @@ def choose_player():
 
 
 
-    """
-    #Adrian
-    #czyści okno i rysuje swoje
-    otwiera okienko w pygame do wpisania hasła /
-    pobiera hasło przy pomocy klasy Keyborder
-    wyswietla info o niepoprawnym haśle / zwraca nazwę gracza
-    mozna z niej zamknąć grę
-    :return nazwa gracza (string): name - nazwa gracza
-    """
+
 
 def check_pass(gracz):
+    """
+        #Adrian
+        #czyści okno i rysuje swoje
+        otwiera okienko w pygame do wpisania hasła /
+        pobiera hasło przy pomocy klasy Keyborder
+        wyswietla info o niepoprawnym haśle / zwraca nazwę gracza
+        mozna z niej zamknąć grę
+        :return nazwa gracza (string): name - nazwa gracza
+        """
+
+
+    pygame.init()
 
     #dane gracza
     for g in gracz.keys():
@@ -105,8 +111,9 @@ def check_pass(gracz):
 
     # Tworzenie okna
     screen = pygame.display.set_mode((1200, 650))
-    pygame.display.set_caption("Miszcz Klawiatury")
+    pygame.display.set_caption("Mistrz Klawiatury")
     screen.fill((255, 255, 255))
+    font = pygame.font.Font('freesansbold.ttf', 50)
 
     #Pętla programu
     while True:
@@ -127,7 +134,7 @@ def check_pass(gracz):
         # Rysowanie okna
         instr = font.render(tekst, True, (0, 0, 0))
         screen.blit(instr, (100, 100))
-        sym = font.render(dl_wpis*"*", True, (0, 0, 0))
+        sym = font.render(dl_wpis*"*", True, (0, 0, 0), (200,200,200))
         screen.blit(sym, (100, 160))
         if check:
             error = font.render("Błędne hasło", True, (200, 0, 0))
