@@ -1,6 +1,7 @@
 import sqlite3
 import sys
 import pygame
+from Game import Keyborder
 
 
 database = r"..\db\mistrz_klawiatury.db"
@@ -52,12 +53,12 @@ def choose_player():
                             check_pass(gracze[zaznaczenie])
                         else:
                             sign_up()
-                    elif (event.key == pygame.K_UP) or (event.key == pygame.K_w)
+                    elif (event.key == pygame.K_UP) or (event.key == pygame.K_w):
                         if zaznaczenie == 0:
                             zaznaczenie = len_gracze
                         else:
                             zaznaczenie -= 1
-                    elif (event.key == pygame.K_DOWN) or (event.key == pygame.K_s)
+                    elif (event.key == pygame.K_DOWN) or (event.key == pygame.K_s):
                         if zaznaczenie == len_gracze:
                             zaznaczenie = 0
                         else:
