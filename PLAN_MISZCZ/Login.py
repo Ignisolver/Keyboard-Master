@@ -57,16 +57,15 @@ def add_player(nick, password):
         cu.execute("INSERT INTO players (nick, password) VALUES (?,?)", (nick, password))
         cx.commit()
         cu.execute(
-            "CREATE TABLE " + nick + "_stat_today (id integer primary key, score int, date date)")
+            "CREATE TABLE " + nick + "_stat_today (id integer primary key, score int, date text)")
         cu.execute(
-            "CREATE TABLE " + nick + "_stat_week (id integer primary key, score int, date date)")
+            "CREATE TABLE " + nick + "_stat_week (id integer primary key, score int, date text)")
         cu.execute(
-            "CREATE TABLE " + nick + "_stat_month (id integer primary key, score int, date date)")
+            "CREATE TABLE " + nick + "_stat_month (id integer primary key, score int, date text)")
         cu.execute(
-            "CREATE TABLE " + nick + "_stat_ever (id integer primary key, score int, date date)")
+            "CREATE TABLE " + nick + "_stat_ever (id integer primary key, score int, date text)")
         return True  # jeśli true, to dodano nowego gracza
     else:
         return False  # dodanie nie powiodlo sie, nick juz wystepuje w bazie
 
-
-add_player('gracztestowy', 'maslo')
+# add_player('gracztestowy', 'maslo')
