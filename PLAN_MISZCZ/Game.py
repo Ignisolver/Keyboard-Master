@@ -253,21 +253,12 @@ def choose_word(level):
     cu.execute("SELECT \"word\" FROM " + level + "_words WHERE rowid = " + str(wylosowana_liczba))
     return cu.fetchone()[0]
 
-
 # użyj poniższej funkcji po wylosowaniu słowa, jako argumenty podaj poziom (easy, medium lub hard oraz to słowo)
 
 def increment_use_of_word(level, word):
     cu.execute("UPDATE " + level + "_words SET use_number = use_number + 1 WHERE word = \"" + word + "\" ")
     cx.commit()
 
-
-def choose_letter():
-    """
-    # Adrian
-    funkcja analogiczna jak chose_word tylko zamiast haseł losuje lieterę
-    może być prostsza ale fajnie jak by też jakoś minimalizowała powtórki
-    :return litera:
-    """
 
 
 def save_score(level, score, nick):
