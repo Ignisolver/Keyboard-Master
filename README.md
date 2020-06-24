@@ -14,11 +14,11 @@ MAIN.py
 
 ## Struktura aplikacji
 
-### ```MAIN.py```
+## ```MAIN.py```
 
 W pliku ```MAIN.py``` zostały zdefiniowane funkcje inicjalizacyjne, które odpowiadają za przygotowanie wszystkich niezbędnych zmiennych oraz bazy danych do rozgrywki, wyniki z poprzedniego dnia trafiają do tabeli w bazie odpowiadającej za rejestrowanie wyników z całego tygodnia.
 
-## ```do_order_in_database()```
+### ```do_order_in_database()```
 
 ```python
 cu.execute("SELECT nick FROM players")
@@ -40,7 +40,7 @@ cu.execute("SELECT nick FROM players")
             cu.execute("DELETE FROM " + playerdb + "_stat_today")
             cx.commit()
 ```
-Funkcja ```do_order_in_database``` pobiera z tabeli ```<player>_stat_today``` wyniki, następnie grupuje je po dacie a wyniki sumuje, po czym wstawia je do tabeli ```<player>_stat_week```, a w końcu stosuje polecienie ```sql DELETE``` to wyczyszczenia zawartości pierwszej z tabel. Dzieje się tak dla każdego gracza.
+Funkcja ```do_order_in_database``` pobiera z tabeli ```<player>_stat_today``` wyniki, następnie grupuje je po dacie a wyniki sumuje, po czym wstawia je do tabeli ```<player>_stat_week```, a w końcu stosuje polecienie ``` DELETE``` to wyczyszczenia zawartości pierwszej z tabel. Dzieje się tak dla każdego gracza.
 
 ## ```window_maker()```
 
@@ -56,7 +56,7 @@ Funkcja ```do_order_in_database``` pobiera z tabeli ```<player>_stat_today``` wy
 ```
 Funkcja odpowiada za utworzenie okna, w którym będą wyświetlane wybrane ramki.
 
-##```main()```
+## ```main()```
 
 ```python
 pygame.init()
