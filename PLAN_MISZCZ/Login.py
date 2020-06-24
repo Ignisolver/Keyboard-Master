@@ -62,6 +62,8 @@ def add_player(nick, password):
             "CREATE TABLE " + nick + "_stat_week (id integer primary key, score int, date date)")
         cu.execute(
             "CREATE TABLE " + nick + "_stat_month (id integer primary key, score int, date date)")
+        cu.execute(
+            "CREATE TABLE " + nick + "_stat_ever (id integer primary key, score int, date date)")
         return True  # jeśli true, to dodano nowego gracza
     else:
         return False  # dodanie nie powiodlo sie, nick juz wystepuje w bazie
