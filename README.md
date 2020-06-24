@@ -9,7 +9,7 @@ Mistrz klawiatury to gra polegająca na przepisywaniu wyświetlanych wyrazów w 
 Aby włączyć grę, należy w katalogu ```PLAN_MISZCZ``` wykonać następujący skrypt:
 
 ```bash
-MAIN.py
+    MAIN.py
 ```
 
 ## Struktura aplikacji
@@ -21,7 +21,7 @@ W pliku ```MAIN.py``` zostały zdefiniowane funkcje inicjalizacyjne, które odpo
 ### ```do_order_in_database()```
 
 ```python
-cu.execute("SELECT nick FROM players")
+    cu.execute("SELECT nick FROM players")
     nicks = []
     nicks_from_db = cu.fetchall()
     for el in nicks_from_db:
@@ -40,12 +40,12 @@ cu.execute("SELECT nick FROM players")
             cu.execute("DELETE FROM " + playerdb + "_stat_today")
             cx.commit()
 ```
-Funkcja ```do_order_in_database``` pobiera z tabeli ```<player>_stat_today``` wyniki, następnie grupuje je po dacie a wyniki sumuje, po czym wstawia je do tabeli ```<player>_stat_week```, a w końcu stosuje polecienie ``` DELETE``` to wyczyszczenia zawartości pierwszej z tabel. Dzieje się tak dla każdego gracza.
+Funkcja ```do_order_in_database``` pobiera z tabeli ```<player>_stat_today``` wyniki, następnie grupuje je po dacie, a wyniki sumuje, po czym wstawia je do tabeli ```<player>_stat_week```, a w końcu stosuje polecenie ``` DELETE``` do wyczyszczenia zawartości pierwszej z tabel. Dzieje się tak dla każdego gracza.
 
-## ```window_maker()```
+### ```window_maker()```
 
 ```python
- size_x = 1200
+    size_x = 1200
     size_y = 650
     global screen
     screen = pygame.display.set_mode((size_x, size_y))
@@ -56,10 +56,10 @@ Funkcja ```do_order_in_database``` pobiera z tabeli ```<player>_stat_today``` wy
 ```
 Funkcja odpowiada za utworzenie okna, w którym będą wyświetlane wybrane ramki.
 
-## ```main()```
+### ```main()```
 
 ```python
-pygame.init()
+    pygame.init()
     do_order_in_database()
     window_maker()
     global player
@@ -81,24 +81,18 @@ pygame.init()
 
 W funkcji ```main()``` po kolei zostają wywoływane funkcje, które odpowiadają za poprawną inicjalizację aplikacji.
 
-### ```GameMenu.py```
+## ```Game.py```
 
-W tej klasie zdefiniowano ramkę, która wczytywana jest zaraz po uruchomieniu aplikacji, wyposażone jest w przyciski służące do załadowania wcześniejszego stanu gry i do utworzenia nowego zapisu.
+W tym module zaimplementowana została cała logika rozgrywki, jak na przykład losowanie wyrazów.
+
+### ```save_score(level, score, nick)```
 
 ```python
-class GameMenu(tk.Frame):
-
-    def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
-
-        label = tk.Label(self, text="Mistrz Klawiatury", font=LARGE_FONT)
-        label.pack(pady=10, padx=10)
-
-        button = tk.Button(self, text="Nowa gra",
-                           command=lambda: controller.show_frame(NewGame)) # Przyciśnięcie spowoduje podniesienie ramki z kontrolkami
-        button.pack()                                                      # do tworzenia nowego zapisu.
-
-        button2 = tk.Button(self, text="Załaduj grę",
-                            command=lambda: controller.show_frame(LoadGame))
-        button2.pack()
+    score_to_db = str(score * level)
+    cu.execute("insert into " + nick + "_stat_today (score,date) values (" + score_to_db + ",date('now'))")
+    cu.execute("insert into " + nick + "_stat_ever (score,date) values (" + score_to_db + ",date('now'))")
+    cx.commit()
+    print('Score saved.')
 ```
+
+Powyższa funkcja przyjmuje 3 argumenty: ```level, score, nick```, gdzie ```level``` to liczba z zakresu 1-3 (1 - łatwy, 2 - trudny, 3 - średni), dwa pozostałe są oczywiste. Następnie wynik i poziom trudności są mnożone i wstawianie do tabeli z dnia obecnego ( ```<player>_stat_today``` ) oraz do tabeli historycznej, która agreguje wszystlie wyniki od początku ( ```<player>_stat_ever``` ).
