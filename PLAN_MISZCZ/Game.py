@@ -245,9 +245,16 @@ def choose_word(level):
      powiązaną z każdym hasłem wartość [może też być dla każdego gracza własna]
       True gdy hasło było użyte lub False gdy nie)
     jeżeli wszystkie hasła mają wartość true zmiania wszystkie na False i losuje
-    :param level: poziom gry (1/2/3)
+    :param level: poziom gry (easy, medium, hard)
     :return: słowo
     """
+
+
+# użyj poniższej funkcji po wylosowaniu słowa, jako argumenty podaj poziom (easy, medium lub hard oraz to słowo)
+
+def increment_use_of_word(level, word):
+    cu.execute("UPDATE " + level + "_words SET use_number = use_number + 1 WHERE word = \"" + word + "\" ")
+    cx.commit()
 
 
 def choose_letter():
