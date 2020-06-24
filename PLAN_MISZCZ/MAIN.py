@@ -1,7 +1,7 @@
 # IMPORT PLIKÓW
 import sqlite3
+
 # IMPORT PAKIETÓW  - potem można przerobić tak żeby się pobierały tylko używane funkcje
-from sys import exit as close
 import pygame
 from Game import *
 from Login import *
@@ -27,6 +27,16 @@ def do_order_in_database():
     tutaj Gustaw może to rozplanować #order in data_base
     :return:
     """
+    cu.execute("SELECT nick FROM players")
+    nicks = []
+    nicks_from_db = cu.fetchall()
+    for el in nicks_from_db:
+        nicks.append(el[0])
+
+    for playerdb in nicks:
+        cu.execute(
+            "SELECT SUM(\"score\"), \"date\" FROM "+playerdb+"_stat_today GROUP BY \"date\"")
+
 
 
 def main_window():
