@@ -21,6 +21,135 @@ def choose_player():
     :return nazwa gracza (string): name - nazwa gracza
     """
 
+    pygame.init()
+
+    # Zmienne pomocnicze
+
+    gracze = download_users()
+    font = pygame.font.Font('freesansbold.ttf', 50)
+    zaznaczenie = 0
+    len_gracze = len(gracze)
+
+    # Ustawienia Okna
+
+    screen = pygame.display.set_mode((1200, 650))
+    pygame.display.set_caption("Miszcz Klawiatury")
+    screen.fill((255,255,255))
+
+    # Pętla programu
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit(0)
+            else:
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RETURN:
+                        if zaznaczenie != len_gracze:
+                            check_pass(gracze[zaznaczenie])
+                        else:
+                            sign_in()
+                    elif (event.key == pygame.K_UP) or (event.key == pygame.K_w)
+                        if zaznaczenie == 0:
+                            zaznaczenie = len_gracze
+                        else:
+                            zaznaczenie -= 1
+                    elif (event.key == pygame.K_DOWN) or (event.key == pygame.K_s)
+                        if zaznaczenie == len_gracze:
+                            zaznaczenie = 0
+                        else:
+                            zaznaczenie += 1
+
+        # wypisanie nazw
+        n = 0
+        instr = font.render("Wybór gracza:", True, (0,0,0))
+        screen.blit(instr, (100,100))
+        for gracz in gracze:
+            for nazwa in gracz.keys():
+                nazwa_ = nazwa
+            if zaznaczenie == n:
+                wypis = font.render(nazwa_, True, (0,0,0), (175,255,100))
+            else:
+                wypis = font.render(nazwa_, True, (0, 0, 0))
+            screen.blit(wypis, (115,(n*60+160)))
+            n+=1
+        dodaj = font.render("+Nowy gracz", True, (0,0,0),
+                            ( (175,255,100) if zaznaczenie == n else (0,0,0) ))
+        screen.blit(dodaj,(115,(n*60+160)))
+        pygame.display.flip()
+
+
+
+    """
+    #Adrian
+    #czyści okno i rysuje swoje
+    otwiera okienko w pygame do wpisania hasła /
+    pobiera hasło przy pomocy klasy Keyborder
+    wyswietla info o niepoprawnym haśle / zwraca nazwę gracza
+    mozna z niej zamknąć grę
+    :return nazwa gracza (string): name - nazwa gracza
+    """
+
+def check_pass(gracz):
+
+    #dane gracza
+    for g in gracz.keys():
+        nazwa = g
+        haslo = gracz[g]
+
+    #Zmienne pomocnicze
+    tekst = "Wpisz hasło: ( " + nazwa + " )"
+    wpis =  Keyborder.current_input
+    check = False
+    dl_wpis = len(wpis)
+
+    # Tworzenie okna
+    screen = pygame.display.set_mode((1200, 650))
+    pygame.display.set_caption("Miszcz Klawiatury")
+    screen.fill((255, 255, 255))
+
+    #Pętla programu
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit(0)
+            else:
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                    choose_player()
+                elif event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                    if wpis == haslo:
+                        return nazwa
+                    else:
+                        check = True
+                else:
+                    Keyborder.pg_str_input()
+
+        # Rysowanie okna
+        instr = font.render(tekst, True, (0, 0, 0))
+        screen.blit(instr, (100, 100))
+        sym = font.render(dl_wpis*"*", True, (0, 0, 0))
+        screen.blit(sym, (100, 160))
+        if check:
+            error = font.render("Błędne hasło", True, (200, 0, 0))
+            screen.blit(error, (100, 220))
+        back = font.render("Powrót (ESC)", True, (0, 0, 0))
+        screen.blit(back, (80, 280))
+        pygame.display.flip()
+
+
+
+
+def sign_in():
+    """
+    #Adrian
+    #czyści okno i rysuje swoje
+    otwiera okienko w pygame do wpisania hasła i nazwy
+    pobiera hasło i nazwę przy pomocy klasy Keyborder
+    po zatwierdzeniu wywołuje add_player
+    mozna z niej zamknąć grę
+    :return nazwa gracza (string): name - nazwa gracza
+    """
+
 
 def download_users():
     """
