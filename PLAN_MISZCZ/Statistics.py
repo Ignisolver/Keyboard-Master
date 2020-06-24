@@ -1,41 +1,33 @@
 import sqlite3
-from sqlite3 import Error
 from sys import exit as close
+
+import pygame
 
 database = r"..\db\mistrz_klawiatury.db"
 cx = sqlite3.connect(database)
 cu = cx.cursor()
-
-import pygame
 
 
 def download_input(period, nick):
     """
     # Gustaw
     pobiera dane z bazy danych do przedstawienia w statystykach
-    :param period: okres czasu (jeden z :dziś / tydzień/ miesiąc/ od początku)
+    :param period: okres czasu (jeden z :dziś(1) / tydzień(2)/ miesiąc(3)/ od początku(4))
     :param nick:
     :return period_scores: lista ze słownikami : {'date' : <numer gry w dniu / data dnia / nr tygodnia/ nazwa miesiąca>(nie dluższe niz 12 znaków),
     'score' : <wynik z danego czasu> (int między 0 a 100 włacznia)}
     Gustaw ustal jak tu podzielimy te okresy
     (najlepiej żeby było max 10 wyników w jednym okresie żeby się pomieściły w oknie jakoś zgrabnie wraz z nazwami)
     """
-    # today
+    period_dict = {1: "today", 2: "week", 3: "month", 4: "ever"}
+    period_dict_d = {1: 500, 2: 7, 3: 30, 4: 666}
     period_scores = None
-    if period == 'dziś':
-        cu.execute("select rowid, date, score from " + nick + "_stat_today")
-        cx.commit()
-        period_scores = cu.fetchall()
-
-        for el in period_scores:
-            print(el)
-    else:
-        pass
-
+    cu.execute(
+        "select rowid, date, score from " + nick + "_stat_" + period_dict[period] + " ORDER BY \"date\" DESC LIMIT ?",
+        (str(period_dict_d[period])))
+    cx.commit()
+    period_scores = cu.fetchall()
     return period_scores
-
-
-download_input("dziś", "dfdfd")
 
 
 def show_statistics(period, screen, size_x, size_y):
@@ -118,15 +110,3 @@ def show_statistics(period, screen, size_x, size_y):
                 if event.key == pygame.K_ESCAPE:
                     return None
         pygame.time.wait(100)
-
-
-def create_connection(db_file):
-    conn = None
-    try:
-        conn = sqlite3.connect(db_file)
-        print(sqlite3.version)
-    except Error as e:
-        print(e)
-    finally:
-        if conn:
-            conn.close()
