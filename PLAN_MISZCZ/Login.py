@@ -69,7 +69,7 @@ def choose_player():
         instr = font.render("Wybór gracza:", True, (0, 0, 0))
         screen.blit(instr, (100, 100))
         for gracz in gracze:
-            for nazwa in gracze.keys():
+            for nazwa in gracz.keys():
                 nazwa_ = nazwa
             if zaznaczenie == n:
                 wypis = font.render(nazwa_, True, (0, 0, 0), (175, 255, 100))
