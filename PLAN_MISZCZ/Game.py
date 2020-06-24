@@ -273,3 +273,5 @@ def save_score(level, score, nick):
     cu.execute("insert into " + nick + "_stat_ever (score,date) values (" + score_to_db + ",date('now'))")
     cx.commit()
     print('Score saved.')
+
+# save_score(3, 23, 'gracztestowy')
