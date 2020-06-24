@@ -78,7 +78,7 @@ def choose_player():
             screen.blit(wypis, (115, (n * 60 + 160)))
             n += 1
         dodaj = font.render("+Nowy gracz", True, (0, 0, 0),
-                            ((175, 255, 100) if zaznaczenie == n else (0, 0, 0)))
+                            ((175, 255, 100) if zaznaczenie == n else (255, 255, 255)))
         screen.blit(dodaj, (115, (n * 60 + 160)))
         pygame.display.flip()
 
