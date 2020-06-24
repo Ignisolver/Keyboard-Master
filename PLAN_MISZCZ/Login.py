@@ -104,8 +104,9 @@ def check_pass(gracz):
         haslo = gracz[g]
 
     #Zmienne pomocnicze
+    pob_str = Keyborder()
     tekst = "Wpisz hasło: ( " + nazwa + " )"
-    wpis =  Keyborder.current_input
+    wpis =  pob_str.current_input
     check = False
     dl_wpis = len(wpis)
 
@@ -121,15 +122,15 @@ def check_pass(gracz):
             if event.type == pygame.QUIT:
                 sys.exit(0)
             else:
-                if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                if (event.type == pygame.KEYDOWN) and (event.key == pygame.K_ESCAPE):
                     choose_player()
-                elif event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                elif (event.type == pygame.KEYDOWN) and (event.key == pygame.K_RETURN):
                     if wpis == haslo:
                         return nazwa
                     else:
                         check = True
                 else:
-                    Keyborder.pg_str_input()
+                    pob_str.pg_str_input()
 
         # Rysowanie okna
         instr = font.render(tekst, True, (0, 0, 0))
