@@ -30,7 +30,15 @@ def download_users():
     """
     cu.execute("SELECT nick, password FROM players")
     cx.commit()
-    gracze = cu.fetchall()  # wynik jest w formie listy list, odwolujemy sie np. gracze[0][0]
+    gracze = cu.fetchall()  # wynik jest w formie słownika, klucz to nick, wartość to hasło
+    nicknames = []
+    passwords = []
+
+    for el in gracze:
+        nicknames.append(el[0])
+        passwords.append(el[1])
+
+    gracze = dict(zip(nicknames, passwords))  # list to dict conversion
     return gracze
 
 
