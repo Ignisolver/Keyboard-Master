@@ -270,5 +270,6 @@ def save_score(level, score, nick):
     """
     score_to_db = str(score * level)
     cu.execute("insert into " + nick + "_stat_today (score,date) values (" + score_to_db + ",date('now'))")
+    cu.execute("insert into " + nick + "_stat_ever (score,date) values (" + score_to_db + ",date('now'))")
     cx.commit()
     print('Score saved.')
