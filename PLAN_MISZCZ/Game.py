@@ -248,6 +248,10 @@ def choose_word(level):
     :param level: poziom gry (easy, medium, hard)
     :return: słowo
     """
+    wylosowana_liczba = 1  # TODO: wystarczy, że tutaj wylosujesz jakąs liczbe w zakresie 1-25, bo tyle mamy słow
+
+    cu.execute("SELECT \"word\" FROM " + level + "_words WHERE rowid = " + str(wylosowana_liczba))
+    return cu.fetchone()[0]
 
 
 # użyj poniższej funkcji po wylosowaniu słowa, jako argumenty podaj poziom (easy, medium lub hard oraz to słowo)
