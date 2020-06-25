@@ -5,6 +5,7 @@ import sqlite3
 
 import pygame
 
+from PLAN_MISZCZ.Game import Keyborder
 # GLOBAL VARIABLES:
 from PLAN_MISZCZ.Game import game_loop_learn, game_loop_chalange
 from PLAN_MISZCZ.Login import choose_player
@@ -100,7 +101,7 @@ def window_maker():
     global screen
     screen = pygame.display.set_mode((size_x, size_y))
     pygame.display.set_caption("Miszcz Klawiatury")
-    icon = pygame.image.load('Others/klawiatura.png')
+    icon = pygame.image.load('../Others/klawiatura.png')
     pygame.display.set_icon(icon)
     screen.fill((255, 255, 255))
     return screen
