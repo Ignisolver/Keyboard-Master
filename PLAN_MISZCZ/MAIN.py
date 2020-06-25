@@ -36,8 +36,18 @@ def do_order_in_database():
                 "INSERT INTO " + playerdb + "_stat_week (\"score\", \"date\") VALUES (" + str(el[0]) + ", \"" + str(
                     el[1]) + "\")")
             cx.commit()
-            cu.execute("DELETE FROM " + playerdb + "_stat_today")
+
+        cu.execute(
+            "select strftime(\'%m\',\"date\") as \"miesiac\", sum(\"score\") as \"wynik\" from " + playerdb + "_stat_week group by strftime(\'%m\',\"date\")")
+        stats_from_week = cu.fetchall()
+        print(stats_from_week)
+        for el in stats_from_week:
+            cu.execute(
+                "INSERT INTO " + playerdb + "_stat_month (\"score\", \"date\") VALUES (" + str(el[1]) + ", \"" + str(
+                    el[0]) + "\")")
             cx.commit()
+        cu.execute("DELETE FROM " + playerdb + "_stat_today")
+        cx.commit()
 
 
 def main_window():
