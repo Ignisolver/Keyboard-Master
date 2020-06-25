@@ -68,10 +68,10 @@ def main_window(screen):
     """
     screen.fill((255, 255, 255))
     Kb = Keyborder()
-    image_names = {'main': "main_main.png",
-                   'stat': 'main_statistics.png',
-                   'level': 'main_challenge_level.png',
-                   'mode': 'main_gamemode.png'}
+    image_names = {'main': "Others/main_window_images/main_main.png",
+                   'stat': 'Others/main_window_images/main_statistics.png',
+                   'level': 'Others/main_window_images/main_challenge_level.png',
+                   'mode': 'Others/main_window_images/main_gamemode.png'}
     # pierwszy wybór "main"
     main_choise = main_choise_function(screen, image_names, Kb)
     # wybor 2 po main
@@ -96,7 +96,7 @@ def window_maker():
     global screen
     screen = pygame.display.set_mode((size_x, size_y))
     pygame.display.set_caption("Miszcz Klawiatury")
-    icon = pygame.image.load('klawiatura.png')
+    icon = pygame.image.load('Others/klawiatura.png')
     pygame.display.set_icon(icon)
     screen.fill((255, 255, 255))
     return screen
@@ -109,7 +109,7 @@ def main():
     # inicjalizacja pygame
     pygame.init()
     # uporządkowanie bazy danych
-    # do_order_in_database()
+    do_order_in_database()
     # stworzenie okna
     screen = window_maker()
     # wybór gracza
@@ -125,12 +125,10 @@ def main():
     # pętla gry
     while True:
         option = main_window(screen)
-        args = option[1:]
+        args = option[1:] + player
         code = option[0]
-        if bool(args):
-            functions[code](args)
-        else:
-            functions[code]()
+
+        functions[code](args)
 
 
 # funkcje pomocnicze
