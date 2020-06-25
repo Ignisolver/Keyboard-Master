@@ -68,8 +68,8 @@ def choose_player():
         n = 0
         instr = font.render("Wybór gracza:", True, (0, 0, 0))
         screen.blit(instr, (100, 100))
-        for gracz in gracze:
-            for nazwa in gracz.keys():
+        for gracz in gracze.keys():
+            for nazwa in gracz:
                 nazwa_ = nazwa
             if zaznaczenie == n:
                 wypis = font.render(nazwa_, True, (0, 0, 0), (175, 255, 100))
@@ -77,7 +77,7 @@ def choose_player():
                 wypis = font.render(nazwa_, True, (0, 0, 0), (255, 255, 255))
             screen.blit(wypis, (115, (n * 60 + 160)))
             n += 1
-        dodaj = font.render("+Nowy gracz", True, (0, 0, 0),
+        dodaj = font.render("+ Nowy gracz", True, (0, 0, 0),
                             ((175, 255, 100) if zaznaczenie == n else (255, 255, 255)))
         screen.blit(dodaj, (115, (n * 60 + 160)))
         pygame.display.flip()
@@ -260,4 +260,4 @@ def add_player(nick, password):
     else:
         return False  # dodanie nie powiodlo sie, nick juz wystepuje w bazie
 
-# add_player('gracztestowy', 'maslo')
+# add_player('gracztestowyyyy', 'maslo')
