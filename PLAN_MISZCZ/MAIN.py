@@ -1,6 +1,7 @@
 # IMPORT PLIKÓW
 
 # IMPORT PAKIETÓW  - potem można przerobić tak żeby się pobierały tylko używane funkcje
+import os
 import sqlite3
 
 import pygame
@@ -12,8 +13,9 @@ from Statistics import show_statistics
 
 player = ''  # nazwa gracza
 screen = None  # okno gry tworzone w window_maker
-database = r"..\db\mistrz_klawiatury.db"
-cx = sqlite3.connect(database)
+database = r".\db\mistrz_klawiatury.db"
+# cx = sqlite3.connect(database)
+cx = sqlite3.connect(os.path.abspath(database))
 cu = cx.cursor()
 
 
@@ -100,7 +102,7 @@ def window_maker():
     global screen
     screen = pygame.display.set_mode((size_x, size_y))
     pygame.display.set_caption("Miszcz Klawiatury")
-    icon = pygame.image.load('../Others/klawiatura.png')
+    icon = pygame.image.load('./Others/klawiatura.png')
     pygame.display.set_icon(icon)
     screen.fill((255, 255, 255))
     return screen
