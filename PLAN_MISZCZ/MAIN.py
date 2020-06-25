@@ -1,11 +1,15 @@
 # IMPORT PLIKÓW
 
 # IMPORT PAKIETÓW  - potem można przerobić tak żeby się pobierały tylko używane funkcje
-from Game import *
-from Login import *
-from Statistics import *
+import sqlite3
+
+import pygame
 
 # GLOBAL VARIABLES:
+from PLAN_MISZCZ.Game import game_loop_learn, game_loop_chalange
+from PLAN_MISZCZ.Login import choose_player
+from PLAN_MISZCZ.Statistics import show_statistics
+
 player = ''  # nazwa gracza
 screen = None  # okno gry tworzone w window_maker
 database = r"..\db\mistrz_klawiatury.db"
