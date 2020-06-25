@@ -115,7 +115,7 @@ def game_loop_chalange(level):
     screen.fill(white)
     # Wartosci Początkowe
     n = 0
-    word = choose_word()  # TODO: należy przekazać poziom (1, 2 lub 3), no i ta funkcja powinna coś zwracać
+    word = choose_word(level)
     czas = 0
     warn = ""
     ipt = ""
