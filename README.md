@@ -32,13 +32,22 @@ W pliku ```MAIN.py``` zostały zdefiniowane funkcje inicjalizacyjne, które odpo
             "SELECT SUM(\"score\"), \"date\" FROM " + playerdb + "_stat_today GROUP BY \"date\"")
         stats_from_today = cu.fetchall()
         for el in stats_from_today:
-            # print(el[1])
             cu.execute(
                 "INSERT INTO " + playerdb + "_stat_week (\"score\", \"date\") VALUES (" + str(el[0]) + ", \"" + str(
                     el[1]) + "\")")
             cx.commit()
-            cu.execute("DELETE FROM " + playerdb + "_stat_today")
+
+        cu.execute(
+            "select strftime(\'%m\',\"date\") as \"miesiac\", sum(\"score\") as \"wynik\" from " + playerdb + "_stat_week group by strftime(\'%m\',\"date\")")
+        stats_from_week = cu.fetchall()
+        print(stats_from_week)
+        for el in stats_from_week:
+            cu.execute(
+                "INSERT INTO " + playerdb + "_stat_month (\"score\", \"date\") VALUES (" + str(el[1]) + ", \"" + str(
+                    el[0]) + "\")")
             cx.commit()
+        cu.execute("DELETE FROM " + playerdb + "_stat_today")
+        cx.commit()
 ```
 Funkcja ```do_order_in_database``` pobiera z tabeli ```<player>_stat_today``` wyniki, następnie grupuje je po dacie, a wyniki sumuje, po czym wstawia je do tabeli ```<player>_stat_week```, a w końcu stosuje polecenie ``` DELETE``` do wyczyszczenia zawartości pierwszej z tabel. Dzieje się tak dla każdego gracza.
 
@@ -104,17 +113,15 @@ Powyższa funkcja przyjmuje 3 argumenty: ```level, score, nick```, gdzie ```leve
 
 ```python
     period_dict = {1: "today", 2: "week", 3: "month", 4: "ever"}
-    period_dict_d = {1: 500, 2: 7, 3: 30, 4: 666}
     period_scores = None
     cu.execute(
-        "select rowid, date, score from " + nick + "_stat_" + period_dict[period] + " ORDER BY \"date\" DESC LIMIT ?",
-        (str(period_dict_d[period])))
+        "select rowid, date, score from " + nick + "_stat_" + period_dict[period] + " ORDER BY \"date\" DESC LIMIT 10")
     cx.commit()
     period_scores = cu.fetchall()
     return period_scores
 ```
 
-```download_input()``` służy do pobierania z bazy danych wyników dla dowolnego gracza za wybrany okres (dzień, tydzień, miesiąc, od początku), wymaga ona podania jako argumentów nicku gracza oraz wartości liczbowej przypisanej danemu okresowi. Jakie są to wartości, widać w pierwszej linii.
+```download_input()``` służy do pobierania z bazy danych wyników dla dowolnego gracza za wybrany okres (dzień, tydzień, miesiąc, od początku), wymaga ona podania jako argumentów nicku gracza oraz wartości liczbowej przypisanej danemu okresowi. Jakie są to wartości, widać w pierwszej linii. Funkcja zwraca listę trójelementowych krotek, każda w formacie (numer wiersza, data , wynik).
 
 ## ```Login.py```
 
