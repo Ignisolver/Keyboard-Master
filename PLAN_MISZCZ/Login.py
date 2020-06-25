@@ -208,7 +208,7 @@ def sign_up():
         if same:
             error = font.render("Istnieje użytkownik o takiej nazwie!", True, (200, 0, 0), (255, 255, 255))
             screen.blit(error, (100, 340))
-        back = font.render("Powrót (ESC)", True, (0, 0, 0))
+        back = font.render("Powrót (ESC)", True, (0, 0, 0), (255, 255, 255))
         screen.blit(back, (80, 400))
 
         pygame.display.flip()
