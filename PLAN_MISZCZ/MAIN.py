@@ -32,7 +32,6 @@ def do_order_in_database():
             "SELECT SUM(\"score\"), \"date\" FROM " + playerdb + "_stat_today GROUP BY \"date\"")
         stats_from_today = cu.fetchall()
         for el in stats_from_today:
-            # print(el[1])
             cu.execute(
                 "INSERT INTO " + playerdb + "_stat_week (\"score\", \"date\") VALUES (" + str(el[0]) + ", \"" + str(
                     el[1]) + "\")")
