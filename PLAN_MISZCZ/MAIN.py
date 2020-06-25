@@ -1,9 +1,9 @@
 # IMPORT PLIKÓW
 
 # IMPORT PAKIETÓW  - potem można przerobić tak żeby się pobierały tylko używane funkcje
-from PLAN_MISZCZ.Game import *
-from PLAN_MISZCZ.Login import *
-from PLAN_MISZCZ.Statistics import *
+from Game import *
+from Login import *
+from Statistics import *
 
 # GLOBAL VARIABLES:
 player = ''  # nazwa gracza
@@ -17,8 +17,11 @@ cu = cx.cursor()
 def do_order_in_database():
     """
     Gustaw
-    robi porządek w bazie danych, wykonuje się tuż po uruchomieniu, jak nie ma plików to je tworzy
-    np przepisuje wyniki z poprzedniego dnia do tygodnia itp. Tutaj Gustaw może to rozplanować #order in data_base
+    robi pożądek w bazie danych
+    wykonuje się tuż po uruchomieniu
+    jak niema plików to je tworzy
+    np przepisuje wyniki z poprzedniego dnia do tygodnia itp
+    tutaj Gustaw może to rozplanować #order in data_base
     :return:
     """
     cu.execute("SELECT nick FROM players")
@@ -50,7 +53,7 @@ def do_order_in_database():
         cx.commit()
 
 
-def main_window():
+def main_window(screen):
     """
     #Ignacy
     funkcja wyswietlająca ekran wyboru: trybu gry, poziomu, przejscia do statystyk, wylogowania.
@@ -63,10 +66,23 @@ def main_window():
     'log' - log off *arg: -
     'qui' - zamknij grę *arg: -
     """
+    screen.fill((255, 255, 255))
+    Kb = Keyborder()
+    image_names = {'main': "main_main.png",
+                   'stat': 'main_statistics.png',
+                   'level': 'main_challenge_level.png',
+                   'mode': 'main_gamemode.png'}
+    # pierwszy wybór "main"
+    main_choise = main_choise_function(screen, image_names, Kb)
+    # wybor 2 po main
+    if main_choise == 'l':  # logoff
+        return 'log'
 
-    operation_code = 'qui'  # wstępnie napisane żeby Pycharm nie marudził
-    arg = None
-    return [operation_code, arg]
+    if main_choise == 's':  # statistics
+        return statistisc_choise_function(screen, image_names, Kb)
+
+    if main_choise == 'g':  # game_mode
+        return gamemode_choise_function(screen, image_names, Kb)
 
 
 def window_maker():
@@ -83,6 +99,7 @@ def window_maker():
     icon = pygame.image.load('klawiatura.png')
     pygame.display.set_icon(icon)
     screen.fill((255, 255, 255))
+    return screen
 
 
 # GŁÓWNA FUNKCJA PROGRAMU
@@ -92,9 +109,9 @@ def main():
     # inicjalizacja pygame
     pygame.init()
     # uporządkowanie bazy danych
-    do_order_in_database()
+    # do_order_in_database()
     # stworzenie okna
-    window_maker()
+    screen = window_maker()
     # wybór gracza
     global player
     player = choose_player()
@@ -107,13 +124,95 @@ def main():
 
     # pętla gry
     while True:
-        option = main_window()
+        option = main_window(screen)
         args = option[1:]
         code = option[0]
         if bool(args):
             functions[code](args)
         else:
             functions[code]()
+
+
+# funkcje pomocnicze
+
+
+def image_shower(screen, image_name):
+    image = pygame.image.load(image_name)
+    imagerect = image.get_rect()
+    image_loc = [0, 0]
+    screen.blit(image, [*image_loc, *imagerect[2:4]])
+    pygame.display.flip()
+
+
+def main_choise_function(screen, image_names, Kb):
+    image_shower(screen, image_names['main'])
+    Kb.pg_str_input()
+    Kb.current_input = Kb.current_input
+    while True:
+        Kb.current_input = Kb.current_input[-1] if len(Kb.current_input) > 10 else Kb.current_input
+        if Kb.finish is True:
+            if Kb.current_input[-1] == ('s' or 'S'):
+                main_choise = 's'
+                break
+            if Kb.current_input[-1] == ('g' or 'G'):
+                main_choise = 'g'
+                break
+            if Kb.current_input[-1] == ('l' or 'L'):
+                main_choise = 'l'
+                break
+    return main_choise
+
+
+def statistisc_choise_function(screen, image_names, keyborder_obj):
+    image_shower(screen, image_names['stat'])
+    keyborder_obj.pg_str_input()
+    while True:
+        keyborder_obj.current_input = keyborder_obj.current_input[-1] if len(
+            keyborder_obj.current_input) > 10 else keyborder_obj.current_input
+        if keyborder_obj.finish is True:
+            if keyborder_obj.current_input[-1] == ('t' or 'T'):
+                stat_choise = 1
+                break
+            if keyborder_obj.current_input[-1] == ('w' or 'W'):
+                stat_choise = 2
+                break
+            if keyborder_obj.current_input[-1] == ('m' or 'M'):
+                stat_choise = 3
+                break
+            if keyborder_obj.current_input[-1] == ('e' or 'E'):
+                stat_choise = 4
+                break
+    return ['sta', stat_choise]  # TODO trzaba jakoś uwzględnić pobór niku w show_statistisc()
+
+
+def gamemode_choise_function(screen, image_names, Kb):
+    Kb.pg_str_input()
+    Kb.current_input = Kb.current_input
+    image_shower(screen, image_names['mode'])
+    while True:
+        Kb.current_input = Kb.current_input[-1] if len(Kb.current_input) > 10 else Kb.current_input
+        if Kb.finish is True:
+            if Kb.current_input[-1] == ('c' or 'C'):
+                break
+            if Kb.current_input[-1] == ('l' or 'L'):
+                return 'ler'
+
+    image_shower(screen, image_names['level'])
+
+    Kb.pg_str_input()
+    while True:
+        Kb.current_input = Kb.current_input[-1] if len(Kb.current_input) > 10 else Kb.current_input
+        if Kb.finish is True:
+            if Kb.current_input[-1] == ('h' or 'H'):  # hard
+                lvl_choise = 3
+                break
+            if Kb.current_input[-1] == ('m' or 'M'):  # medium
+                lvl_choise = 2
+                break
+            if Kb.current_input[-1] == ('l' or 'L'):  # low
+                lvl_choise = 1
+                break
+    return ['cha', lvl_choise]
 
 
 # GRA
