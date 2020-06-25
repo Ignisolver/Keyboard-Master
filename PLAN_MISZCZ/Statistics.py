@@ -20,14 +20,15 @@ def download_input(period, nick):
     (najlepiej żeby było max 10 wyników w jednym okresie żeby się pomieściły w oknie jakoś zgrabnie wraz z nazwami)
     """
     period_dict = {1: "today", 2: "week", 3: "month", 4: "ever"}
-    period_dict_d = {1: 500, 2: 7, 3: 30, 4: 666}
     period_scores = None
     cu.execute(
-        "select rowid, date, score from " + nick + "_stat_" + period_dict[period] + " ORDER BY \"date\" DESC LIMIT ?",
-        (str(period_dict_d[period])))
+        "select rowid, date, score from " + nick + "_stat_" + period_dict[period] + " ORDER BY \"date\" DESC LIMIT 10")
     cx.commit()
     period_scores = cu.fetchall()
     return period_scores
+
+
+print(download_input(3, "gracztestowy"))
 
 
 def show_statistics(period, screen, size_x, size_y):
