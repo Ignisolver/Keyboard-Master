@@ -2,8 +2,7 @@ import sqlite3
 import sys
 
 import pygame
-
-from PLAN_MISZCZ.Game import Keyborder
+from Game import Keyborder
 
 database = r"..\db\mistrz_klawiatury.db"
 cx = sqlite3.connect(database)
