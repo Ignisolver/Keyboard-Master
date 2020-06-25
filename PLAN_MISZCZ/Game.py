@@ -5,6 +5,8 @@ from threading import Thread
 
 import pygame
 
+from PLAN_MISZCZ.MAIN import player
+
 database = r"..\db\mistrz_klawiatury.db"  # db connection using relative path
 cx = sqlite3.connect(database)
 cu = cx.cursor()
@@ -124,7 +126,7 @@ def game_loop_chalange(level):
     while True:
         for event in pygame.event.get():
             if n == 10:
-                save_score(level, czas)
+                save_score(level, czas, player)
             # Ostrzeżenie o liczbie liter
             if len(ipt) > len(word):
                 warn = "Uwaga! Za dużo liter"
