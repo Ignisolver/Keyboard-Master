@@ -28,9 +28,6 @@ def download_input(period, nick):
     return period_scores
 
 
-print(download_input(3, "gracztestowy"))
-
-
 def show_statistics(period, screen, size_x, size_y):
     """
     # Ignacy - DONE
