@@ -58,7 +58,6 @@ Funkcja ```do_order_in_database``` pobiera z tabeli ```<player>_stat_today``` wy
     size_y = 650
     global screen
     screen = pygame.display.set_mode((size_x, size_y))
-    size_y = 650
     pygame.display.set_caption("Miszcz Klawiatury")
     icon = pygame.image.load('klawiatura.png')
     pygame.display.set_icon(icon)
@@ -126,6 +125,14 @@ Powyższa funkcja przyjmuje 3 argumenty: ```level, score, nick```, gdzie ```leve
 ## ```Login.py```
 
 Tu zawarta została mechanika logowania, oraz inicjalizacji nowego gracza.
+
+### ```choose_player()```
+
+```python
+wpisać jak zacznie działać
+```
+
+Funkcja wyświetlająca menu wyboru gracza. Gdy wybrany zostaje 
 
 ### ```download_users()```
 

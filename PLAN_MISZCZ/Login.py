@@ -50,7 +50,8 @@ def choose_player():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:
                         if zaznaczenie != len_gracze:
-                            check_pass(gracze[zaznaczenie])
+                            for x in gracze.keys():
+                                check_pass(x, gracze[x])
                         else:
                             sign_up()
                     elif (event.key == pygame.K_UP) or (event.key == pygame.K_w):
@@ -83,7 +84,7 @@ def choose_player():
         pygame.display.flip()
 
 
-def check_pass(gracz):
+def check_pass(param_nazwa, param_haslo):
     """
         #Adrian
         #czyści okno i rysuje swoje
@@ -97,9 +98,8 @@ def check_pass(gracz):
     pygame.init()
 
     # dane gracza
-    for g in gracz.keys():
-        nazwa = g
-        haslo = gracz[g]
+    nazwa = param_nazwa
+    haslo = param_haslo
 
     # Zmienne pomocnicze
     pob_str = Keyborder()
