@@ -6,9 +6,9 @@ import sqlite3
 import pygame
 
 # GLOBAL VARIABLES:
-from PLAN_MISZCZ.Game import game_loop_learn, game_loop_chalange
-from PLAN_MISZCZ.Login import choose_player
-from PLAN_MISZCZ.Statistics import show_statistics
+from Game import game_loop_learn, game_loop_chalange
+from Login import choose_player
+from Statistics import show_statistics
 
 player = ''  # nazwa gracza
 screen = None  # okno gry tworzone w window_maker
