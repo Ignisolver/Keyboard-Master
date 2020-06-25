@@ -129,10 +129,55 @@ Tu zawarta została mechanika logowania, oraz inicjalizacji nowego gracza.
 ### ```choose_player()```
 
 ```python
-wpisać jak zacznie działać
+   pygame.init()
+
+    # dane gracza
+    nazwa_ = nazwa
+    haslo_ = haslo
+
+    # Zmienne pomocnicze
+    pob_str = Keyborder()
+    tekst = "Wpisz hasło: ( " + nazwa_ + " )"
+    check = False
+
+    # Tworzenie okna
+    screen = pygame.display.set_mode((1200, 650))
+    pygame.display.set_caption("Mistrz Klawiatury")
+    screen.fill((255, 255, 255))
+    font = pygame.font.Font('freesansbold.ttf', 50)
+
+    # Pętla programu
+    while True:
+        wpis = pob_str.current_input
+        dl_wpis = len(wpis)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit(0)
+            else:
+                if (event.type == pygame.KEYDOWN) and (event.key == pygame.K_ESCAPE):
+                    choose_player()
+                elif (event.type == pygame.KEYDOWN) and (event.key == pygame.K_RETURN):
+                    if wpis == haslo_:
+                        return nazwa_
+                    else:
+                        check = True
+                else:
+                    pob_str.pg_str_input()
+
+        # Rysowanie okna
+        instr = font.render(tekst, True, (0, 0, 0), (255, 255, 255))
+        screen.blit(instr, (100, 100))
+        sym = font.render((dl_wpis * "*") + (30 - dl_wpis) * " ", True, (0, 0, 0), (220, 220, 220))
+        screen.blit(sym, (100, 160))
+        if check:
+            error = font.render("Błędne hasło!", True, (200, 0, 0), (255, 255, 255))
+            screen.blit(error, (100, 220))
+        back = font.render("Powrót (ESC)", True, (0, 0, 0), (255, 255, 255))
+        screen.blit(back, (80, 280))
+        pygame.display.flip()
 ```
 
-Funkcja wyświetlająca menu wyboru gracza. Gdy wybrany zostaje 
+Funkcja wyświetlająca menu wyboru gracza. Pozwala na wybranie przy pomocy klawiatury jednego z listy graczy pobranej z bazy, lub na utworzenie nowego. Zwraca nazwę wybranego użytkownika.
 
 ### ```download_users()```
 

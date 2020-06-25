@@ -84,7 +84,7 @@ def choose_player():
         pygame.display.flip()
 
 
-def check_pass(param_nazwa, param_haslo):
+def check_pass(nazwa, haslo):
     """
         #Adrian
         #czyści okno i rysuje swoje
@@ -98,12 +98,12 @@ def check_pass(param_nazwa, param_haslo):
     pygame.init()
 
     # dane gracza
-    nazwa = param_nazwa
-    haslo = param_haslo
+    nazwa_ = nazwa
+    haslo_ = haslo
 
     # Zmienne pomocnicze
     pob_str = Keyborder()
-    tekst = "Wpisz hasło: ( " + nazwa + " )"
+    tekst = "Wpisz hasło: ( " + nazwa_ + " )"
     check = False
 
     # Tworzenie okna
@@ -123,8 +123,8 @@ def check_pass(param_nazwa, param_haslo):
                 if (event.type == pygame.KEYDOWN) and (event.key == pygame.K_ESCAPE):
                     choose_player()
                 elif (event.type == pygame.KEYDOWN) and (event.key == pygame.K_RETURN):
-                    if wpis == haslo:
-                        return nazwa
+                    if wpis == haslo_:
+                        return nazwa_
                     else:
                         check = True
                 else:
