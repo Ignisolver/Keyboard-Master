@@ -1,4 +1,3 @@
-import os
 import random
 import sqlite3
 import sys
@@ -7,8 +6,8 @@ from threading import Thread
 import pygame
 
 database = r".\db\mistrz_klawiatury.db"  # db connection using relative path
-# cx = sqlite3.connect(database)
-cx = sqlite3.connect(os.path.abspath(database))
+cx = sqlite3.connect(database)
+# cx = sqlite3.connect(os.path.abspath(database))
 cu = cx.cursor()
 
 

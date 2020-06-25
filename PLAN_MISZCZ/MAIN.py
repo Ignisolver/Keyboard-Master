@@ -1,7 +1,6 @@
 # IMPORT PLIKÓW
 
 # IMPORT PAKIETÓW  - potem można przerobić tak żeby się pobierały tylko używane funkcje
-import os
 import sqlite3
 
 import pygame
@@ -14,8 +13,8 @@ from Statistics import show_statistics
 player = ''  # nazwa gracza
 screen = None  # okno gry tworzone w window_maker
 database = r".\db\mistrz_klawiatury.db"
-# cx = sqlite3.connect(database)
-cx = sqlite3.connect(os.path.abspath(database))
+cx = sqlite3.connect(database)
+# cx = sqlite3.connect(os.path.abspath(database))
 cu = cx.cursor()
 
 
