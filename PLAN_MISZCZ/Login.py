@@ -66,7 +66,7 @@ def choose_player():
 
         # wypisanie nazw
         n = 0
-        instr = font.render("Wybór gracza:", True, (0, 0, 0))
+        instr = font.render("Wybór gracza:", True, (0, 0, 0), (255, 255, 255))
         screen.blit(instr, (100, 100))
         for gracz in gracze.keys():
             for nazwa in gracz:
@@ -131,14 +131,14 @@ def check_pass(gracz):
                     pob_str.pg_str_input()
 
         # Rysowanie okna
-        instr = font.render(tekst, True, (0, 0, 0))
+        instr = font.render(tekst, True, (0, 0, 0), (255, 255, 255))
         screen.blit(instr, (100, 100))
         sym = font.render((dl_wpis * "*") + (30 - dl_wpis) * " ", True, (0, 0, 0), (220, 220, 220))
         screen.blit(sym, (100, 160))
         if check:
-            error = font.render("Błędne hasło!", True, (200, 0, 0))
+            error = font.render("Błędne hasło!", True, (200, 0, 0), (255, 255, 255))
             screen.blit(error, (100, 220))
-        back = font.render("Powrót (ESC)", True, (0, 0, 0))
+        back = font.render("Powrót (ESC)", True, (0, 0, 0), (255, 255, 255))
         screen.blit(back, (80, 280))
         pygame.display.flip()
 
@@ -196,17 +196,17 @@ def sign_up():
                         pob_naz.pg_str_input()
 
         # Rysowanie okna
-        instr1 = font.render("Wpisz nazwę użytkownika:", True, (0, 0, 0))
+        instr1 = font.render("Wpisz nazwę użytkownika:", True, (0, 0, 0), (255, 255, 255))
         screen.blit(instr1, (100, 100))
         ramka_n = font.render(nazwa + (30 - len(nazwa)) * " ", True, (0, 0, 0), (220, 220, 220))
         screen.blit(ramka_n, (100, 160))
-        instr2 = font.render("Wpisz hasło:", True, (0, 0, 0))
+        instr2 = font.render("Wpisz hasło:", True, (0, 0, 0), (255, 255, 255))
         screen.blit(instr2, (100, 220))
         ramka_n = font.render(len(haslo) * "*" + (30 - len(haslo)) * " ",
                               True, (0, 0, 0), (220, 220, 220))
         screen.blit(ramka_n, (100, 280))
         if same:
-            error = font.render("Istnieje użytkownik o takiej nazwie!", True, (200, 0, 0))
+            error = font.render("Istnieje użytkownik o takiej nazwie!", True, (200, 0, 0), (255, 255, 255))
             screen.blit(error, (100, 340))
         back = font.render("Powrót (ESC)", True, (0, 0, 0))
         screen.blit(back, (80, 400))
