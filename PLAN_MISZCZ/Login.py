@@ -261,4 +261,4 @@ def add_player(nick, password):
     else:
         return False  # dodanie nie powiodlo sie, nick juz wystepuje w bazie
 
-# add_player('gracztestowyyyy', 'maslo')
+# add_player('gracz', 'testowy')
