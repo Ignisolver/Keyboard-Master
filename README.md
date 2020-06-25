@@ -104,17 +104,15 @@ Powyższa funkcja przyjmuje 3 argumenty: ```level, score, nick```, gdzie ```leve
 
 ```python
     period_dict = {1: "today", 2: "week", 3: "month", 4: "ever"}
-    period_dict_d = {1: 500, 2: 7, 3: 30, 4: 666}
     period_scores = None
     cu.execute(
-        "select rowid, date, score from " + nick + "_stat_" + period_dict[period] + " ORDER BY \"date\" DESC LIMIT ?",
-        (str(period_dict_d[period])))
+        "select rowid, date, score from " + nick + "_stat_" + period_dict[period] + " ORDER BY \"date\" DESC LIMIT 10")
     cx.commit()
     period_scores = cu.fetchall()
     return period_scores
 ```
 
-```download_input()``` służy do pobierania z bazy danych wyników dla dowolnego gracza za wybrany okres (dzień, tydzień, miesiąc, od początku), wymaga ona podania jako argumentów nicku gracza oraz wartości liczbowej przypisanej danemu okresowi. Jakie są to wartości, widać w pierwszej linii.
+```download_input()``` służy do pobierania z bazy danych wyników dla dowolnego gracza za wybrany okres (dzień, tydzień, miesiąc, od początku), wymaga ona podania jako argumentów nicku gracza oraz wartości liczbowej przypisanej danemu okresowi. Jakie są to wartości, widać w pierwszej linii. Funkcja zwraca listę trójelementowych krotek, każda w formacie (<numer wiersza>, <data> , <wynik>).
 
 ## ```Login.py```
 
