@@ -63,9 +63,8 @@ class Keyborder:
     def pg_str_input(self):
         """
         #Ignacy
-        odczytuje wciskane na klawiaturze klawisze
-        jest uruchamiana w osobnym wątku
-        kończy działanie po naciśnięciu enter - ustawia atrbut finish na True
+        odczytuje wciskane na klawiaturze klawisze, jest uruchamiana w osobnym wątku,
+        kończy działanie po naciśnięciu enter - ustawia atrybut finish na True
         podczas działania zapisuje aktualny stan wpisywanego wyrazu do atrybutu current_input
         """
         self.finish = False
@@ -73,8 +72,8 @@ class Keyborder:
 
     def input_Thread(self):
         """
-        - zapisuje aktualny imput klawiatury do zmiennej globalnej
-        - wymaga ustawienia imput_enable na True na początku i na False na końcu
+        - zapisuje aktualny input klawiatury do zmiennej globalnej
+        - wymaga ustawienia input_enable na True na początku i na False na końcu
         :return:
         """
         self.current_input = ''
@@ -103,7 +102,7 @@ class Keyborder:
 def game_loop_chalange(level):
     # Inicjalizacja
     pygame.init()
-    # Wartosci Pomocznicze
+    # Wartosci Pomocnicze
     white = (255, 255, 255)
     green = (0, 255, 0)
     colour = (255, 0, 0)
@@ -126,9 +125,9 @@ def game_loop_chalange(level):
         for event in pygame.event.get():
             if n == 10:
                 save_score(level, czas)
-            # Ostrzerzenie o liczbie liter
+            # Ostrzeżenie o liczbie liter
             if len(ipt) > len(word):
-                warn = "Uwaga! Za duzo liter"
+                warn = "Uwaga! Za dużo liter"
             else:
                 warn = ""
             if event.type == pygame.QUIT:
@@ -176,7 +175,7 @@ def game_loop_chalange(level):
         tekst1_prost = tekst1.get_rect()
         tekst1_prost.center = (600, 325)
         screen.blit(tekst1, tekst1_prost)
-        # Ostrzerzenie
+        # Ostrzeżenie
         tekst2 = font.render(warn, True, (255, 0, 0))
         tekst2_prost = tekst2.get_rect()
         tekst2_prost.center = (600, 500)
@@ -237,6 +236,13 @@ def game_loop_learn():
         pygame.display.flip()
 
 
+# użyj poniższej funkcji po wylosowaniu słowa, jako argumenty podaj poziom (easy, medium lub hard oraz to słowo)
+
+def increment_use_of_word(level, word):
+    cu.execute("UPDATE " + level + "_words SET use_number = use_number + 1 WHERE word = \"" + word + "\" ")
+    cx.commit()
+
+
 def choose_word(level):
     """
     # Adrian
@@ -251,14 +257,9 @@ def choose_word(level):
     wylosowana_liczba = random.randint(1, 25)
 
     cu.execute("SELECT \"word\" FROM " + level + "_words WHERE rowid = " + str(wylosowana_liczba))
-    return cu.fetchone()[0]
-
-# użyj poniższej funkcji po wylosowaniu słowa, jako argumenty podaj poziom (easy, medium lub hard oraz to słowo)
-
-def increment_use_of_word(level, word):
-    cu.execute("UPDATE " + level + "_words SET use_number = use_number + 1 WHERE word = \"" + word + "\" ")
-    cx.commit()
-
+    word = cu.fetchone()[0]
+    increment_use_of_word(level, word)
+    return word
 
 
 def save_score(level, score, nick):
