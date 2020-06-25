@@ -31,7 +31,7 @@ def download_input(period, nick):
 print(download_input(3, "gracztestowy"))
 
 
-def show_statistics(period, screen, size_x, size_y):
+def show_statistics(period, screen, size_x, size_y, player_nick):
     """
     # Ignacy - DONE
     #czyści okno i rysuje swoje
@@ -43,7 +43,7 @@ def show_statistics(period, screen, size_x, size_y):
     :param period:
     :return:
     """
-    scores = download_input(period)
+    scores = download_input(period, player_nick)
     amount_of_scores = len(scores)
 
     # ustawienia pola rysowania
@@ -63,7 +63,7 @@ def show_statistics(period, screen, size_x, size_y):
     scores_high = [y_max - y_length * i / 100 for i in scores_points]
 
     # ładowanie tła pokazywania statystyk
-    myimage = pygame.image.load("siatka2.png")
+    myimage = pygame.image.load("Others/    siatka2.png")
     imagerect = myimage.get_rect()
     image_loc = [-5, -22]
     screen.blit(myimage, [*image_loc, *imagerect[2:4]])
