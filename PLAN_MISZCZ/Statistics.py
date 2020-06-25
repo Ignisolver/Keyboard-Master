@@ -28,7 +28,6 @@ def download_input(period, nick):
     return period_scores
 
 
-
 def show_statistics(period, screen, size_x, size_y, player_nick):
     """
     # Ignacy - DONE
