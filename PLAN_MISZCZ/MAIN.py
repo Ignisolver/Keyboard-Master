@@ -1,14 +1,11 @@
 # IMPORT PLIKÓW
-import sqlite3
 
 # IMPORT PAKIETÓW  - potem można przerobić tak żeby się pobierały tylko używane funkcje
-import pygame
-from Game import *
-from Login import *
-from Statistics import *
+from PLAN_MISZCZ.Game import *
+from PLAN_MISZCZ.Login import *
+from PLAN_MISZCZ.Statistics import *
 
 # GLOBAL VARIABLES:
-
 player = ''  # nazwa gracza
 screen = None  # okno gry tworzone w window_maker
 database = r"..\db\mistrz_klawiatury.db"
@@ -20,11 +17,8 @@ cu = cx.cursor()
 def do_order_in_database():
     """
     Gustaw
-    robi pożądek w bazie danych
-    wykonuje się tuż po uruchomieniu
-    jak niema plików to je tworzy
-    np przepisuje wyniki z poprzedniego dnia do tygodnia itp
-    tutaj Gustaw może to rozplanować #order in data_base
+    robi porządek w bazie danych, wykonuje się tuż po uruchomieniu, jak nie ma plików to je tworzy
+    np przepisuje wyniki z poprzedniego dnia do tygodnia itp. Tutaj Gustaw może to rozplanować #order in data_base
     :return:
     """
     cu.execute("SELECT nick FROM players")
@@ -50,8 +44,8 @@ def do_order_in_database():
 def main_window():
     """
     #Ignacy
-    funkcja wyswietlająca ekran wyboru: trybu gry,poziomu,przejscia do statystyk, wylogowania
-    pobiera z klawiatury literke i przechodzi do odpowiedniej funkcji
+    funkcja wyswietlająca ekran wyboru: trybu gry, poziomu, przejscia do statystyk, wylogowania.
+    Pobiera z klawiatury literke i przechodzi do odpowiedniej funkcji
     :return chose_option: tablica [kod operacji, *args]
     kody operacji:
     'sta' - pokaż statystyki *arg: wybrany okres (day,week,month,begin) - do zmiany
@@ -69,7 +63,7 @@ def main_window():
 def window_maker():
     """
     #Ignacy
-    tworzy okno o jakiś wymiarach - można spróbować dopasować do ekranu
+    tworzy okno o jakichś wymiarach - można spróbować dopasować do ekranu
     :return:
     """
     size_x = 1200
@@ -92,7 +86,7 @@ def main():
     do_order_in_database()
     # stworzenie okna
     window_maker()
-    # wyboór gracza
+    # wybór gracza
     global player
     player = choose_player()
     # słownik z funkcjami
