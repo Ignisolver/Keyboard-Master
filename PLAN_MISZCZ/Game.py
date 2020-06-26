@@ -101,7 +101,7 @@ class Keyborder:
                         self.current_input += letter
 
 
-def game_loop_chalange(level, player_nick=None):
+def game_loop_chalange(level, player_nick=None, screen=None):
     # Inicjalizacja
     pygame.init()
     # Wartosci Pomocnicze
@@ -111,9 +111,6 @@ def game_loop_chalange(level, player_nick=None):
     clock = pygame.time.Clock()
     delta = 0
     # Ustawienia Okna
-    res = (1200, 650)
-    screen = pygame.display.set_mode(res)
-    pygame.display.set_caption("Mistrz Klawiatury")
     screen.fill(white)
     # Wartosci Początkowe
     n = 0
@@ -197,17 +194,10 @@ def choose_letter():
 
 
 # Karol
-def game_loop_learn():
+def game_loop_learn(screen=None,player_nick=None):
     # Inicjalizacja
-    pygame.init()
     # Wartosci Pomocnicze
     white = (255, 255, 255)
-    green = (0, 255, 0)
-    # Ustawienia Okna
-    res = (1200, 650)
-    screen = pygame.display.set_mode(res)
-    pygame.display.set_caption("Mistrz Klawiatury")
-    screen.fill(white)
     # Wartosci Początkowe
     char = choose_letter()
     letter = ''

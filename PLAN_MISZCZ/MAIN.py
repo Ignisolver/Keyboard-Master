@@ -1,9 +1,9 @@
 # IMPORT PLIKÓW
-
 # IMPORT PAKIETÓW  - potem można przerobić tak żeby się pobierały tylko używane funkcje
 import sqlite3
 from threading import Thread
 import pygame
+import sys
 from Game import Keyborder
 # GLOBAL VARIABLES:
 from Game import game_loop_learn, game_loop_chalange
@@ -72,10 +72,10 @@ def main_window(screen=None):
     """
     screen.fill((255, 255, 255))
     Kb = Keyborder()
-    image_names = {'main': "Others/main_window_images/main_main.png",
-                   'stat': 'Others/main_window_images/main_statistics.png',
-                   'level': 'Others/main_window_images/main_challenge_level.png',
-                   'mode': 'Others/main_window_images/main_gamemode.png'}
+    image_names = {'main': "../Others/main_window_images/main_main.png",
+                   'stat': '../Others/main_window_images/main_statistics.png',
+                   'level': '../Others/main_window_images/main_challenge_level.png',
+                   'mode': '../Others/main_window_images/main_gamemode.png'}
     # pierwszy wybór "main"
     main_choise = main_choise_function(screen, image_names, Kb)
     # wybor 2 po main
@@ -112,14 +112,15 @@ def main():
     # Ignacy
     # inicjalizacja pygame
     pygame.init()
-    Thread(target=QUIT_enabler).start()
+   # Thread(target=QUIT_enabler).start()
     # uporządkowanie bazy danych
-    do_order_in_database()
+    #do_order_in_database()
     # stworzenie okna
     screen = window_maker()
     # wybór gracza
     global player
-    player = choose_player(screen)
+    #player = choose_player(screen)
+    player = 'z'
     # słownik z funkcjami
     functions = {'sta': show_statistics,
                  'ler': game_loop_learn,
@@ -149,25 +150,29 @@ def image_shower(screen, image_name):
 def main_choise_function(screen, image_names, Kb):
     image_shower(screen, image_names['main'])
     Kb.pg_str_input()
-    Kb.current_input = Kb.current_input
+    Kb.current_input = 'q'
     while True:
         Kb.current_input = Kb.current_input[-1] if len(Kb.current_input) > 10 else Kb.current_input
         if Kb.finish is True:
             if Kb.current_input[-1] == ('s' or 'S'):
                 main_choise = 's'
                 break
-            if Kb.current_input[-1] == ('g' or 'G'):
+            elif Kb.current_input[-1] == ('g' or 'G'):
                 main_choise = 'g'
                 break
-            if Kb.current_input[-1] == ('l' or 'L'):
+            elif Kb.current_input[-1] == ('l' or 'L'):
                 main_choise = 'l'
                 break
+            else:
+                Kb.pg_str_input()
+                Kb.current_input = 'q'
     return main_choise
 
 
 def statistisc_choise_function(screen, image_names, keyborder_obj):
     image_shower(screen, image_names['stat'])
     keyborder_obj.pg_str_input()
+    keyborder_obj.current_input = 'q'
     while True:
         keyborder_obj.current_input = keyborder_obj.current_input[-1] if len(
             keyborder_obj.current_input) > 10 else keyborder_obj.current_input
@@ -184,12 +189,15 @@ def statistisc_choise_function(screen, image_names, keyborder_obj):
             if keyborder_obj.current_input[-1] == ('e' or 'E'):
                 stat_choise = 4
                 break
-    return ['sta', stat_choise]  # TODO trzaba jakoś uwzględnić pobór niku w show_statistisc()
+            else:
+                keyborder_obj.pg_str_input()
+                keyborder_obj.current_input = 'q'
+    return ['sta', stat_choise]
 
 
 def gamemode_choise_function(screen, image_names, Kb):
     Kb.pg_str_input()
-    Kb.current_input = Kb.current_input
+    Kb.current_input = 'q'
     image_shower(screen, image_names['mode'])
     while True:
         Kb.current_input = Kb.current_input[-1] if len(Kb.current_input) > 10 else Kb.current_input
@@ -198,13 +206,17 @@ def gamemode_choise_function(screen, image_names, Kb):
                 break
             if Kb.current_input[-1] == ('l' or 'L'):
                 return ['ler']
+            else:
+                Kb.pg_str_input()
+                Kb.current_input = 'q'
+
 
     image_shower(screen, image_names['level'])
-
     Kb.pg_str_input()
     while True:
         Kb.current_input = Kb.current_input[-1] if len(Kb.current_input) > 10 else Kb.current_input
         if Kb.finish is True:
+            print(Kb.current_input)
             if Kb.current_input[-1] == ('h' or 'H'):  # hard
                 lvl_choise = 3
                 break
@@ -214,6 +226,9 @@ def gamemode_choise_function(screen, image_names, Kb):
             if Kb.current_input[-1] == ('l' or 'L'):  # low
                 lvl_choise = 1
                 break
+            else:
+                Kb.pg_str_input()
+                Kb.current_input = 'q'
     return ['cha', lvl_choise]
 
 def QUIT_enabler():
@@ -221,7 +236,7 @@ def QUIT_enabler():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                exit(0)
+                sys.exit(0)
 
 # GRA
 if __name__ == '__main__':
