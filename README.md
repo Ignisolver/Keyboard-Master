@@ -64,6 +64,21 @@ Funkcja ```do_order_in_database``` pobiera z tabeli ```<player>_stat_today``` wy
     screen.fill((255, 255, 255))
 ```
 Funkcja odpowiada za utworzenie okna, w którym będą wyświetlane wybrane ramki.
+Własności okna:
+    szerokość: 1200 pix
+    wysokość: 600 pix
+    ikona: Klawiatura.png
+    nagłówek okna: Miszcz Klawiatury
+    kolor wypełnienia: biały
+
+### ```main_window(screen=None)```
+Funkcja tworząca na ekranie (```screen```) główne okno alpikacji - to z którego użytkownik będzie mógł wybrac czy chce grać czy używać statystyki czy się wylogować.
+Pozwala wybrać tryb i poziom gry oraz okres z jakiego mają być wyswietlone statystyki.
+Co zwraca:
+Gdy zostanie wybrana opcja wylogowania zwraca ```['log']```
+Gdy zostanie wybrana opcja pokazania statystyk zwraca krotkę. Pierwszy element to ```'sta'``` a drugi to int z zakresu 1,2,3,4 gdzie 1=tomorrow, 2=week, 3=month, 4=ever
+Gdy zostanie wybrana opcja gry w trybie nauki zwraca ```['ler']```.
+Gdy zostanie wybrana opcja gry w trybie wyzwania zwraca krotkę. Pierwszy element to ```'cha'``` a drugi to int z zakresu 1,2,3 gdzie 1=low, 2=medium, 3=hard
 
 ### ```main()```
 
@@ -105,6 +120,20 @@ W tym module zaimplementowana została cała logika rozgrywki, jak na przykład 
 ```
 
 Powyższa funkcja przyjmuje 3 argumenty: ```level, score, nick```, gdzie ```level``` to liczba z zakresu 1-3 (1 - łatwy, 2 - trudny, 3 - średni), dwa pozostałe są oczywiste. Następnie wynik i poziom trudności są mnożone i wstawianie do tabeli z dnia obecnego ( ```<player>_stat_today``` ) oraz do tabeli historycznej, która agreguje wszystkie wyniki od początku ( ```<player>_stat_ever``` ).
+
+
+### ```Keyborder```
+Klasa służąca obsłudze wprowadzania znaków z klawiatury.
+Użytkowanie:
+    Należy stworzyć obiekt klasy ```KB = Keyborder()```
+    W celu rozpoczęcia przechwytywania znaków ależy uruchomić metodę ```pg_str_input```: ```KB.pg_str_input()```
+    Po jej uruchomieniu w atrybucie ```current_input``` (```KB.current_input```) znajduje się ciąg znaków zawierający wszystkie litery jakie po kolei były odczytywane z klawiatury. 
+Funkcja uwzględnia małe i duze litery i backspace.
+Funkcja kończy działanie po wciśnięciu klawisza ENTER
+Po zakończeniu działania funkcji atrybut ```current_input``` nie zostaje wyczyszczony - dzieje się to dopiero po ponownym wywołaniu metody.
+Funkcja uruchamia się w osobnym wątku co gwarantuje nie pominięcie przechwycenia jakiegoś klawisza.
+Obsługuje wyłączenie programu
+
 
 ## ```Statistics.py```
 
@@ -228,3 +257,14 @@ Funkcja może być wywołana, aby sprawdzić, czy logujący się użytkownik jes
 ```
 
 Funkcja służy do dopisywania nowego gracza do bazy, jako poarametry przyjmuje nick, oraz hasło, które może być alfanumeryczne, następnie przeszukuję tabelę z użytkownikami w poszukiwaniu powtórzeń nicku, jeżeli nie znajdzie, zostaną utworzone cztery tabele na zapisywanie statystyk danego gracza, a sama funkcja zwróci wartość ```python True```, w przeciwnym wypadku, tabela nie zostaną utowrzone i zostanie zwrócone ```python False```.
+
+### ```show_statistics(period, screen, player_nick)```
+Funkcja pokazująca na ekranie (```screen```) statystyki gracza o danym nicku (```player_nick```) z danego okresu (```period```)
+argumenty:
+```screen``` - obiekt ```pygame.display.set_mode((size_x, size_y))```
+```period, player_nick``` - takie jak argumenty funkcji ```download_input```
+
+
+
+
+
