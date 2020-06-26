@@ -215,6 +215,122 @@ Tu zawarta została mechanika logowania, oraz inicjalizacji nowego gracza.
 
 Funkcja wyświetlająca menu wyboru gracza. Jako parametr przyjmuje okno, na którym rysuje. Pozwala na wybranie przy pomocy klawiatury jednego z listy graczy pobranej z bazy, lub na utworzenie nowego. Umożliwia zamknięcie programu. Zwraca nazwę wybranego użytkownika.
 
+### ```check_pass(nazwa, haslo, screen)```
+
+```python
+    # dane gracza
+    nazwa_ = nazwa
+    haslo_ = haslo
+
+    # Zmienne pomocnicze
+    pob_str = Keyborder()
+    tekst = "Wpisz hasło: ( " + nazwa_ + " )"
+    check = False
+
+    # Tworzenie okna
+    screen.fill((255, 255, 255))
+    font = pygame.font.Font('freesansbold.ttf', 50)
+
+    # Pętla programu
+    while True:
+        wpis = pob_str.current_input
+        dl_wpis = len(wpis)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit(0)
+            else:
+                if (event.type == pygame.KEYDOWN) and (event.key == pygame.K_ESCAPE):
+                    return False
+                elif (event.type == pygame.KEYDOWN) and (event.key == pygame.K_RETURN):
+                    if wpis == haslo_:
+                        return True
+                    else:
+                        check = True
+                else:
+                    pob_str.pg_str_input()
+
+        # Rysowanie okna
+        instr = font.render(tekst, True, (0, 0, 0), (255, 255, 255))
+        screen.blit(instr, (100, 100))
+        sym = font.render((dl_wpis * "*") + (15 - dl_wpis) * "  ", True, (0, 0, 0), (220, 220, 220))
+        screen.blit(sym, (100, 160))
+        if check:
+            error = font.render("Błędne hasło!", True, (200, 0, 0), (255, 255, 255))
+            screen.blit(error, (100, 220))
+        back = font.render("Powrót (ESC)", True, (0, 0, 0), (255, 255, 255))
+        screen.blit(back, (80, 280))
+        pygame.display.flip()
+```
+
+Funkcja wyświetlająca ekran logowania. Przyjmuje nazwę gracza, hasło z nim powiązane oraz okno (```screen```), na którym rysuje. Pozwala wprowadzić hasło, które jest porównywane z przyjętym parametrem. Błędne hasło wyświetla informację. Zwraca ```True``` gdy hasło jest zgodne, lub ```False``` gdy użytkownik wycofał.
+
+### ```sign_up(screen)```
+
+```python
+
+    # Zmienne pomocnicze
+    pob_naz = Keyborder()
+    pob_has = Keyborder()
+    is_name_saved = False
+    same = False
+
+    # Tworzenie okna
+    screen.fill((255, 255, 255))
+    font = pygame.font.Font('freesansbold.ttf', 50)
+    # Pętla programu
+    while True:
+        nazwa = pob_naz.current_input
+        haslo = pob_has.current_input
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit(0)
+            else:
+                if (event.type == pygame.KEYDOWN) and (event.key == pygame.K_ESCAPE):
+                    if is_name_saved:
+                        is_name_saved = False
+                    else:
+                        return ''
+                elif (event.type == pygame.KEYDOWN) and (event.key == pygame.K_RETURN):
+                    if is_name_saved:
+                        same = add_player(nazwa, haslo)
+                        if same:
+                            return nazwa
+                        else:
+                            sign_up(screen)
+                    else:
+                        is_name_saved = True
+                else:
+                    if is_name_saved:
+                        # pob_has.input_Thread()   # jakiś problem w pg_str ?
+                        pob_has.pg_str_input()
+                    else:
+                        # pob_naz.input_Thread()
+                        if pob_has.finish is False or pob_naz.finish is False:
+                            print("finish false!!!")
+                        pob_naz.pg_str_input()
+
+        # Rysowanie okna
+        instr1 = font.render("Wpisz nazwę użytkownika:", True, (0, 0, 0), (255, 255, 255))
+        screen.blit(instr1, (100, 100))
+        ramka_n = font.render(nazwa + (15 - len(nazwa)) * "  ", True, (0, 0, 0), (220, 220, 220))
+        screen.blit(ramka_n, (100, 160))
+        instr2 = font.render("Wpisz hasło:", True, (0, 0, 0), (255, 255, 255))
+        screen.blit(instr2, (100, 220))
+        ramka_n = font.render(len(haslo) * "*" + (15 - len(haslo)) * "  ",
+                              True, (0, 0, 0), (220, 220, 220))
+        screen.blit(ramka_n, (100, 280))
+        if same:
+            error = font.render("Istnieje użytkownik o takiej nazwie!", True, (200, 0, 0), (255, 255, 255))
+            screen.blit(error, (100, 340))
+        back = font.render("Powrót (ESC)", True, (0, 0, 0), (255, 255, 255))
+        screen.blit(back, (80, 400))
+
+        pygame.display.flip()
+
+```
+
+Funkcja wyświetlająca ekran rejestracji nowego użytkownika. Przyjmuje parametr ```screen``` , na którym rysowane są wprowadzane dane. Możliwość wycofania i wyświetlenia informacji, gdy istnieje użytkownik o podanej nazwie. Zwraca nazwę nowego gracza.
+
 ### ```download_users()```
 
 ```python
