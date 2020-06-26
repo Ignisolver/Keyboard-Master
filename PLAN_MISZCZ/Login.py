@@ -47,10 +47,18 @@ def choose_player(screen=None):
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:
                         if zaznaczenie != len_gracze:
-                            for x in gracze.keys():
-                                return check_pass(x, gracze[x], screen)
+                            for gracz in gracze.keys():
+                                is_confirmed = check_pass(gracz, gracze[gracz], screen)
+                                if is_confirmed:
+                                     return gracz
+                                else:
+                                    screen.fill((255, 255, 255))
                         else:
-                            return sign_up(screen)
+                            n_gracz = sign_up(screen)
+                            if n_gracz != '':
+                                return n_gracz
+                            else:
+                                screen.fill((255, 255, 255))
                     elif (event.key == pygame.K_UP) or (event.key == pygame.K_w):
                         if zaznaczenie == 0:
                             zaznaczenie = len_gracze
@@ -115,10 +123,10 @@ def check_pass(nazwa, haslo, screen=None):
                 sys.exit(0)
             else:
                 if (event.type == pygame.KEYDOWN) and (event.key == pygame.K_ESCAPE):
-                    choose_player(screen)
+                    return False
                 elif (event.type == pygame.KEYDOWN) and (event.key == pygame.K_RETURN):
                     if wpis == haslo_:
-                        return nazwa_
+                        return True
                     else:
                         check = True
                 else:
@@ -170,7 +178,7 @@ def sign_up(screen=None):
                     if is_name_saved:
                         is_name_saved = False
                     else:
-                        choose_player(screen)
+                        return ''
                 elif (event.type == pygame.KEYDOWN) and (event.key == pygame.K_RETURN):
                     if is_name_saved:
                         same = add_player(nazwa, haslo)
