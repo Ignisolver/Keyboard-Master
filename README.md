@@ -213,7 +213,7 @@ Tu zawarta została mechanika logowania, oraz inicjalizacji nowego gracza.
         pygame.display.flip()
 ```
 
-Funkcja wyświetlająca menu wyboru gracza. Jako parametr przyjmuje okno, na którym rysuje. Pozwala na wybranie przy pomocy klawiatury jednego z listy graczy pobranej z bazy, lub na utworzenie nowego. Zwraca nazwę wybranego użytkownika.
+Funkcja wyświetlająca menu wyboru gracza. Jako parametr przyjmuje okno, na którym rysuje. Pozwala na wybranie przy pomocy klawiatury jednego z listy graczy pobranej z bazy, lub na utworzenie nowego. Umożliwia zamknięcie programu. Zwraca nazwę wybranego użytkownika.
 
 ### ```download_users()```
 

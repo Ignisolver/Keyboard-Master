@@ -10,7 +10,7 @@ cx = sqlite3.connect(database)
 cu = cx.cursor()
 
 
-def choose_player(screen):
+def choose_player(screen=None):
     """
     #Adrian
     #czyści okno i rysuje swoje
@@ -48,9 +48,9 @@ def choose_player(screen):
                     if event.key == pygame.K_RETURN:
                         if zaznaczenie != len_gracze:
                             for x in gracze.keys():
-                                check_pass(x, gracze[x], screen)
+                                return check_pass(x, gracze[x], screen)
                         else:
-                            sign_up(screen)
+                            return sign_up(screen)
                     elif (event.key == pygame.K_UP) or (event.key == pygame.K_w):
                         if zaznaczenie == 0:
                             zaznaczenie = len_gracze
@@ -82,7 +82,7 @@ def choose_player(screen):
         pygame.display.flip()
 
 
-def check_pass(nazwa, haslo, screen):
+def check_pass(nazwa, haslo, screen=None):
     """
         #Adrian
         #czyści okno i rysuje swoje
@@ -137,7 +137,7 @@ def check_pass(nazwa, haslo, screen):
         pygame.display.flip()
 
 
-def sign_up(screen):
+def sign_up(screen=None):
     """
     #Adrian
     #czyści okno i rysuje swoje
@@ -182,11 +182,11 @@ def sign_up(screen):
                         is_name_saved = True
                 else:
                     if is_name_saved:
-                        pob_has.input_Thread()   # jakiś problem w pg_str ?
-                        # pob_has.pg_str_input()
+                        # pob_has.input_Thread()   # jakiś problem w pg_str ?
+                        pob_has.pg_str_input()
                     else:
-                        pob_naz.input_Thread()
-                        # pob_naz.pg_str_input()
+                        # pob_naz.input_Thread()
+                        pob_naz.pg_str_input()
 
         # Rysowanie okna
         instr1 = font.render("Wpisz nazwę użytkownika:", True, (0, 0, 0), (255, 255, 255))

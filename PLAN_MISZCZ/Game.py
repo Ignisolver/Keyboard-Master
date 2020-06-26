@@ -101,7 +101,7 @@ class Keyborder:
                         self.current_input += letter
 
 
-def game_loop_chalange(level):
+def game_loop_chalange(level, player_nick=None):
     # Inicjalizacja
     pygame.init()
     # Wartosci Pomocnicze
@@ -126,7 +126,7 @@ def game_loop_chalange(level):
     while True:
         for event in pygame.event.get():
             if n == 10:
-                save_score(level, czas) # TODO dodać player
+                save_score(level, czas, player_nick)
             # Ostrzeżenie o liczbie liter
             if len(ipt) > len(word):
                 warn = "Uwaga! Za dużo liter"
