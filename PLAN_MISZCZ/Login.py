@@ -67,6 +67,7 @@ def choose_player(screen):
         instr = font.render("Wybór gracza:", True, (0, 0, 0), (255, 255, 255))
         screen.blit(instr, (100, 100))
         for gracz in gracze.keys():
+            nazwa_ = ''
             for nazwa in gracz:
                 nazwa_ = nazwa
             if zaznaczenie == n:
@@ -91,7 +92,6 @@ def check_pass(nazwa, haslo, screen):
         mozna z niej zamknąć grę
         :return nazwa gracza (string): name - nazwa gracza
         """
-
 
     # dane gracza
     nazwa_ = nazwa
@@ -127,7 +127,7 @@ def check_pass(nazwa, haslo, screen):
         # Rysowanie okna
         instr = font.render(tekst, True, (0, 0, 0), (255, 255, 255))
         screen.blit(instr, (100, 100))
-        sym = font.render((dl_wpis * "*") + (30 - dl_wpis) * " ", True, (0, 0, 0), (220, 220, 220))
+        sym = font.render((dl_wpis * "*") + (15 - dl_wpis) * "  ", True, (0, 0, 0), (220, 220, 220))
         screen.blit(sym, (100, 160))
         if check:
             error = font.render("Błędne hasło!", True, (200, 0, 0), (255, 255, 255))
@@ -182,18 +182,20 @@ def sign_up(screen):
                         is_name_saved = True
                 else:
                     if is_name_saved:
-                        pob_has.pg_str_input()
+                        pob_has.input_Thread()   # jakiś problem w pg_str ?
+                        # pob_has.pg_str_input()
                     else:
-                        pob_naz.pg_str_input()
+                        pob_naz.input_Thread()
+                        # pob_naz.pg_str_input()
 
         # Rysowanie okna
         instr1 = font.render("Wpisz nazwę użytkownika:", True, (0, 0, 0), (255, 255, 255))
         screen.blit(instr1, (100, 100))
-        ramka_n = font.render(nazwa + (30 - len(nazwa)) * " ", True, (0, 0, 0), (220, 220, 220))
+        ramka_n = font.render(nazwa + (15 - len(nazwa)) * "  ", True, (0, 0, 0), (220, 220, 220))
         screen.blit(ramka_n, (100, 160))
         instr2 = font.render("Wpisz hasło:", True, (0, 0, 0), (255, 255, 255))
         screen.blit(instr2, (100, 220))
-        ramka_n = font.render(len(haslo) * "*" + (30 - len(haslo)) * " ",
+        ramka_n = font.render(len(haslo) * "*" + (15 - len(haslo)) * "  ",
                               True, (0, 0, 0), (220, 220, 220))
         screen.blit(ramka_n, (100, 280))
         if same:

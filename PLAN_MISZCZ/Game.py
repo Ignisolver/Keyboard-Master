@@ -145,7 +145,7 @@ def game_loop_chalange(level):
                     ipt += letter
                 # Zatwierdzanie Poprawnego Wyniku
                 if ipt == word and event.key == 13:
-                    word = choose_word()
+                    word = choose_word(level)
                     ipt = ""
                     czas += delta
                     delta = 0
