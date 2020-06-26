@@ -129,7 +129,7 @@ Użytkowanie:
     W celu rozpoczęcia przechwytywania znaków ależy uruchomić metodę ```pg_str_input```: ```KB.pg_str_input()```
     Po jej uruchomieniu w atrybucie ```current_input``` (```KB.current_input```) znajduje się ciąg znaków zawierający wszystkie litery jakie po kolei były odczytywane z klawiatury. 
 Funkcja uwzględnia małe i duze litery i backspace.
-Funkcja kończy działanie po wciśnięciu klawisza ENTER
+Funkcja kończy działanie po wciśnięciu klawisza ENTER - zmienia wtedy stan atrybutu ```finish``` na ```True```
 Po zakończeniu działania funkcji atrybut ```current_input``` nie zostaje wyczyszczony - dzieje się to dopiero po ponownym wywołaniu metody.
 Funkcja uruchamia się w osobnym wątku co gwarantuje nie pominięcie przechwycenia jakiegoś klawisza.
 Obsługuje wyłączenie programu
