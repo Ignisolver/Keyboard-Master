@@ -1,12 +1,11 @@
-import os
 import sqlite3
 from sys import exit as close
 
 import pygame
 
-database = r".\db\mistrz_klawiatury.db"
-# cx = sqlite3.connect(database)
-cx = sqlite3.connect(os.path.abspath(database))
+database = r"..\db\mistrz_klawiatury.db"
+cx = sqlite3.connect(database)
+# cx = sqlite3.connect(os.path.abspath(database))
 cu = cx.cursor()
 
 
