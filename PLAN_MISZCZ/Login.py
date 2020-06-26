@@ -10,7 +10,7 @@ cx = sqlite3.connect(database)
 cu = cx.cursor()
 
 
-def choose_player(screen=None):
+def choose_player(screen=None,player_nick=None):
     """
     #Adrian
     #czyści okno i rysuje swoje
@@ -157,7 +157,6 @@ def sign_up(screen=None):
     # Tworzenie okna
     screen.fill((255, 255, 255))
     font = pygame.font.Font('freesansbold.ttf', 50)
-
     # Pętla programu
     while True:
         nazwa = pob_naz.current_input
@@ -186,6 +185,8 @@ def sign_up(screen=None):
                         pob_has.pg_str_input()
                     else:
                         # pob_naz.input_Thread()
+                        if pob_has.finish is False or pob_naz.finish is False:
+                            print("finish false!!!")
                         pob_naz.pg_str_input()
 
         # Rysowanie okna
