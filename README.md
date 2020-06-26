@@ -75,9 +75,9 @@ Własności okna:
 Funkcja tworząca na ekranie (```screen```) główne okno alpikacji - to z którego użytkownik będzie mógł wybrac czy chce grać czy używać statystyki czy się wylogować.
 Pozwala wybrać tryb i poziom gry oraz okres z jakiego mają być wyswietlone statystyki.
 Co zwraca:
-Gdy zostanie wybrana opcja wylogowania zwraca ```'log'```
-Gdy zostanie wybrana opcja pokazania statystyk zwraca int z zakresu 1,2,3,4 gdzie 1=tomorrow, 2=week, 3=month, 4=ever
-Gdy zostanie wybrana opcja gry w trybie nauki zwraca ```ler```.
+Gdy zostanie wybrana opcja wylogowania zwraca ```['log']```
+Gdy zostanie wybrana opcja pokazania statystyk zwraca krotkę. Pierwszy element to ```'sta'``` a drugi to int z zakresu 1,2,3,4 gdzie 1=tomorrow, 2=week, 3=month, 4=ever
+Gdy zostanie wybrana opcja gry w trybie nauki zwraca ```['ler']```.
 Gdy zostanie wybrana opcja gry w trybie wyzwania zwraca krotkę. Pierwszy element to ```'cha'``` a drugi to int z zakresu 1,2,3 gdzie 1=low, 2=medium, 3=hard
 
 ### ```main()```
