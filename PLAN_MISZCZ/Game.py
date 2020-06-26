@@ -1,3 +1,4 @@
+import os
 import random
 import sqlite3
 import sys
@@ -5,8 +6,10 @@ from threading import Thread
 
 import pygame
 
-database = r"..\db\mistrz_klawiatury.db"  # db connection using relative path
-cx = sqlite3.connect(database)
+database = r".\db\mistrz_klawiatury.db"  # db connection using relative path
+# cx = sqlite3.connect(database)
+cx = sqlite3.connect(os.path.abspath(database))
+
 cu = cx.cursor()
 
 
@@ -115,7 +118,7 @@ def game_loop_chalange(level):
     screen.fill(white)
     # Wartosci Początkowe
     n = 0
-    word = choose_word()  # TODO: należy przekazać poziom (1, 2 lub 3), no i ta funkcja powinna coś zwracać
+    word = choose_word(level)
     czas = 0
     warn = ""
     ipt = ""
