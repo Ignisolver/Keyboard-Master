@@ -126,7 +126,7 @@ def game_loop_chalange(level):
     while True:
         for event in pygame.event.get():
             if n == 10:
-                save_score(level, czas)
+                save_score(level, czas) # TODO dodać player
             # Ostrzeżenie o liczbie liter
             if len(ipt) > len(word):
                 warn = "Uwaga! Za dużo liter"

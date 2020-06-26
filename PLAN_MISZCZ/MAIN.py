@@ -118,7 +118,7 @@ def main():
     screen = window_maker()
     # wybór gracza
     global player
-    player = choose_player()
+    player = choose_player(screen)
     # słownik z funkcjami
     functions = {'sta': show_statistics,
                  'ler': game_loop_learn,

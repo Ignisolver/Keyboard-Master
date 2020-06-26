@@ -10,7 +10,7 @@ cx = sqlite3.connect(database)
 cu = cx.cursor()
 
 
-def choose_player():
+def choose_player(screen):
     """
     #Adrian
     #czyści okno i rysuje swoje
@@ -26,8 +26,6 @@ def choose_player():
     :return nazwa gracza (string): name - nazwa gracza
     """
 
-    pygame.init()
-
     # Zmienne pomocnicze
 
     gracze = download_users()
@@ -37,8 +35,6 @@ def choose_player():
 
     # Ustawienia Okna
 
-    screen = pygame.display.set_mode((1200, 650))
-    pygame.display.set_caption("Mistrz Klawiatury")
     screen.fill((255, 255, 255))
 
     # Pętla programu
@@ -52,9 +48,9 @@ def choose_player():
                     if event.key == pygame.K_RETURN:
                         if zaznaczenie != len_gracze:
                             for x in gracze.keys():
-                                check_pass(x, gracze[x])
+                                check_pass(x, gracze[x], screen)
                         else:
-                            sign_up()
+                            sign_up(screen)
                     elif (event.key == pygame.K_UP) or (event.key == pygame.K_w):
                         if zaznaczenie == 0:
                             zaznaczenie = len_gracze
@@ -85,7 +81,7 @@ def choose_player():
         pygame.display.flip()
 
 
-def check_pass(nazwa, haslo):
+def check_pass(nazwa, haslo, screen):
     """
         #Adrian
         #czyści okno i rysuje swoje
@@ -96,7 +92,6 @@ def check_pass(nazwa, haslo):
         :return nazwa gracza (string): name - nazwa gracza
         """
 
-    pygame.init()
 
     # dane gracza
     nazwa_ = nazwa
@@ -108,8 +103,6 @@ def check_pass(nazwa, haslo):
     check = False
 
     # Tworzenie okna
-    screen = pygame.display.set_mode((1200, 650))
-    pygame.display.set_caption("Mistrz Klawiatury")
     screen.fill((255, 255, 255))
     font = pygame.font.Font('freesansbold.ttf', 50)
 
@@ -122,7 +115,7 @@ def check_pass(nazwa, haslo):
                 sys.exit(0)
             else:
                 if (event.type == pygame.KEYDOWN) and (event.key == pygame.K_ESCAPE):
-                    choose_player()
+                    choose_player(screen)
                 elif (event.type == pygame.KEYDOWN) and (event.key == pygame.K_RETURN):
                     if wpis == haslo_:
                         return nazwa_
@@ -144,7 +137,7 @@ def check_pass(nazwa, haslo):
         pygame.display.flip()
 
 
-def sign_up():
+def sign_up(screen):
     """
     #Adrian
     #czyści okno i rysuje swoje
@@ -154,7 +147,6 @@ def sign_up():
     mozna z niej zamknąć grę
     :return nazwa gracza (string): name - nazwa gracza
     """
-    pygame.init()
 
     # Zmienne pomocnicze
     pob_naz = Keyborder()
@@ -163,8 +155,6 @@ def sign_up():
     same = False
 
     # Tworzenie okna
-    screen = pygame.display.set_mode((1200, 650))
-    pygame.display.set_caption("Mistrz Klawiatury")
     screen.fill((255, 255, 255))
     font = pygame.font.Font('freesansbold.ttf', 50)
 
@@ -180,14 +170,14 @@ def sign_up():
                     if is_name_saved:
                         is_name_saved = False
                     else:
-                        choose_player()
+                        choose_player(screen)
                 elif (event.type == pygame.KEYDOWN) and (event.key == pygame.K_RETURN):
                     if is_name_saved:
                         same = add_player(nazwa, haslo)
                         if same:
                             return nazwa
                         else:
-                            sign_up()
+                            sign_up(screen)
                     else:
                         is_name_saved = True
                 else:
