@@ -2,7 +2,7 @@
 
 # IMPORT PAKIETÓW  - potem można przerobić tak żeby się pobierały tylko używane funkcje
 import sqlite3
-
+from threading import Thread
 import pygame
 from Game import Keyborder
 # GLOBAL VARIABLES:
@@ -57,7 +57,7 @@ def do_order_in_database():
         cx.commit()
 
 
-def main_window(screen):
+def main_window(screen=None):
     """
     #Ignacy
     funkcja wyswietlająca ekran wyboru: trybu gry, poziomu, przejscia do statystyk, wylogowania.
@@ -80,7 +80,7 @@ def main_window(screen):
     main_choise = main_choise_function(screen, image_names, Kb)
     # wybor 2 po main
     if main_choise == 'l':  # logoff
-        return 'log'
+        return ['log']
 
     if main_choise == 's':  # statistics
         return statistisc_choise_function(screen, image_names, Kb)
@@ -112,6 +112,7 @@ def main():
     # Ignacy
     # inicjalizacja pygame
     pygame.init()
+    Thread(target=QUIT_enabler).start()
     # uporządkowanie bazy danych
     do_order_in_database()
     # stworzenie okna
@@ -124,15 +125,14 @@ def main():
                  'ler': game_loop_learn,
                  'cha': game_loop_chalange,
                  'log': choose_player,
-                 'qui': exit}
+                 }
 
     # pętla gry
     while True:
         option = main_window(screen)
-        args = option[1:] + player
         code = option[0]
-
-        functions[code](args)
+        args = option[1:]
+        functions[code](args, player_nick=player, screen=screen)
 
 
 # funkcje pomocnicze
@@ -197,7 +197,7 @@ def gamemode_choise_function(screen, image_names, Kb):
             if Kb.current_input[-1] == ('c' or 'C'):
                 break
             if Kb.current_input[-1] == ('l' or 'L'):
-                return 'ler'
+                return ['ler']
 
     image_shower(screen, image_names['level'])
 
@@ -216,6 +216,12 @@ def gamemode_choise_function(screen, image_names, Kb):
                 break
     return ['cha', lvl_choise]
 
+def QUIT_enabler():
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit(0)
 
 # GRA
 if __name__ == '__main__':

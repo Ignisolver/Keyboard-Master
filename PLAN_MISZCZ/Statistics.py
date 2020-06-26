@@ -29,7 +29,7 @@ def download_input(period, nick):
     return period_scores
 
 
-def show_statistics(period, screen, size_x, size_y, player_nick):
+def show_statistics(period, screen=None, player_nick=None):
     """
     # Ignacy - DONE
     #czyści okno i rysuje swoje
@@ -43,7 +43,8 @@ def show_statistics(period, screen, size_x, size_y, player_nick):
     """
     scores = download_input(period, player_nick)
     amount_of_scores = len(scores)
-
+    size_x = 1200
+    size_y = 650
     # ustawienia pola rysowania
     x0 = int(size_x / 12)
     y0 = int(size_y / 6.5) + 22
