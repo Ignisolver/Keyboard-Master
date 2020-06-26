@@ -138,6 +138,8 @@ def game_loop_chalange(level, player_nick=None, screen=None):
                     if len(ipt):
                         ipt = ipt[:-1]
                 else:
+                    if event.key == pygame.K_ESCAPE:
+                        return None
                     letter = Keyborder.code2letter[event.key]
                     ipt += letter
                 # Zatwierdzanie Poprawnego Wyniku
