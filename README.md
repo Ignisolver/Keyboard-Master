@@ -129,7 +129,6 @@ Tu zawarta została mechanika logowania, oraz inicjalizacji nowego gracza.
 ### ```choose_player()```
 
 ```python
-    pygame.init()
 
     # Zmienne pomocnicze
 
@@ -139,9 +138,6 @@ Tu zawarta została mechanika logowania, oraz inicjalizacji nowego gracza.
     len_gracze = len(gracze)
 
     # Ustawienia Okna
-
-    screen = pygame.display.set_mode((1200, 650))
-    pygame.display.set_caption("Mistrz Klawiatury")
     screen.fill((255, 255, 255))
 
     # Pętla programu
@@ -155,9 +151,9 @@ Tu zawarta została mechanika logowania, oraz inicjalizacji nowego gracza.
                     if event.key == pygame.K_RETURN:
                         if zaznaczenie != len_gracze:
                             for x in gracze.keys():
-                                check_pass(x, gracze[x])
+                                check_pass(x, gracze[x], screen)
                         else:
-                            sign_up()
+                            sign_up(screen)
                     elif (event.key == pygame.K_UP) or (event.key == pygame.K_w):
                         if zaznaczenie == 0:
                             zaznaczenie = len_gracze
@@ -188,7 +184,7 @@ Tu zawarta została mechanika logowania, oraz inicjalizacji nowego gracza.
         pygame.display.flip()
 ```
 
-Funkcja wyświetlająca menu wyboru gracza. Pozwala na wybranie przy pomocy klawiatury jednego z listy graczy pobranej z bazy, lub na utworzenie nowego. Zwraca nazwę wybranego użytkownika.
+Funkcja wyświetlająca menu wyboru gracza. Jako parametr przyjmuje okno, na którym rysuje. Pozwala na wybranie przy pomocy klawiatury jednego z listy graczy pobranej z bazy, lub na utworzenie nowego. Zwraca nazwę wybranego użytkownika.
 
 ### ```download_users()```
 
