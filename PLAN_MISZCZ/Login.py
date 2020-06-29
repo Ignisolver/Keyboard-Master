@@ -10,7 +10,7 @@ cx = sqlite3.connect(database)
 cu = cx.cursor()
 
 
-def choose_player(screen=None,player_nick=None):
+def choose_player(screen=None,player_nick=None):  # TODO naprawić wyświetlanie i pobieranie tekstu
     """
     #Adrian
     #czyści okno i rysuje swoje
@@ -74,10 +74,7 @@ def choose_player(screen=None,player_nick=None):
         n = 0
         instr = font.render("Wybór gracza:", True, (0, 0, 0), (255, 255, 255))
         screen.blit(instr, (100, 100))
-        for gracz in gracze.keys():
-            nazwa_ = ''
-            for nazwa in gracz:
-                nazwa_ = nazwa
+        for nazwa_ in gracze.keys():
             if zaznaczenie == n:
                 wypis = font.render(nazwa_, True, (0, 0, 0), (175, 255, 100))
             else:

@@ -102,6 +102,22 @@ class Keyborder:
 
 
 def game_loop_chalange(level, player_nick=None, screen=None):
+    """
+        # Karol
+        #czyści okno i rysuje swoje
+        prowadzi grę w trybie wyzwanie czyli mierzy czas poprawnego wpisania wyrazu
+        czysci okno (niech coś swojego rysuje)
+        używa funkcji chose_word
+        wyswietla napis który ma zostać wpisany
+        nie pozwala wpisywac wyrazu dluzszego niz przewidziany - zapala kontrolke z komunikatem
+        wyswietla litery wpisywane wraz z podświetleniem na kolor zielony - ok / czerwony - błędny wpis
+        mierzy czas wpisywania wyrazu od naciśnięcia enter do poprawnego skończenia / enter przerywa - nie zapisuje wyniku
+        wykorzystuje funkcję save_score której przekazuje poziom gry
+        ESCAPE zamyka tryb
+        :param level: poziom gry (easy/medium/hard)
+        :return: None
+        """
+
     # Inicjalizacja
     # Wartosci Pomocnicze
     white = (255, 255, 255)
@@ -112,7 +128,6 @@ def game_loop_chalange(level, player_nick=None, screen=None):
     # Ustawienia Okna
     screen.fill(white)
     # Wartosci Początkowe
-    n = 0
     word = choose_word(level)
     czas = 0
     warn = ""
@@ -121,8 +136,6 @@ def game_loop_chalange(level, player_nick=None, screen=None):
     font1 = pygame.font.Font('freesansbold.ttf', 20)
     while True:
         for event in pygame.event.get():
-            if n == 10:
-                save_score(level, czas, player_nick)
             # Ostrzeżenie o liczbie liter
             if len(ipt) > len(word):
                 warn = "Uwaga! Za dużo liter"
@@ -137,6 +150,10 @@ def game_loop_chalange(level, player_nick=None, screen=None):
                     if len(ipt):
                         ipt = ipt[:-1]
                 else:
+                    # Koniec
+                    if event.key == pygame.K_ESCAPE:
+                        save_score(level, czas * 10, player_nick)
+                        return None
                     letter = Keyborder.code2letter[event.key]
                     ipt += letter
                 # Zatwierdzanie Poprawnego Wyniku
@@ -145,7 +162,6 @@ def game_loop_chalange(level, player_nick=None, screen=None):
                     ipt = ""
                     czas += delta
                     delta = 0
-                    n += 1
         # Zarzadzanie kolorem czcionki
         if len(ipt) == 1:
             if ipt == word[0]:
@@ -194,6 +210,16 @@ def choose_letter():
 
 # Karol
 def game_loop_learn(screen=None,player_nick=None):
+    """
+        # Karol
+        #czyści okno i rysuje swoje
+        wyswietla litery
+        wykorzystuje choose_letter
+        jak jest poprawna podaje kolejną a jak nie to czeka aż będzie
+        enter przerywa grę
+        :return: None
+        """
+
     # Inicjalizacja
     # Wartosci Pomocnicze
     white = (255, 255, 255)
