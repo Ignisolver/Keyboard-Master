@@ -9,7 +9,7 @@ from Game import Keyborder
 from Game import game_loop_learn, game_loop_chalange
 from Login import choose_player
 from Statistics import show_statistics
-
+import keyboard
 player = ''  # nazwa gracza
 screen = None  # okno gry tworzone w window_maker
 database = r"..\db\mistrz_klawiatury.db"
@@ -100,7 +100,7 @@ def window_maker():
     global screen
     screen = pygame.display.set_mode((size_x, size_y))
     pygame.display.set_caption("Miszcz Klawiatury")
-    icon = pygame.image.load('../Others/klawiatura.png')
+    icon = pygame.image.load('klawiatura.png')
     pygame.display.set_icon(icon)
     screen.fill((255, 255, 255))
     return screen
@@ -108,12 +108,9 @@ def window_maker():
 
 # GŁÓWNA FUNKCJA PROGRAMU
 def main():
-    # inicjalizacja gry
-    # Ignacy
-    # inicjalizacja pygame
     pygame.init()
-   # Thread(target=QUIT_enabler).start()
-    # uporządkowanie bazy danych
+    # Thread(target=QUIT_enabler).start()
+
     #do_order_in_database()
     # stworzenie okna
     screen = window_maker()
@@ -133,6 +130,7 @@ def main():
         option = main_window(screen)
         code = option[0]
         args = option[1:]
+        print(option)
         functions[code](args, player_nick=player, screen=screen)
 
 
@@ -149,94 +147,38 @@ def image_shower(screen, image_name):
 
 def main_choise_function(screen, image_names, Kb):
     image_shower(screen, image_names['main'])
-    Kb.pg_str_input()
-    Kb.current_input = 'q'
     while True:
-        Kb.current_input = Kb.current_input[-1] if len(Kb.current_input) > 10 else Kb.current_input
-        if Kb.finish is True:
-            if Kb.current_input[-1] == ('s' or 'S'):
-                main_choise = 's'
-                break
-            elif Kb.current_input[-1] == ('g' or 'G'):
-                main_choise = 'g'
-                break
-            elif Kb.current_input[-1] == ('l' or 'L'):
-                main_choise = 'l'
-                break
-            else:
-                Kb.pg_str_input()
-                Kb.current_input = 'q'
-    return main_choise
+             main_choise = keyboard.read_key()
+             if main_choise in ('s','g','l'):
+                return main_choise
 
 
 def statistisc_choise_function(screen, image_names, keyborder_obj):
     image_shower(screen, image_names['stat'])
-    keyborder_obj.pg_str_input()
-    keyborder_obj.current_input = 'q'
+    to_return = {'t':1,'w':2,'m':3,'e':4}
     while True:
-        keyborder_obj.current_input = keyborder_obj.current_input[-1] if len(
-            keyborder_obj.current_input) > 10 else keyborder_obj.current_input
-        if keyborder_obj.finish is True:
-            if keyborder_obj.current_input[-1] == ('t' or 'T'):
-                stat_choise = 1
-                break
-            if keyborder_obj.current_input[-1] == ('w' or 'W'):
-                stat_choise = 2
-                break
-            if keyborder_obj.current_input[-1] == ('m' or 'M'):
-                stat_choise = 3
-                break
-            if keyborder_obj.current_input[-1] == ('e' or 'E'):
-                stat_choise = 4
-                break
-            else:
-                keyborder_obj.pg_str_input()
-                keyborder_obj.current_input = 'q'
-    return ['sta', stat_choise]
+        stat_choise = keyboard.read_key()
+        if stat_choise in ('t','w','m','e'):
+            return ['sta', to_return[stat_choise]]
+
 
 
 def gamemode_choise_function(screen, image_names, Kb):
-    Kb.pg_str_input()
-    Kb.current_input = 'q'
     image_shower(screen, image_names['mode'])
     while True:
-        Kb.current_input = Kb.current_input[-1] if len(Kb.current_input) > 10 else Kb.current_input
-        if Kb.finish is True:
-            if Kb.current_input[-1] == ('c' or 'C'):
-                break
-            if Kb.current_input[-1] == ('l' or 'L'):
-                return ['ler']
-            else:
-                Kb.pg_str_input()
-                Kb.current_input = 'q'
-
+        mode_choise = keyboard.read_key()
+        if mode_choise == 'l':
+            return ['ler']
+        elif mode_choise == 'c':
+            break
 
     image_shower(screen, image_names['level'])
-    Kb.pg_str_input()
+    to_return = {'l': 1, 'm': 2, 'h': 3}
     while True:
-        Kb.current_input = Kb.current_input[-1] if len(Kb.current_input) > 10 else Kb.current_input
-        if Kb.finish is True:
-            print(Kb.current_input)
-            if Kb.current_input[-1] == ('h' or 'H'):  # hard
-                lvl_choise = 3
-                break
-            if Kb.current_input[-1] == ('m' or 'M'):  # medium
-                lvl_choise = 2
-                break
-            if Kb.current_input[-1] == ('l' or 'L'):  # low
-                lvl_choise = 1
-                break
-            else:
-                Kb.pg_str_input()
-                Kb.current_input = 'q'
-    return ['cha', lvl_choise]
-
-def QUIT_enabler():
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit(0)
+        lvl_choise = keyboard.read_key()
+        if lvl_choise in ('h', 'm', 'l'):
+            print(lvl_choise)
+            return ['cha', to_return[lvl_choise]]
 
 # GRA
 if __name__ == '__main__':

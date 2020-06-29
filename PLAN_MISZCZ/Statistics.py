@@ -1,6 +1,5 @@
 import sqlite3
 from sys import exit as close
-
 import pygame
 
 database = r"..\db\mistrz_klawiatury.db"

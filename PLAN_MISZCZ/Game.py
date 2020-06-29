@@ -103,7 +103,6 @@ class Keyborder:
 
 def game_loop_chalange(level, player_nick=None, screen=None):
     # Inicjalizacja
-    pygame.init()
     # Wartosci Pomocnicze
     white = (255, 255, 255)
     green = (0, 255, 0)
