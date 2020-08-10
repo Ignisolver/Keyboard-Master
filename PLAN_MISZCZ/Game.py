@@ -2,7 +2,7 @@ import random
 import sqlite3
 import sys
 from threading import Thread
-
+from keyboard import read_event
 import pygame
 
 database = r"..\db\mistrz_klawiatury.db"  # db connection using relative path
@@ -19,48 +19,6 @@ class Keyborder:
     który cały czas będzie się aktualizował ( w zależności od tego co będzie wpisywae na klawiaturze) - działa w
     osobnym wątku aż do naciśnięcia enter
     """
-    UPP = (12288, 4098, 4097, 28672, 20482, 20481, 12545, 12546, 8192, 2, 1, 24576, 16386, 16385, 8449, 8450)
-    alt = (20480, 28672, 20482, 20481, 12545, 12546, 16384, 24576, 16386, 16385, 8449, 8450)
-    code2letter = {97: 'a',
-                   98: 'b',
-                   99: 'c',
-                   100: 'd',
-                   101: 'e',
-                   102: 'f',
-                   103: 'g',
-                   104: 'h',
-                   105: 'i',
-                   106: 'j',
-                   107: 'k',
-                   108: 'l',
-                   109: 'm',
-                   110: 'n',
-                   111: 'o',
-                   112: 'p',
-                   113: 'q',
-                   114: 'r',
-                   115: 's',
-                   116: 't',
-                   117: 'u',
-                   118: 'w',
-                   119: 'v',
-                   120: 'x',
-                   121: 'y',
-                   122: 'z',
-                   32: ' '}
-    letter_alt = {
-        'l': 'ł',
-        'n': 'ń',
-        's': 'ś',
-        'o': 'ó',
-        'a': 'ą',
-        'e': 'ę',
-        'z': 'ż',
-        'x': 'ź',
-        'c': 'ć',
-    }
-    current_input = ''
-    finish = False
 
     def pg_str_input(self):
         """
@@ -70,6 +28,7 @@ class Keyborder:
         podczas działania zapisuje aktualny stan wpisywanego wyrazu do atrybutu current_input
         """
         self.finish = False
+        self.current_input = ''
         Thread(target=self.input_Thread).start()
 
     def input_Thread(self):
@@ -78,27 +37,51 @@ class Keyborder:
         - wymaga ustawienia input_enable na True na początku i na False na końcu
         :return:
         """
+        hotkey_press = {'shift': False, 'alt': False, 'backspace': False}
+        letter_alt = {
+            'l': 'ł',
+            'n': 'ń',
+            's': 'ś',
+            'o': 'ó',
+            'a': 'ą',
+            'e': 'ę',
+            'z': 'ż',
+            'x': 'ź',
+            'c': 'ć',
+        }
         self.current_input = ''
         while True:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    exit(0)
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_RETURN:
-                        self.finish = True
-                        return None
-                    if event.key == pygame.K_BACKSPACE:
-                        if len(self.current_input) > 0:
-                            self.current_input = self.current_input[:-1]
-                    letter = self.code2letter.get(event.key, '')
-                    mode = pygame.key.get_mods()
-                    if mode in self.alt:
-                        letter = self.letter_alt.get(letter, letter)
-                    if mode in self.UPP:
-                        self.current_input += letter.upper()
-                    else:
-                        self.current_input += letter
+            # for event in pygame.event.get():
+            #     if event.type == pygame.QUIT:
+            #         pygame.quit()
+            #         exit(0)
+            out = ''
+            event = str(read_event())
+            if 'alt' in event:
+                hotkey_press['alt'] = True if 'down' in event else False
+                continue
+            if 'shift' in event:
+                hotkey_press['shift'] = True if 'down' in event else False
+                continue
+            if 'backspace' in event:
+                self.current_input = self.current_input[:-1] if len(self.current_input) >= 1 else ''
+            if 'enter' in event:
+                self.finish = True
+                break
+            pocz = event.find('(')
+            end = event.find(')')
+            event = event[pocz + 1:end]
+            event = event.split(' ')
+            if len(event) == 2:
+                event, action = event
+
+                if len(event) == 1 and action == 'down':
+                    out = event
+                    if hotkey_press['alt']:
+                        out = letter_alt.get(out, out)
+                    if hotkey_press['shift']:
+                        out = out.capitalize()
+                    self.current_input += out
 
 
 def game_loop_chalange(level, player_nick=None, screen=None):
@@ -121,7 +104,6 @@ def game_loop_chalange(level, player_nick=None, screen=None):
     # Inicjalizacja
     # Wartosci Pomocnicze
     white = (255, 255, 255)
-    green = (0, 255, 0)
     colour = (255, 0, 0)
     clock = pygame.time.Clock()
     delta = 0
@@ -209,7 +191,7 @@ def choose_letter():
 
 
 # Karol
-def game_loop_learn(screen=None,player_nick=None):
+def game_loop_learn(screen=None, player_nick=None):
     """
         # Karol
         #czyści okno i rysuje swoje

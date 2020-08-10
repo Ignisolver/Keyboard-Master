@@ -1,15 +1,18 @@
 # IMPORT PLIKÓW
 # IMPORT PAKIETÓW  - potem można przerobić tak żeby się pobierały tylko używane funkcje
 import sqlite3
+import time
 from threading import Thread
 import pygame
+from os import name as os_name
 import sys
 from Game import Keyborder
 # GLOBAL VARIABLES:
 from Game import game_loop_learn, game_loop_chalange
 from Login import choose_player
 from Statistics import show_statistics
-import keyboard
+from platform import system as get_system_name
+from elevate import elevate
 player = ''  # nazwa gracza
 screen = None  # okno gry tworzone w window_maker
 database = r"..\db\mistrz_klawiatury.db"
@@ -98,9 +101,9 @@ def window_maker():
     size_x = 1200
     size_y = 650
     global screen
-    screen = pygame.display.set_mode((size_x, size_y))
+    screen = pygame.display.set_mode([size_x, size_y])
     pygame.display.set_caption("Miszcz Klawiatury")
-    icon = pygame.image.load('klawiatura.png')
+    icon = pygame.image.load('../Others/klawiatura.png')
     pygame.display.set_icon(icon)
     screen.fill((255, 255, 255))
     return screen
@@ -110,28 +113,26 @@ def window_maker():
 def main():
     pygame.init()
     # Thread(target=QUIT_enabler).start()
-
     #do_order_in_database()
     # stworzenie okna
     screen = window_maker()
+    # if get_system_name() == 'Linux':
+    #     root_logging()
     # wybór gracza
-    global player
-    #player = choose_player(screen)
-    player = 'z'
+    player = choose_player(screen)
     # słownik z funkcjami
     functions = {'sta': show_statistics,
                  'ler': game_loop_learn,
                  'cha': game_loop_chalange,
                  'log': choose_player,
                  }
-
     # pętla gry
     while True:
         option = main_window(screen)
         code = option[0]
         args = option[1:]
         print(option)
-        functions[code](args, player_nick=player, screen=screen)
+        functions[code](*args, player_nick=player, screen=screen)
 
 
 # funkcje pomocnicze
@@ -147,17 +148,19 @@ def image_shower(screen, image_name):
 
 def main_choise_function(screen, image_names, Kb):
     image_shower(screen, image_names['main'])
+    Kb.pg_str_input()
     while True:
-             main_choise = keyboard.read_key()
+             main_choise = Kb.current_input[-1] if len(Kb.current_input) > 0 else ''
              if main_choise in ('s','g','l'):
                 return main_choise
 
 
-def statistisc_choise_function(screen, image_names, keyborder_obj):
+def statistisc_choise_function(screen, image_names, Kb):
     image_shower(screen, image_names['stat'])
     to_return = {'t':1,'w':2,'m':3,'e':4}
+    Kb.pg_str_input()
     while True:
-        stat_choise = keyboard.read_key()
+        stat_choise = Kb.current_input[-1] if len(Kb.current_input) > 0 else ''
         if stat_choise in ('t','w','m','e'):
             return ['sta', to_return[stat_choise]]
 
@@ -165,8 +168,9 @@ def statistisc_choise_function(screen, image_names, keyborder_obj):
 
 def gamemode_choise_function(screen, image_names, Kb):
     image_shower(screen, image_names['mode'])
+    Kb.pg_str_input()
     while True:
-        mode_choise = keyboard.read_key()
+        mode_choise = Kb.current_input[-1] if len(Kb.current_input) > 0 else ''
         if mode_choise == 'l':
             return ['ler']
         elif mode_choise == 'c':
@@ -175,10 +179,12 @@ def gamemode_choise_function(screen, image_names, Kb):
     image_shower(screen, image_names['level'])
     to_return = {'l': 1, 'm': 2, 'h': 3}
     while True:
-        lvl_choise = keyboard.read_key()
+        lvl_choise = Kb.current_input[-1] if len(Kb.current_input) > 0 else ''
         if lvl_choise in ('h', 'm', 'l'):
             print(lvl_choise)
             return ['cha', to_return[lvl_choise]]
+def root_logging():
+    elevate()
 
 # GRA
 if __name__ == '__main__':
