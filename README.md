@@ -64,6 +64,8 @@ Funkcja ```do_order_in_database``` pobiera z tabeli ```<player>_stat_today``` wy
     screen.fill((255, 255, 255))
 ```
 Funkcja odpowiada za utworzenie okna, w którym będą wyświetlane wybrane ramki.
+params: nie przyjmuje argumentów
+return: screen - obiekt pygame tworzony przez pygame.display.set_mode()
 Własności okna:
     szerokość: 1200 pix
     wysokość: 600 pix
@@ -128,11 +130,11 @@ Użytkowanie:
     Należy stworzyć obiekt klasy ```KB = Keyborder()```
     W celu rozpoczęcia przechwytywania znaków ależy uruchomić metodę ```pg_str_input```: ```KB.pg_str_input()```
     Po jej uruchomieniu w atrybucie ```current_input``` (```KB.current_input```) znajduje się ciąg znaków zawierający wszystkie litery jakie po kolei były odczytywane z klawiatury. 
-Funkcja uwzględnia małe i duze litery i backspace.
+Funkcja uwzględnia alt , shift i backspace.
 Funkcja kończy działanie po wciśnięciu klawisza ENTER - zmienia wtedy stan atrybutu ```finish``` na ```True```
 Po zakończeniu działania funkcji atrybut ```current_input``` nie zostaje wyczyszczony - dzieje się to dopiero po ponownym wywołaniu metody.
 Funkcja uruchamia się w osobnym wątku co gwarantuje nie pominięcie przechwycenia jakiegoś klawisza.
-Obsługuje wyłączenie programu
+
 
 
 ## ```Statistics.py```
@@ -150,6 +152,16 @@ Obsługuje wyłączenie programu
 ```
 
 ```download_input()``` służy do pobierania z bazy danych wyników dla dowolnego gracza za wybrany okres (dzień, tydzień, miesiąc, od początku), wymaga ona podania jako argumentów nicku gracza oraz wartości liczbowej przypisanej danemu okresowi. Jakie są to wartości, widać w pierwszej linii. Funkcja zwraca listę trójelementowych krotek, każda w formacie (numer wiersza, data , wynik).
+
+
+### ```show_statistics(period, screen, player_nick)```
+Funkcja pokazująca na ekranie (```screen```) statystyki gracza o danym nicku (```player_nick```) z danego okresu (```period```)
+params:
+```screen``` - obiekt ```pygame.display.set_mode((size_x, size_y))```
+```period, player_nick``` - takie jak argumenty funkcji ```download_input```
+return:
+
+
 
 ## ```Login.py```
 
@@ -374,11 +386,6 @@ Funkcja może być wywołana, aby sprawdzić, czy logujący się użytkownik jes
 
 Funkcja służy do dopisywania nowego gracza do bazy, jako poarametry przyjmuje nick, oraz hasło, które może być alfanumeryczne, następnie przeszukuję tabelę z użytkownikami w poszukiwaniu powtórzeń nicku, jeżeli nie znajdzie, zostaną utworzone cztery tabele na zapisywanie statystyk danego gracza, a sama funkcja zwróci wartość ```python True```, w przeciwnym wypadku, tabela nie zostaną utowrzone i zostanie zwrócone ```python False```.
 
-### ```show_statistics(period, screen, player_nick)```
-Funkcja pokazująca na ekranie (```screen```) statystyki gracza o danym nicku (```player_nick```) z danego okresu (```period```)
-argumenty:
-```screen``` - obiekt ```pygame.display.set_mode((size_x, size_y))```
-```period, player_nick``` - takie jak argumenty funkcji ```download_input```
 
 
 
