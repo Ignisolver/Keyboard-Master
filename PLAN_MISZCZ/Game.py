@@ -15,11 +15,51 @@ cu = cx.cursor()
 class Keyborder:
     """
     aby korzystać z funkcji wprowadania tekstu nalerzy utworzyć obiekt tej klasy
-    - wywołanie funkcji pg_str_input spowoduje że w atrybucie current_input będzie się znajdował ciąg znaków
+    - wywołanie metody pg_str_input spowoduje że w atrybucie current_input będzie się znajdował ciąg znaków
     który cały czas będzie się aktualizował ( w zależności od tego co będzie wpisywae na klawiaturze) - działa w
     osobnym wątku aż do naciśnięcia enter - po naciśnięciu current_input się nie usuwa
-    obsługuje backspace,alr,shift
+    obsługuje backspace,alt,shift
+    - atrybut finish przechowuje zmienną bool (enter został już wciśnięty - funkcja przestała działać - True
+     w przeciwnym razie False)
     """
+    code2letter = {97: 'a',
+                   98: 'b',
+                   99: 'c',
+                   100: 'd',
+                   101: 'e',
+                   102: 'f',
+                   103: 'g',
+                   104: 'h',
+                   105: 'i',
+                   106: 'j',
+                   107: 'k',
+                   108: 'l',
+                   109: 'm',
+                   110: 'n',
+                   111: 'o',
+                   112: 'p',
+                   113: 'q',
+                   114: 'r',
+                   115: 's',
+                   116: 't',
+                   117: 'u',
+                   118: 'w',
+                   119: 'v',
+                   120: 'x',
+                   121: 'y',
+                   122: 'z',
+                   32: ' '}
+    letter_alt = {
+        'l': 'ł',
+        'n': 'ń',
+        's': 'ś',
+        'o': 'ó',
+        'a': 'ą',
+        'e': 'ę',
+        'z': 'ż',
+        'x': 'ź',
+        'c': 'ć',
+    }
 
     def pg_str_input(self):
         """
@@ -29,7 +69,6 @@ class Keyborder:
         podczas działania zapisuje aktualny stan wpisywanego wyrazu do atrybutu current_input
         """
         self.finish = False
-        self.current_input = ''
         Thread(target=self.input_Thread).start()
 
     def input_Thread(self):
@@ -38,18 +77,8 @@ class Keyborder:
         - wymaga ustawienia input_enable na True na początku i na False na końcu
         :return:
         """
+
         hotkey_press = {'shift': False, 'alt': False, 'backspace': False}
-        letter_alt = {
-            'l': 'ł',
-            'n': 'ń',
-            's': 'ś',
-            'o': 'ó',
-            'a': 'ą',
-            'e': 'ę',
-            'z': 'ż',
-            'x': 'ź',
-            'c': 'ć',
-        }
         self.current_input = ''
         while True:
             # for event in pygame.event.get():
@@ -79,7 +108,7 @@ class Keyborder:
                 if len(event) == 1 and action == 'down':
                     out = event
                     if hotkey_press['alt']:
-                        out = letter_alt.get(out, out)
+                        out = self.letter_alt.get(out, out)
                     if hotkey_press['shift']:
                         out = out.capitalize()
                     self.current_input += out

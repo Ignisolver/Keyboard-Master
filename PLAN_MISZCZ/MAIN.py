@@ -67,9 +67,9 @@ def main_window(screen=None):
     Pobiera z klawiatury literke i przechodzi do odpowiedniej funkcji
     :return chose_option: tablica [kod operacji, *args]
     kody operacji:
-    'sta' - pokaż statystyki *arg: wybrany okres (day,week,month,begin) - do zmiany
+    'sta' - pokaż statystyki *arg: wybrany okres (day,week,month,begin - int 1,2,3,4)
     'ler' - tryb nauki *arg: -
-    'cha' - tryb challange *arg: poziom trudnośi (easy/medium/hard)
+    'cha' - tryb challange *arg: poziom trudnośi (easy/medium/hard - int 1,2,3)
     'log' - log off *arg: -
     'qui' - zamknij grę *arg: -
     """
@@ -96,7 +96,7 @@ def window_maker():
     """
     #Ignacy
     tworzy okno o jakichś wymiarach - można spróbować dopasować do ekranu
-    :return:
+    :return: screen - obiekt pygame tworzony przez pygame.display.set_mode()
     """
     size_x = 1200
     size_y = 650

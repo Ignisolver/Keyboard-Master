@@ -37,11 +37,15 @@ def show_statistics(period, screen=None, player_nick=None):
     wychodzi z nich po nacisnieciu klawisza E - kończy funkcję
     Ignacy to zrobi (już mam prawie gotowe bo się trochę bawiłem)
     wcisniecie q konczy funkcje
-    :param period:
+    :param: screen: - obiekt ```pygame.display.set_mode((size_x, size_y))```
+    :param: period
+    :param: player_nick - taki jak argument funkcji ```download_input```
     :return:
     """
     scores = download_input(period, player_nick)
     amount_of_scores = len(scores)
+    if amount_of_scores > 10:
+        print('zbyt wiele wyników: ', len(scores))
     size_x = 1200
     size_y = 650
     # ustawienia pola rysowania
@@ -57,7 +61,7 @@ def show_statistics(period, screen=None, player_nick=None):
     rectangles = [pygame.Rect(x0 + i * unit_q * int(unit), y_max, int(pole_width), 2) for i in range(amount_of_scores)]
 
     # dane
-    scores_points = [day['score'] for day in scores]
+    scores_points = [day[2] for day in scores]
     scores_high = [y_max - y_length * i / 100 for i in scores_points]
 
     # ładowanie tła pokazywania statystyk
@@ -70,7 +74,9 @@ def show_statistics(period, screen=None, player_nick=None):
     black = (0, 0, 0)
     font = pygame.font.Font('freesansbold.ttf', 20)
     for nr, score in enumerate(scores):
-        napis = score["date"]
+        napis = score[1]
+        if len(napis) > 12:
+            print("zbyt długi napis: ", napis, len(napis))
         napis = napis if len(napis) < 12 else napis[:12]
         text = font.render(napis, True, black)
         text = pygame.transform.rotate(text, -70)
