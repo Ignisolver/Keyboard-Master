@@ -1,18 +1,15 @@
 # IMPORT PLIKÓW
 # IMPORT PAKIETÓW  - potem można przerobić tak żeby się pobierały tylko używane funkcje
 import sqlite3
-import time
-from threading import Thread
+
 import pygame
-from os import name as os_name
-import sys
 from Game import Keyborder
 # GLOBAL VARIABLES:
 from Game import game_loop_learn, game_loop_chalange
 from Login import choose_player
 from Statistics import show_statistics
-from platform import system as get_system_name
 from elevate import elevate
+
 player = ''  # nazwa gracza
 screen = None  # okno gry tworzone w window_maker
 database = r"..\db\mistrz_klawiatury.db"
@@ -113,7 +110,7 @@ def window_maker():
 def main():
     pygame.init()
     # Thread(target=QUIT_enabler).start()
-    #do_order_in_database()
+    # do_order_in_database()
     # stworzenie okna
     screen = window_maker()
     # if get_system_name() == 'Linux':
@@ -150,20 +147,19 @@ def main_choise_function(screen, image_names, Kb):
     image_shower(screen, image_names['main'])
     Kb.pg_str_input()
     while True:
-             main_choise = Kb.current_input[-1] if len(Kb.current_input) > 0 else ''
-             if main_choise in ('s','g','l'):
-                return main_choise
+        main_choise = Kb.current_input[-1] if len(Kb.current_input) > 0 else ''
+        if main_choise in ('s', 'g', 'l'):
+            return main_choise
 
 
 def statistisc_choise_function(screen, image_names, Kb):
     image_shower(screen, image_names['stat'])
-    to_return = {'t':1,'w':2,'m':3,'e':4}
+    to_return = {'t': 1, 'w': 2, 'm': 3, 'e': 4}
     Kb.pg_str_input()
     while True:
         stat_choise = Kb.current_input[-1] if len(Kb.current_input) > 0 else ''
-        if stat_choise in ('t','w','m','e'):
+        if stat_choise in ('t', 'w', 'm', 'e'):
             return ['sta', to_return[stat_choise]]
-
 
 
 def gamemode_choise_function(screen, image_names, Kb):
@@ -183,8 +179,11 @@ def gamemode_choise_function(screen, image_names, Kb):
         if lvl_choise in ('h', 'm', 'l'):
             print(lvl_choise)
             return ['cha', to_return[lvl_choise]]
+
+
 def root_logging():
     elevate()
+
 
 # GRA
 if __name__ == '__main__':

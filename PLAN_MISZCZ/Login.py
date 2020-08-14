@@ -10,7 +10,7 @@ cx = sqlite3.connect(database)
 cu = cx.cursor()
 
 
-def choose_player(screen=None,player_nick=None):  # TODO naprawić wyświetlanie i pobieranie tekstu
+def choose_player(screen=None, player_nick=None):  # TODO naprawić wyświetlanie i pobieranie tekstu
     """
     #Adrian
     #czyści okno i rysuje swoje
@@ -50,7 +50,7 @@ def choose_player(screen=None,player_nick=None):  # TODO naprawić wyświetlanie
                             for gracz in gracze.keys():
                                 is_confirmed = check_pass(gracz, gracze[gracz], screen)
                                 if is_confirmed:
-                                     return gracz
+                                    return gracz
                                 else:
                                     screen.fill((255, 255, 255))
                         else:
