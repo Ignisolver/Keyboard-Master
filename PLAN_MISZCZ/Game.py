@@ -2,8 +2,9 @@ import random
 import sqlite3
 import sys
 from threading import Thread
-from keyboard import read_event
+
 import pygame
+from keyboard import read_event
 
 database = r"..\db\mistrz_klawiatury.db"  # db connection using relative path
 cx = sqlite3.connect(database)
@@ -306,4 +307,4 @@ def save_score(level, score, nick):
     cx.commit()
     print('Score saved.')
 
-# save_score(3, 23, 'gracztestowy')
+# save_score(3, 23, 'gracz')

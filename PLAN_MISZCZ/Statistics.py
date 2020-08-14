@@ -1,5 +1,6 @@
 import sqlite3
 from sys import exit as close
+
 import pygame
 
 database = r"..\db\mistrz_klawiatury.db"
@@ -26,6 +27,8 @@ def download_input(period, nick):
     cx.commit()
     period_scores = cu.fetchall()
     return period_scores
+
+# print(download_input(4,'gracz'))
 
 
 def show_statistics(period, screen=None, player_nick=None):

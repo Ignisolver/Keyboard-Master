@@ -232,6 +232,8 @@ def download_users():
     gracze = dict(zip(nicknames, passwords))  # list to dict conversion
     return gracze
 
+# print(download_users())
+
 
 def add_player(nick, password):
     """
@@ -259,4 +261,4 @@ def add_player(nick, password):
     else:
         return False  # dodanie nie powiodlo sie, nick juz wystepuje w bazie
 
-# add_player('gracz', 'testowy')
+# add_player('gra88cz', 'testowy')

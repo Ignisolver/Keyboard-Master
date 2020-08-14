@@ -21,10 +21,10 @@ cu = cx.cursor()
 def do_order_in_database():
     """
     Gustaw
-    robi pożądek w bazie danych
+    robi porządek w bazie danych
     wykonuje się tuż po uruchomieniu
-    jak niema plików to je tworzy
-    np przepisuje wyniki z poprzedniego dnia do tygodnia itp
+    jak nie ma plików, to je tworzy,
+    np. przepisuje wyniki z poprzedniego dnia do tygodnia itp
     tutaj Gustaw może to rozplanować #order in data_base
     :return:
     """
@@ -47,7 +47,7 @@ def do_order_in_database():
         cu.execute(
             "select strftime(\'%m\',\"date\") as \"miesiac\", sum(\"score\") as \"wynik\" from " + playerdb + "_stat_week group by strftime(\'%m\',\"date\")")
         stats_from_week = cu.fetchall()
-        print(stats_from_week)
+        # print(stats_from_week)
         for el in stats_from_week:
             cu.execute(
                 "INSERT INTO " + playerdb + "_stat_month (\"score\", \"date\") VALUES (" + str(el[1]) + ", \"" + str(
@@ -56,6 +56,7 @@ def do_order_in_database():
         cu.execute("DELETE FROM " + playerdb + "_stat_today")
         cx.commit()
 
+# do_order_in_database()
 
 def main_window(screen=None):
     """
