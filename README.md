@@ -135,6 +135,19 @@ Funkcja kończy działanie po wciśnięciu klawisza ENTER - zmienia wtedy stan a
 Po zakończeniu działania funkcji atrybut ```current_input``` nie zostaje wyczyszczony - dzieje się to dopiero po ponownym wywołaniu metody.
 Funkcja uruchamia się w osobnym wątku co gwarantuje nie pominięcie przechwycenia jakiegoś klawisza.
 
+### ```choose_word(level)```
+
+```python
+    wylosowana_liczba = random.randint(1, 25)
+
+    cu.execute("SELECT \"word\" FROM " + level + "_words WHERE rowid = " + str(wylosowana_liczba))
+    word = cu.fetchone()[0]
+    increment_use_of_word(level, word)
+    return word
+```
+
+Funkcja losuje wyraz z bazy słów z podanego jako argument poziomu, przy pomocy funkcji ```increment_use_of_word()``` zwiększa w bazie zapisaną ilość jego wystąpień i zwraca wylosowane słowo.  
+
 
 
 ## ```Statistics.py```
