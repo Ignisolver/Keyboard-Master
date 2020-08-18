@@ -124,6 +124,46 @@ W tym module zaimplementowana została cała logika rozgrywki, jak na przykład 
 Powyższa funkcja przyjmuje 3 argumenty: ```level, score, nick```, gdzie ```level``` to liczba z zakresu 1-3 (1 - łatwy, 2 - trudny, 3 - średni), dwa pozostałe są oczywiste. Następnie wynik i poziom trudności są mnożone i wstawianie do tabeli z dnia obecnego ( ```<player>_stat_today``` ) oraz do tabeli historycznej, która agreguje wszystkie wyniki od początku ( ```<player>_stat_ever``` ).
 
 
+### ```game_loop_learn(screen, player_nick)```
+
+```python
+        # Inicjalizacja
+    # Wartosci Pomocnicze
+    white = (255, 255, 255)
+    # Wartosci Początkowe
+    char = choose_letter()
+    letter = ''
+    font = pygame.font.Font('freesansbold.ttf', 70)
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit(0)
+            elif event.type == pygame.KEYDOWN:
+                if event.key == 13:
+                    sys.exit(0)
+                letter = Keyborder.code2letter[event.key]
+                if letter == char:
+                    char = choose_letter()
+        # Rysowanie
+        pygame.display.update()
+        screen.fill(white)
+        # Litera Wylosowana
+        tekst = font.render(char, True, (0, 0, 0))
+        tekst_prost = tekst.get_rect()
+        tekst_prost.center = (600, 163)
+        screen.blit(tekst, tekst_prost)
+        # Litera Wpisana
+        tekst1 = font.render(letter, True, (0, 0, 0))
+        tekst1_prost = tekst1.get_rect()
+        tekst1_prost.center = (600, 325)
+        screen.blit(tekst1, tekst1_prost)
+        pygame.display.flip()
+```
+
+Funkcja (jak sama nazwa wskazuje) służy do nauki podstawowych zasad gry oraz jej integracji z klawiaturą. Przyjmuje ona argumenty ```screen``` i ```player_nick```, których znaczenie jest oczywiste. 
+W pierwszym etapie "czyści" ona ekran oraz korzystając z funkcji ```choose_letter()```, losuje literę którą użytkownik powinien wpisać. W przypadku błędu proces jest ponawiany, zaś w przypadku wpisania prawidłowej litery, funkcja losuje kolejną, aż do momentu w którym użytkownik zdecyduje się zakończyć zabawę. 
+
+
 ### ```Keyborder```
 Klasa służąca obsłudze wprowadzania znaków z klawiatury.
 Użytkowanie:
