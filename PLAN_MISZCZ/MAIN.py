@@ -1,6 +1,8 @@
 # IMPORT PLIKÓW
 # IMPORT PAKIETÓW  - potem można przerobić tak żeby się pobierały tylko używane funkcje
 import sqlite3
+from threading import Thread
+from time import sleep
 
 import pygame
 from Game import Keyborder
@@ -9,6 +11,7 @@ from Game import game_loop_learn, game_loop_chalange
 from Login import choose_player
 from Statistics import show_statistics
 from elevate import elevate
+from waiting import wait
 
 player = ''  # nazwa gracza
 screen = None  # okno gry tworzone w window_maker
@@ -109,16 +112,31 @@ def window_maker():
 
 # GŁÓWNA FUNKCJA PROGRAMU
 def main():
+
     pygame.init()
-    # Thread(target=QUIT_enabler).start()
     # do_order_in_database()
     # stworzenie okna
     screen = window_maker()
     # if get_system_name() == 'Linux':
     #     root_logging()
     # wybór gracza
-    player = choose_player(screen)
+    #player = choose_player(screen)
     # słownik z funkcjami
+    Thread(target=continue_main,args=[screen]).start()
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit(0)
+        sleep(1)
+
+def continue_main(screen):
+    """
+    funkcja pozwalająca na bez awaryjne działanie programu
+    - awaria polegała na błędzie (Not responding)
+    :param screen:
+    :return:
+    """
     functions = {'sta': show_statistics,
                  'ler': game_loop_learn,
                  'cha': game_loop_chalange,
@@ -147,7 +165,7 @@ def image_shower(screen, image_name):
 def main_choise_function(screen, image_names, Kb):
     image_shower(screen, image_names['main'])
     Kb.pg_str_input()
-    while True:
+    while wait(Kb.is_finished):
         main_choise = Kb.current_input[-1] if len(Kb.current_input) > 0 else ''
         if main_choise in ('s', 'g', 'l'):
             return main_choise
@@ -157,7 +175,7 @@ def statistisc_choise_function(screen, image_names, Kb):
     image_shower(screen, image_names['stat'])
     to_return = {'t': 1, 'w': 2, 'm': 3, 'e': 4}
     Kb.pg_str_input()
-    while True:
+    while wait(Kb.is_finished):
         stat_choise = Kb.current_input[-1] if len(Kb.current_input) > 0 else ''
         if stat_choise in ('t', 'w', 'm', 'e'):
             return ['sta', to_return[stat_choise]]
@@ -166,7 +184,7 @@ def statistisc_choise_function(screen, image_names, Kb):
 def gamemode_choise_function(screen, image_names, Kb):
     image_shower(screen, image_names['mode'])
     Kb.pg_str_input()
-    while True:
+    while wait(Kb.is_finished):
         mode_choise = Kb.current_input[-1] if len(Kb.current_input) > 0 else ''
         if mode_choise == 'l':
             return ['ler']
@@ -175,15 +193,16 @@ def gamemode_choise_function(screen, image_names, Kb):
 
     image_shower(screen, image_names['level'])
     to_return = {'l': 1, 'm': 2, 'h': 3}
-    while True:
+    while wait(Kb.is_finished):
         lvl_choise = Kb.current_input[-1] if len(Kb.current_input) > 0 else ''
         if lvl_choise in ('h', 'm', 'l'):
-            print(lvl_choise)
             return ['cha', to_return[lvl_choise]]
 
 
 def root_logging():
     elevate()
+
+
 
 
 # GRA

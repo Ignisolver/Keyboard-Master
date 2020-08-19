@@ -13,7 +13,7 @@ cx = sqlite3.connect(database)
 cu = cx.cursor()
 
 
-class Keyborder:
+class Keyborder():
     """
     aby korzystać z funkcji wprowadania tekstu nalerzy utworzyć obiekt tej klasy
     - wywołanie metody pg_str_input spowoduje że w atrybucie current_input będzie się znajdował ciąg znaków
@@ -23,6 +23,13 @@ class Keyborder:
     - atrybut finish przechowuje zmienną bool (enter został już wciśnięty - funkcja przestała działać - True
      w przeciwnym razie False)
     """
+    def __init__(self):
+        super().__init__()
+        self.current_input = ''
+        self.finish = False
+
+    def is_finished(self):
+        return self.finish
     code2letter = {97: 'a',
                    98: 'b',
                    99: 'c',
@@ -69,24 +76,20 @@ class Keyborder:
         kończy działanie po naciśnięciu enter - ustawia atrybut finish na True
         podczas działania zapisuje aktualny stan wpisywanego wyrazu do atrybutu current_input
         """
+        pygame.init()
         self.finish = False
-        Thread(target=self.input_Thread).start()
+        Thread(target=self.run).start()
 
-    def input_Thread(self):
+
+    def run(self):
         """
         - zapisuje aktualny input klawiatury do zmiennej globalnej
         - wymaga ustawienia input_enable na True na początku i na False na końcu
         :return:
         """
-
         hotkey_press = {'shift': False, 'alt': False, 'backspace': False}
-        self.current_input = ''
+        outa = ''
         while True:
-            # for event in pygame.event.get():
-            #     if event.type == pygame.QUIT:
-            #         pygame.quit()
-            #         exit(0)
-            out = ''
             event = str(read_event())
             if 'alt' in event:
                 hotkey_press['alt'] = True if 'down' in event else False
@@ -94,9 +97,9 @@ class Keyborder:
             if 'shift' in event:
                 hotkey_press['shift'] = True if 'down' in event else False
                 continue
-            if 'backspace' in event:
+            if 'backspace' in event and 'down' in event:
                 self.current_input = self.current_input[:-1] if len(self.current_input) >= 1 else ''
-            if 'enter' in event:
+            if 'enter' in event and 'down' in event:
                 self.finish = True
                 break
             pocz = event.find('(')
@@ -105,7 +108,6 @@ class Keyborder:
             event = event.split(' ')
             if len(event) == 2:
                 event, action = event
-
                 if len(event) == 1 and action == 'down':
                     out = event
                     if hotkey_press['alt']:
