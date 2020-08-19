@@ -120,9 +120,10 @@ def main():
     # if get_system_name() == 'Linux':
     #     root_logging()
     # wybór gracza
-    #player = choose_player(screen)
-    # słownik z funkcjami
-    Thread(target=continue_main,args=[screen]).start()
+    player = choose_player(screen)
+
+    # uwaga: hakerski sposób na przechytrzenie pygame+threading+windows
+    Thread(target=continue_main,args=[screen,player]).start()
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -130,7 +131,7 @@ def main():
                 exit(0)
         sleep(1)
 
-def continue_main(screen):
+def continue_main(screen,player):
     """
     funkcja pozwalająca na bez awaryjne działanie programu
     - awaria polegała na błędzie (Not responding)
