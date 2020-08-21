@@ -164,6 +164,96 @@ Funkcja (jak sama nazwa wskazuje) służy do nauki podstawowych zasad gry oraz j
 W pierwszym etapie "czyści" ona ekran oraz korzystając z funkcji ```choose_letter()```, losuje literę którą użytkownik powinien wpisać. W przypadku błędu proces jest ponawiany, zaś w przypadku wpisania prawidłowej litery, funkcja losuje kolejną, aż do momentu w którym użytkownik zdecyduje się zakończyć zabawę. 
 
 
+### ```game_loop_chalange(level, player_nick, screen)```
+
+```python
+        # Inicjalizacja
+    # Wartosci Pomocnicze
+    white = (255, 255, 255)
+    colour = (255, 0, 0)
+    clock = pygame.time.Clock()
+    delta = 0
+    # Ustawienia Okna
+    screen.fill(white)
+    # Wartosci Początkowe
+    word = choose_word(level)
+    czas = 0
+    warn = ""
+    ipt = ""
+    font = pygame.font.Font('freesansbold.ttf', 70)
+    font1 = pygame.font.Font('freesansbold.ttf', 20)
+    while True:
+        for event in pygame.event.get():
+            # Ostrzeżenie o liczbie liter
+            if len(ipt) > len(word):
+                warn = "Uwaga! Za dużo liter"
+            else:
+                warn = ""
+            if event.type == pygame.QUIT:
+                sys.exit(0)
+            elif event.type == pygame.KEYDOWN:
+                if event.key == 13 and ipt == "":
+                    delta = 0
+                if event.key == pygame.K_BACKSPACE:
+                    if len(ipt):
+                        ipt = ipt[:-1]
+                else:
+                    # Koniec
+                    if event.key == pygame.K_ESCAPE:
+                        save_score(level, czas * 10, player_nick)
+                        return None
+                    letter = Keyborder.code2letter[event.key]
+                    ipt += letter
+                # Zatwierdzanie Poprawnego Wyniku
+                if ipt == word and event.key == 13:
+                    word = choose_word(level)
+                    ipt = ""
+                    czas += delta
+                    delta = 0
+        # Zarzadzanie kolorem czcionki
+        if len(ipt) == 1:
+            if ipt == word[0]:
+                colour = (0, 255, 0)
+            else:
+                colour = (255, 0, 0)
+        elif len(ipt) != 0:
+            for i in range(len(ipt)):
+                if ipt[:i + 1] == word[:i + 1]:
+                    colour = (0, 255, 0)
+                else:
+                    colour = (255, 0, 0)
+        # Zegar
+        delta += clock.tick() / 1000.0
+        # Rysowanie
+        pygame.display.update()
+        screen.fill(white)
+        # Wyraz Wylosowany
+        tekst = font.render(word, True, (0, 0, 0))
+        tekst_prost = tekst.get_rect()
+        tekst_prost.center = (600, 163)
+        screen.blit(tekst, tekst_prost)
+        # Wyraz Wpisany
+        tekst1 = font.render(ipt, True, colour)
+        tekst1_prost = tekst1.get_rect()
+        tekst1_prost.center = (600, 325)
+        screen.blit(tekst1, tekst1_prost)
+        # Ostrzeżenie
+        tekst2 = font.render(warn, True, (255, 0, 0))
+        tekst2_prost = tekst2.get_rect()
+        tekst2_prost.center = (600, 500)
+        screen.blit(tekst2, tekst2_prost)
+        # Czas
+        tekst3 = font1.render("Czas odpowiedzi to " + str(czas)[:5] + " s", True, (0, 0, 0))
+        tekst3_prost = tekst3.get_rect()
+        tekst3_prost.center = (900, 30)
+        screen.blit(tekst3, tekst3_prost)
+        pygame.display.flip()
+```
+
+Nadrzędnym celem powyższej funkcji jest zbadanie stopnia zaawansowania użytkownika oraz czasu jego reakcji. Funkcja przyjmuje za argumenty ```level```, ```player_nick``` oraz ```screen``` i nie zwraca żadnej wartości. 
+Korzystając z funkcji ```choose_word()```, losuje ona słowo które gracz musi wpisać oraz zatwierdzić klawiszem ENTER. Funkcja mierzy czas pomiędzy kolejnymi odpowiedziami, następnie przy pomocy funkcji ```save_score()``` przekazuje wynik gracza. Dodatkowo podczas gry wprowadzone są pewne ograniczenia związane z błędną długością wpisywanego wyrazu.
+
+
 ### ```Keyborder```
 Klasa służąca obsłudze wprowadzania znaków z klawiatury.
 Użytkowanie:
