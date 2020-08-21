@@ -5,7 +5,7 @@ import pygame
 from Game import Keyborder
 
 database = r"..\db\mistrz_klawiatury.db"
-cx = sqlite3.connect(database)
+cx = sqlite3.connect(database, check_same_thread=False)
 # cx = sqlite3.connect(os.path.abspath(database))
 cu = cx.cursor()
 

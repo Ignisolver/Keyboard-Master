@@ -16,7 +16,7 @@ from waiting import wait
 player = ''  # nazwa gracza
 screen = None  # okno gry tworzone w window_maker
 database = r"..\db\mistrz_klawiatury.db"
-cx = sqlite3.connect(database)
+cx = sqlite3.connect(database, check_same_thread=False)
 cu = cx.cursor()
 
 
@@ -58,6 +58,7 @@ def do_order_in_database():
             cx.commit()
         cu.execute("DELETE FROM " + playerdb + "_stat_today")
         cx.commit()
+
 
 # do_order_in_database()
 
@@ -112,7 +113,6 @@ def window_maker():
 
 # GŁÓWNA FUNKCJA PROGRAMU
 def main():
-
     pygame.init()
     # do_order_in_database()
     # stworzenie okna
@@ -123,7 +123,7 @@ def main():
     player = choose_player(screen)
 
     # uwaga: hakerski sposób na przechytrzenie pygame+threading+windows
-    Thread(target=continue_main,args=[screen,player]).start()
+    Thread(target=continue_main, args=[screen, player]).start()
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -131,7 +131,8 @@ def main():
                 exit(0)
         sleep(1)
 
-def continue_main(screen,player):
+
+def continue_main(screen, player):
     """
     funkcja pozwalająca na bez awaryjne działanie programu
     - awaria polegała na błędzie (Not responding)
@@ -202,8 +203,6 @@ def gamemode_choise_function(screen, image_names, Kb):
 
 def root_logging():
     elevate()
-
-
 
 
 # GRA

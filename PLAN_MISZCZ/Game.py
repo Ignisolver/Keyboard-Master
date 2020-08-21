@@ -7,7 +7,7 @@ import pygame
 from keyboard import read_event
 
 database = r"..\db\mistrz_klawiatury.db"  # db connection using relative path
-cx = sqlite3.connect(database)
+cx = sqlite3.connect(database, check_same_thread=False)
 # cx = sqlite3.connect(os.path.abspath(database))
 
 cu = cx.cursor()
@@ -23,6 +23,7 @@ class Keyborder():
     - atrybut finish przechowuje zmienną bool (enter został już wciśnięty - funkcja przestała działać - True
      w przeciwnym razie False)
     """
+
     def __init__(self):
         super().__init__()
         self.current_input = ''
@@ -30,6 +31,7 @@ class Keyborder():
 
     def is_finished(self):
         return self.finish
+
     code2letter = {97: 'a',
                    98: 'b',
                    99: 'c',
@@ -79,7 +81,6 @@ class Keyborder():
         pygame.init()
         self.finish = False
         Thread(target=self.run).start()
-
 
     def run(self):
         """
