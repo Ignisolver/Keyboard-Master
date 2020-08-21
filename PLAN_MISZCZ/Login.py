@@ -110,7 +110,7 @@ def check_pass(nazwa, haslo, screen=None):
     # Tworzenie okna
     screen.fill((255, 255, 255))
     font = pygame.font.Font('freesansbold.ttf', 50)
-
+    fix = False
     # Pętla programu
     while True:
         wpis = pob_str.current_input
@@ -126,8 +126,9 @@ def check_pass(nazwa, haslo, screen=None):
                         return True
                     else:
                         check = True
-                else:
+                elif fix is not True:
                     pob_str.pg_str_input()
+                    fix = True
 
         # Rysowanie okna
         instr = font.render(tekst, True, (0, 0, 0), (255, 255, 255))
