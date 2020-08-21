@@ -43,12 +43,15 @@ def choose_player(screen=None, player_nick=None):  # TODO naprawić wyświetlani
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:
                         if zaznaczenie != len_gracze:
+                            ch_fix = 0
                             for gracz in gracze.keys():
-                                is_confirmed = check_pass(gracz, gracze[gracz], screen)
-                                if is_confirmed:
-                                    return gracz
-                                else:
-                                    screen.fill((255, 255, 255))
+                                if ch_fix == zaznaczenie:
+                                    is_confirmed = check_pass(gracz, gracze[gracz], screen)
+                                    if is_confirmed:
+                                        return gracz
+                                    else:
+                                        screen.fill((255, 255, 255))
+                                ch_fix += 1
                         else:
                             n_gracz = sign_up(screen)
                             if n_gracz != '':
