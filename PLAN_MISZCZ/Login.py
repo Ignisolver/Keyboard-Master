@@ -163,6 +163,9 @@ def sign_up(screen=None):
     screen.fill((255, 255, 255))
     font = pygame.font.Font('freesansbold.ttf', 50)
     # Pętla programu
+    flaga_naz = False
+    flaga_has = False
+
     while True:
         nazwa = pob_naz.current_input
         haslo = pob_has.current_input
@@ -187,12 +190,16 @@ def sign_up(screen=None):
                 else:
                     if is_name_saved:
                         # pob_has.input_Thread()   # jakiś problem w pg_str ?
-                        pob_has.pg_str_input()
+                        if flaga_has is not True:
+                            pob_has.pg_str_input()
+                            flaga_has = True
                     else:
                         # pob_naz.input_Thread()
                         if pob_has.finish is False or pob_naz.finish is False:
                             print("finish false!!!")
-                        pob_naz.pg_str_input()
+                        if flaga_naz is not True:
+                            pob_naz.pg_str_input()
+                            flaga_naz = True
 
         # Rysowanie okna
         instr1 = font.render("Wpisz nazwę użytkownika:", True, (0, 0, 0), (255, 255, 255))
@@ -231,6 +238,7 @@ def download_users():
 
     gracze = dict(zip(nicknames, passwords))  # list to dict conversion
     return gracze
+
 
 # print(download_users())
 
