@@ -164,7 +164,7 @@ Funkcja (jak sama nazwa wskazuje) służy do nauki podstawowych zasad gry oraz j
 W pierwszym etapie "czyści" ona ekran oraz korzystając z funkcji ```choose_letter()```, losuje literę którą użytkownik powinien wpisać. W przypadku błędu proces jest ponawiany, zaś w przypadku wpisania prawidłowej litery, funkcja losuje kolejną, aż do momentu w którym użytkownik zdecyduje się zakończyć zabawę. 
 
 
-### ```game_loop_chalange(level, player_nick, screen)```
+### ```game_loop_challange(level, player_nick, screen)```
 
 ```python
         # Inicjalizacja
