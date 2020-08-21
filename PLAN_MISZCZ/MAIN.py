@@ -1,12 +1,9 @@
-# IMPORT PLIKÓW
-# IMPORT PAKIETÓW  - potem można przerobić tak żeby się pobierały tylko używane funkcje
 import sqlite3
 from threading import Thread
 from time import sleep
 
 import pygame
 from Game import Keyborder
-# GLOBAL VARIABLES:
 from Game import game_loop_learn, game_loop_chalange
 from Login import choose_player
 from Statistics import show_statistics
@@ -60,8 +57,6 @@ def do_order_in_database():
         cx.commit()
 
 
-# do_order_in_database()
-
 def main_window(screen=None):
     """
     #Ignacy
@@ -86,10 +81,8 @@ def main_window(screen=None):
     # wybor 2 po main
     if main_choise == 'l':  # logoff
         return ['log']
-
     if main_choise == 's':  # statistics
         return statistisc_choise_function(screen, image_names, Kb)
-
     if main_choise == 'g':  # game_mode
         return gamemode_choise_function(screen, image_names, Kb)
 
@@ -153,8 +146,6 @@ def continue_main(screen, player):
 
 
 # funkcje pomocnicze
-
-
 def image_shower(screen, image_name):
     image = pygame.image.load(image_name)
     imagerect = image.get_rect()

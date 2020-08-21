@@ -6,7 +6,6 @@ from Game import Keyborder
 
 database = r"..\db\mistrz_klawiatury.db"
 cx = sqlite3.connect(database, check_same_thread=False)
-# cx = sqlite3.connect(os.path.abspath(database))
 cu = cx.cursor()
 
 
@@ -27,18 +26,15 @@ def choose_player(screen=None, player_nick=None):  # TODO naprawić wyświetlani
     """
 
     # Zmienne pomocnicze
-
     gracze = download_users()
     font = pygame.font.Font('freesansbold.ttf', 50)
     zaznaczenie = 0
     len_gracze = len(gracze)
 
     # Ustawienia Okna
-
     screen.fill((255, 255, 255))
 
     # Pętla programu
-
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -153,7 +149,6 @@ def sign_up(screen=None):
     mozna z niej zamknąć grę
     :return nazwa gracza (string): name - nazwa gracza
     """
-
     # Zmienne pomocnicze
     pob_naz = Keyborder()
     pob_has = Keyborder()
@@ -217,7 +212,6 @@ def sign_up(screen=None):
             screen.blit(error, (100, 340))
         back = font.render("Powrót (ESC)", True, (0, 0, 0), (255, 255, 255))
         screen.blit(back, (80, 400))
-
         pygame.display.flip()
 
 
@@ -239,9 +233,6 @@ def download_users():
 
     gracze = dict(zip(nicknames, passwords))  # list to dict conversion
     return gracze
-
-
-# print(download_users())
 
 
 def add_player(nick, password):
@@ -269,5 +260,3 @@ def add_player(nick, password):
         return True  # jeśli true, to dodano nowego gracza
     else:
         return False  # dodanie nie powiodlo sie, nick juz wystepuje w bazie
-
-# add_player('gra88cz', 'testowy')

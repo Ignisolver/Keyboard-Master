@@ -8,8 +8,6 @@ from keyboard import read_event
 
 database = r"..\db\mistrz_klawiatury.db"  # db connection using relative path
 cx = sqlite3.connect(database, check_same_thread=False)
-# cx = sqlite3.connect(os.path.abspath(database))
-
 cu = cx.cursor()
 
 
@@ -89,7 +87,6 @@ class Keyborder():
         :return:
         """
         hotkey_press = {'shift': False, 'alt': False, 'backspace': False}
-        outa = ''
         while True:
             event = str(read_event())
             if 'alt' in event:
@@ -135,8 +132,7 @@ def game_loop_chalange(level, player_nick=None, screen=None):
         :return: None
         """
 
-    # Inicjalizacja
-    # Wartosci Pomocnicze
+    # Inicjalizacja - wartosci Pomocnicze
     white = (255, 255, 255)
     colour = (255, 0, 0)
     clock = pygame.time.Clock()
@@ -235,8 +231,8 @@ def game_loop_learn(screen=None, player_nick=None):
         enter przerywa grę
         :return: None
         """
-    # Inicjalizacja
-    # Wartosci Pomocnicze
+
+    # Inicjalizacja, wartosci Pomocnicze
     white = (255, 255, 255)
     # Wartosci Początkowe
     char = choose_letter()
@@ -267,7 +263,6 @@ def game_loop_learn(screen=None, player_nick=None):
 
 
 # użyj poniższej funkcji po wylosowaniu słowa, jako argumenty podaj poziom (easy, medium lub hard oraz to słowo)
-
 def increment_use_of_word(level, word):
     cu.execute("UPDATE " + level + "_words SET use_number = use_number + 1 WHERE word = \"" + word + "\" ")
     cx.commit()
@@ -285,7 +280,6 @@ def choose_word(level):
     :return: słowo
     """
     wylosowana_liczba = random.randint(1, 25)
-
     cu.execute("SELECT \"word\" FROM " + level + "_words WHERE rowid = " + str(wylosowana_liczba))
     word = cu.fetchone()[0]
     increment_use_of_word(level, word)
