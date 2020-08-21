@@ -69,7 +69,7 @@ def show_statistics(period, screen=None, player_nick=None):
     scores_high = [y_max - y_length * i / 100 for i in scores_points]
 
     # ładowanie tła pokazywania statystyk
-    myimage = pygame.image.load("Others/siatka2.png")
+    myimage = pygame.image.load('../Others/siatka2.png')
     imagerect = myimage.get_rect()
     image_loc = [-5, -22]
     screen.blit(myimage, [*image_loc, *imagerect[2:4]])
