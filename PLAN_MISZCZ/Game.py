@@ -235,7 +235,6 @@ def game_loop_learn(screen=None, player_nick=None):
         enter przerywa grę
         :return: None
         """
-
     # Inicjalizacja
     # Wartosci Pomocnicze
     white = (255, 255, 255)
@@ -245,9 +244,7 @@ def game_loop_learn(screen=None, player_nick=None):
     font = pygame.font.Font('freesansbold.ttf', 70)
     while True:
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit(0)
-            elif event.type == pygame.KEYDOWN:
+            if event.type == pygame.KEYDOWN:
                 if event.key == 13:
                     sys.exit(0)
                 letter = Keyborder.code2letter[event.key]
@@ -311,3 +308,9 @@ def save_score(level, score, nick):
     print('Score saved.')
 
 # save_score(3, 23, 'gracz')
+def image_shower(screen, image_name):
+    image = pygame.image.load(image_name)
+    imagerect = image.get_rect()
+    image_loc = [0, 0]
+    screen.blit(image, [*image_loc, *imagerect[2:4]])
+    pygame.display.flip()

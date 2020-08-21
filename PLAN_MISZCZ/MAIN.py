@@ -10,7 +10,7 @@ from Game import Keyborder
 from Game import game_loop_learn, game_loop_chalange
 from Login import choose_player
 from Statistics import show_statistics
-from elevate import elevate
+# from elevate import elevate
 from waiting import wait
 
 player = ''  # nazwa gracza
@@ -119,17 +119,16 @@ def main():
     screen = window_maker()
     # if get_system_name() == 'Linux':
     #     root_logging()
-    # wybór gracza
     player = choose_player(screen)
-
     # uwaga: hakerski sposób na przechytrzenie pygame+threading+windows
-    Thread(target=continue_main, args=[screen, player]).start()
+    continuation = Thread(target=continue_main, args=[screen, player], daemon=True)
+    continuation.start()
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit(0)
-        sleep(1)
+        sleep(0.1)
 
 
 def continue_main(screen, player):
@@ -171,6 +170,8 @@ def main_choise_function(screen, image_names, Kb):
         main_choise = Kb.current_input[-1] if len(Kb.current_input) > 0 else ''
         if main_choise in ('s', 'g', 'l'):
             return main_choise
+        else:
+            Kb.pg_str_input()
 
 
 def statistisc_choise_function(screen, image_names, Kb):
@@ -181,6 +182,8 @@ def statistisc_choise_function(screen, image_names, Kb):
         stat_choise = Kb.current_input[-1] if len(Kb.current_input) > 0 else ''
         if stat_choise in ('t', 'w', 'm', 'e'):
             return ['sta', to_return[stat_choise]]
+        else:
+            Kb.pg_str_input()
 
 
 def gamemode_choise_function(screen, image_names, Kb):
@@ -192,6 +195,8 @@ def gamemode_choise_function(screen, image_names, Kb):
             return ['ler']
         elif mode_choise == 'c':
             break
+        else:
+            Kb.pg_str_input()
 
     image_shower(screen, image_names['level'])
     to_return = {'l': 1, 'm': 2, 'h': 3}
@@ -199,6 +204,8 @@ def gamemode_choise_function(screen, image_names, Kb):
         lvl_choise = Kb.current_input[-1] if len(Kb.current_input) > 0 else ''
         if lvl_choise in ('h', 'm', 'l'):
             return ['cha', to_return[lvl_choise]]
+        else:
+            Kb.pg_str_input()
 
 
 def root_logging():
