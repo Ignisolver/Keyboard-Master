@@ -22,3 +22,4 @@ masa
 ból
 ser
 mecz
+tor
