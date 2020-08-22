@@ -3,7 +3,7 @@ import sqlite3
 import sys
 from threading import Thread
 
-import pygame, sys, random
+import pygame
 from keyboard import read_event
 
 database = r"..\db\mistrz_klawiatury.db"  # db connection using relative path
@@ -270,7 +270,6 @@ def game_loop_learn(screen=None, player_nick=None):
         pygame.display.flip()
 
 
-
 # użyj poniższej funkcji po wylosowaniu słowa, jako argumenty podaj poziom (easy, medium lub hard oraz to słowo)
 def increment_use_of_word(level, word):
     cu.execute("UPDATE " + level + "_words SET use_number = use_number + 1 WHERE word = \"" + word + "\" ")
@@ -317,5 +316,3 @@ def image_shower(screen, image_name):
     image_loc = [0, 0]
     screen.blit(image, [*image_loc, *imagerect[2:4]])
     pygame.display.flip()
-
-
