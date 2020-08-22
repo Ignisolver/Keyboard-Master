@@ -9,7 +9,7 @@ cx = sqlite3.connect(database, check_same_thread=False)
 cu = cx.cursor()
 
 
-def choose_player(screen=None):  # TODO naprawić wyświetlanie i pobieranie tekstu
+def choose_player(screen=None, player_nick=None):  # TODO naprawić wyświetlanie i pobieranie tekstu
     """
     #Adrian
     #czyści okno i rysuje swoje

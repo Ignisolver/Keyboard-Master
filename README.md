@@ -319,7 +319,7 @@ return:
 
 Tu zawarta została mechanika logowania, oraz inicjalizacji nowego gracza.
 
-### ```choose_player(screen)```
+### ```choose_player(screen, player_nick)```
 
 ```python
 
