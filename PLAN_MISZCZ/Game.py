@@ -3,7 +3,7 @@ import sqlite3
 import sys
 from threading import Thread
 
-import pygame
+import pygame, sys, random
 from keyboard import read_event
 
 database = r"..\db\mistrz_klawiatury.db"  # db connection using relative path
@@ -56,6 +56,8 @@ class Keyborder():
                    120: 'x',
                    121: 'y',
                    122: 'z',
+                   8: ' ',
+                   13: '',
                    32: ' '}
     letter_alt = {
         'l': 'ł',
@@ -137,6 +139,8 @@ def game_loop_chalange(level, player_nick=None, screen=None):
     colour = (255, 0, 0)
     clock = pygame.time.Clock()
     delta = 0
+    res = (1200, 650)
+    screen = pygame.display.set_mode(res)
     # Ustawienia Okna
     screen.fill(white)
     # Wartosci Początkowe
@@ -234,6 +238,10 @@ def game_loop_learn(screen=None, player_nick=None):
 
     # Inicjalizacja, wartosci Pomocnicze
     white = (255, 255, 255)
+    res = (1200, 650)
+    screen = pygame.display.set_mode(res)
+    pygame.display.set_caption("Mistrz Klawiatury")
+    screen.fill(white)
     # Wartosci Początkowe
     char = choose_letter()
     letter = ''
@@ -260,6 +268,7 @@ def game_loop_learn(screen=None, player_nick=None):
         tekst1_prost.center = (600, 325)
         screen.blit(tekst1, tekst1_prost)
         pygame.display.flip()
+
 
 
 # użyj poniższej funkcji po wylosowaniu słowa, jako argumenty podaj poziom (easy, medium lub hard oraz to słowo)
@@ -308,3 +317,5 @@ def image_shower(screen, image_name):
     image_loc = [0, 0]
     screen.blit(image, [*image_loc, *imagerect[2:4]])
     pygame.display.flip()
+
+
