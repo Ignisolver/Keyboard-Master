@@ -1,8 +1,9 @@
 import pygame
+
 # inicjalizacja pygame
 pygame.init()
 
-#ustawienia okna
+# ustawienia okna
 size_x = 1200
 size_y = 650
 screen = pygame.display.set_mode((size_x, size_y))
@@ -14,7 +15,7 @@ screen.fill((255, 255, 255))
 running = True
 amount_of_scores = 10
 
-#ustawienia pola rysowania
+# ustawienia pola rysowania
 x0 = int(size_x / 12)
 y0 = int(size_y / 6.5) + 22
 x_max = int(size_x / 1.33)
@@ -26,7 +27,7 @@ unit = x_length / (unit_q * amount_of_scores)
 pole_width = unit
 tab = [pygame.Rect(x0 + i * unit_q * int(unit), y_max, int(pole_width), 2) for i in range(amount_of_scores)]
 
-#dane
+# dane
 scores = [10, 55, 99, 32, 11, 43, 77, 0, 66, 100]
 scores_high = [y_max - y_length * i / 100 for i in scores]
 
@@ -41,9 +42,9 @@ myimage = pygame.image.load("siatka2.png")
 imagerect = myimage.get_rect()
 print(imagerect)
 image_loc = [-5, -22]
-screen.blit(myimage, [*image_loc,*imagerect[2:4]])
+screen.blit(myimage, [*image_loc, *imagerect[2:4]])
 
-#pętla rysowania
+# pętla rysowania
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

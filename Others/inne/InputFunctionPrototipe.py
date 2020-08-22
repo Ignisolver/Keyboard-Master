@@ -1,11 +1,10 @@
 import pygame
+
 x = 2
-import threading
-from time import sleep
 # inicjalizacja pygame
 pygame.init()
 
-#ustawienia okna
+# ustawienia okna
 size_x = 1200
 size_y = 650
 white = (255, 255, 255)
@@ -51,7 +50,7 @@ while True:
     textRect = text.get_rect()
     textRect.topleft = (0, 0)
     display_surface.blit(text, textRect)
-        # Draws the surface object to the screen.
+    # Draws the surface object to the screen.
     pygame.display.update()
     display_surface.fill(white)
     pygame.draw.rect(display_surface, (100, 0, 100), (0, 0, 100, 100))
