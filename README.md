@@ -74,7 +74,7 @@ Własności okna:
     kolor wypełnienia: biały
 
 ### ```main_window(screen=None)```
-Funkcja tworząca na ekranie (```screen```) główne okno alpikacji - to z którego użytkownik będzie mógł wybrac czy chce grać czy używać statystyki czy się wylogować.
+Funkcja tworząca na ekranie (```screen```) główne okno aplikacji - to z którego użytkownik będzie mógł wybrac czy chce grać czy używać statystyki czy się wylogować.
 Pozwala wybrać tryb i poziom gry oraz okres z jakiego mają być wyswietlone statystyki.
 Co zwraca:
 Gdy zostanie wybrana opcja wylogowania zwraca ```['log']```
@@ -265,6 +265,15 @@ Funkcja kończy działanie po wciśnięciu klawisza ENTER - zmienia wtedy stan a
 Po zakończeniu działania funkcji atrybut ```current_input``` nie zostaje wyczyszczony - dzieje się to dopiero po ponownym wywołaniu metody.
 Funkcja uruchamia się w osobnym wątku co gwarantuje nie pominięcie przechwycenia jakiegoś klawisza.
 
+### ```increment_use_of_word(level, word)```
+
+```python
+    cu.execute("UPDATE " + level + "_words SET use_number = use_number + 1 WHERE word = \"" + word + "\" ")
+    cx.commit()
+```
+
+Funkcja przyjmuje jako argument poziom oraz wyraz, a następnie zwiększa ilość  użyć danego słowa w bazie.
+
 ### ```choose_word(level)```
 
 ```python
@@ -310,7 +319,7 @@ return:
 
 Tu zawarta została mechanika logowania, oraz inicjalizacji nowego gracza.
 
-### ```choose_player()```
+### ```choose_player(screen)```
 
 ```python
 
@@ -368,7 +377,7 @@ Tu zawarta została mechanika logowania, oraz inicjalizacji nowego gracza.
         pygame.display.flip()
 ```
 
-Funkcja wyświetlająca menu wyboru gracza. Jako parametr przyjmuje okno, na którym rysuje. Pozwala na wybranie przy pomocy klawiatury jednego z listy graczy pobranej z bazy, lub na utworzenie nowego. Umożliwia zamknięcie programu. Zwraca nazwę wybranego użytkownika.
+Funkcja wyświetlająca menu wyboru gracza. Jako parametr (`screen`) przyjmuje okno, na którym rysuje. Pozwala na wybranie przy pomocy klawiatury jednego z listy graczy pobranej z bazy, lub na utworzenie nowego. Umożliwia zamknięcie programu. Zwraca nazwę wybranego użytkownika.
 
 ### ```check_pass(nazwa, haslo, screen)```
 
@@ -527,7 +536,7 @@ Funkcja może być wywołana, aby sprawdzić, czy logujący się użytkownik jes
         return False
 ```
 
-Funkcja służy do dopisywania nowego gracza do bazy, jako poarametry przyjmuje nick, oraz hasło, które może być alfanumeryczne, następnie przeszukuję tabelę z użytkownikami w poszukiwaniu powtórzeń nicku, jeżeli nie znajdzie, zostaną utworzone cztery tabele na zapisywanie statystyk danego gracza, a sama funkcja zwróci wartość ```python True```, w przeciwnym wypadku, tabela nie zostaną utowrzone i zostanie zwrócone ```python False```.
+Funkcja służy do dopisywania nowego gracza do bazy, jako parametry przyjmuje nick, oraz hasło, które może być alfanumeryczne, następnie przeszukuje tabelę z użytkownikami w poszukiwaniu powtórzeń nicku, jeżeli nie znajdzie, zostaną utworzone cztery tabele na zapisywanie statystyk danego gracza, a sama funkcja zwróci wartość ```python True```, w przeciwnym wypadku, tabela nie zostaną utowrzone i zostanie zwrócone ```python False```.
 
 
 
