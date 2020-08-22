@@ -301,7 +301,7 @@ def save_score(level, score, nick):
     cx.commit()
     print('Score saved.')
 
-# save_score(3, 23, 'gracz')
+
 def image_shower(screen, image_name):
     image = pygame.image.load(image_name)
     imagerect = image.get_rect()
