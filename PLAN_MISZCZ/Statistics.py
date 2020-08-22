@@ -52,7 +52,7 @@ def show_statistics(period, screen=None, player_nick=None):
         print("nie ma nic do pokazania")
         nic = True
         font = pygame.font.Font('freesansbold.ttf', 50)
-        instr = font.render("Niema nic do pokazania", True, (0, 0, 0), (255, 255, 255))
+        instr = font.render("Nie ma nic do pokazania", True, (0, 0, 0), (255, 255, 255))
         screen.blit(instr, (100, 100))
         pygame.display.flip()
     if nic is False:
