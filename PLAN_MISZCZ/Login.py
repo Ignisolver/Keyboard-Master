@@ -51,6 +51,7 @@ def choose_player(screen=None, player_nick=None):  # TODO naprawić wyświetlani
                                         return gracz
                                     else:
                                         screen.fill((255, 255, 255))
+                                    break
                                 else:
                                     key_ind += 1
                         else:
