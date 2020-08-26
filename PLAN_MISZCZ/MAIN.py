@@ -190,7 +190,7 @@ def gamemode_choise_function(screen, image_names, Kb):
             Kb.pg_str_input()
 
     image_shower(screen, image_names['level'])
-    to_return = {'l': 1, 'm': 2, 'h': 3}
+    to_return = {'l': 'easy', 'm': 'medium', 'h': 'hard'}
     while wait(Kb.is_finished):
         lvl_choise = Kb.current_input[-1] if len(Kb.current_input) > 0 else ''
         if lvl_choise in ('h', 'm', 'l'):

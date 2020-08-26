@@ -56,6 +56,8 @@ class Keyborder():
                    120: 'x',
                    121: 'y',
                    122: 'z',
+                   8: ' ',
+                   13: '',
                    32: ' '}
     letter_alt = {
         'l': 'ł',
@@ -137,6 +139,8 @@ def game_loop_chalange(level, player_nick=None, screen=None):
     colour = (255, 0, 0)
     clock = pygame.time.Clock()
     delta = 0
+    res = (1200, 650)
+    screen = pygame.display.set_mode(res)
     # Ustawienia Okna
     screen.fill(white)
     # Wartosci Początkowe
@@ -234,6 +238,10 @@ def game_loop_learn(screen=None, player_nick=None):
 
     # Inicjalizacja, wartosci Pomocnicze
     white = (255, 255, 255)
+    res = (1200, 650)
+    screen = pygame.display.set_mode(res)
+    pygame.display.set_caption("Mistrz Klawiatury")
+    screen.fill(white)
     # Wartosci Początkowe
     char = choose_letter()
     letter = ''
@@ -301,7 +309,7 @@ def save_score(level, score, nick):
     cx.commit()
     print('Score saved.')
 
-# save_score(3, 23, 'gracz')
+
 def image_shower(screen, image_name):
     image = pygame.image.load(image_name)
     imagerect = image.get_rect()

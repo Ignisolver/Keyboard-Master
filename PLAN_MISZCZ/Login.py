@@ -43,12 +43,17 @@ def choose_player(screen=None, player_nick=None):  # TODO naprawić wyświetlani
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:
                         if zaznaczenie != len_gracze:
+                            key_ind = 0
                             for gracz in gracze.keys():
-                                is_confirmed = check_pass(gracz, gracze[gracz], screen)
-                                if is_confirmed:
-                                    return gracz
+                                if key_ind == zaznaczenie:
+                                    is_confirmed = check_pass(gracz, gracze[gracz], screen)
+                                    if is_confirmed:
+                                        return gracz
+                                    else:
+                                        screen.fill((255, 255, 255))
+                                    break
                                 else:
-                                    screen.fill((255, 255, 255))
+                                    key_ind += 1
                         else:
                             n_gracz = sign_up(screen)
                             if n_gracz != '':
@@ -122,6 +127,7 @@ def check_pass(nazwa, haslo, screen=None):
                         return True
                     else:
                         check = True
+                        fix = False
                 elif fix is not True:
                     pob_str.pg_str_input()
                     fix = True
@@ -172,6 +178,8 @@ def sign_up(screen=None):
                 if (event.type == pygame.KEYDOWN) and (event.key == pygame.K_ESCAPE):
                     if is_name_saved:
                         is_name_saved = False
+                        pob_has = Keyborder()
+                        flaga_naz = False
                     else:
                         return ''
                 elif (event.type == pygame.KEYDOWN) and (event.key == pygame.K_RETURN):
