@@ -107,7 +107,7 @@ def window_maker():
 # GŁÓWNA FUNKCJA PROGRAMU
 def main():
     pygame.init()
-    # do_order_in_database()
+    do_order_in_database()
     # stworzenie okna
     screen = window_maker()
     # if get_system_name() == 'Linux':
