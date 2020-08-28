@@ -1,9 +1,7 @@
 import sqlite3
-import sys
-
 import pygame
 from Game import Keyborder
-
+from keyboard import read_event
 database = r"..\db\mistrz_klawiatury.db"
 cx = sqlite3.connect(database, check_same_thread=False)
 cu = cx.cursor()
@@ -35,41 +33,44 @@ def choose_player(screen=None, player_nick=None):  # TODO naprawić wyświetlani
     screen.fill((255, 255, 255))
 
     # Pętla programu
+    # print('login start')
+    start = True
     while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit(0)
-            else:
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_RETURN:
-                        if zaznaczenie != len_gracze:
-                            key_ind = 0
-                            for gracz in gracze.keys():
-                                if key_ind == zaznaczenie:
-                                    is_confirmed = check_pass(gracz, gracze[gracz], screen)
-                                    if is_confirmed:
-                                        return gracz
-                                    else:
-                                        screen.fill((255, 255, 255))
-                                    break
-                                else:
-                                    key_ind += 1
-                        else:
-                            n_gracz = sign_up(screen)
-                            if n_gracz != '':
-                                return n_gracz
+        if start is False:
+            eve = str(read_event())
+        else:
+            eve = ''
+        start = False
+        if 'down)' in eve:
+            if 'enter' in eve:
+                if zaznaczenie != len_gracze:
+                    key_ind = 0
+                    for gracz in gracze.keys():
+                        if key_ind == zaznaczenie:
+                            is_confirmed = check_pass(gracz, gracze[gracz], screen)
+                            if is_confirmed:
+                                return gracz
                             else:
                                 screen.fill((255, 255, 255))
-                    elif (event.key == pygame.K_UP) or (event.key == pygame.K_w):
-                        if zaznaczenie == 0:
-                            zaznaczenie = len_gracze
+                            break
                         else:
-                            zaznaczenie -= 1
-                    elif (event.key == pygame.K_DOWN) or (event.key == pygame.K_s):
-                        if zaznaczenie == len_gracze:
-                            zaznaczenie = 0
-                        else:
-                            zaznaczenie += 1
+                            key_ind += 1
+                else:
+                    n_gracz = sign_up(screen)
+                    if n_gracz != '':
+                        return n_gracz
+                    else:
+                        screen.fill((255, 255, 255))
+            elif 'up down' in eve:
+                if zaznaczenie == 0:
+                    zaznaczenie = len_gracze
+                else:
+                    zaznaczenie -= 1
+            elif 'down down' in eve:
+                if zaznaczenie == len_gracze:
+                    zaznaczenie = 0
+                else:
+                    zaznaczenie += 1
 
         # wypisanie nazw
         n = 0
@@ -113,24 +114,28 @@ def check_pass(nazwa, haslo, screen=None):
     font = pygame.font.Font('freesansbold.ttf', 50)
     fix = False
     # Pętla programu
+    start = True
+    pob_str.pg_str_input()
     while True:
+        if start is False:
+            eve = str(read_event())
+        else:
+            eve = ''
+            start =False
         wpis = pob_str.current_input
         dl_wpis = len(wpis)
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit(0)
-            else:
-                if (event.type == pygame.KEYDOWN) and (event.key == pygame.K_ESCAPE):
-                    return False
-                elif (event.type == pygame.KEYDOWN) and (event.key == pygame.K_RETURN):
-                    if wpis == haslo_:
-                        return True
-                    else:
-                        check = True
-                        fix = False
-                elif fix is not True:
-                    pob_str.pg_str_input()
-                    fix = True
+        if 'down)' in eve:
+            if 'esc' in eve:
+                return False
+            elif 'enter' in eve:
+                if wpis == haslo_:
+                    return True
+                else:
+                    check = True
+                    fix = False
+            elif fix is not True and pob_str.finish is True:
+                pob_str.pg_str_input()
+                fix = True
 
         # Rysowanie okna
         instr = font.render(tekst, True, (0, 0, 0), (255, 255, 255))
@@ -165,45 +170,27 @@ def sign_up(screen=None):
     screen.fill((255, 255, 255))
     font = pygame.font.Font('freesansbold.ttf', 50)
     # Pętla programu
-    flaga_naz = False
-    flaga_has = False
-
+    pob_naz.pg_str_input()
     while True:
         nazwa = pob_naz.current_input
         haslo = pob_has.current_input
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit(0)
-            else:
-                if (event.type == pygame.KEYDOWN) and (event.key == pygame.K_ESCAPE):
-                    if is_name_saved:
-                        is_name_saved = False
-                        pob_has = Keyborder()
-                        flaga_naz = False
-                    else:
-                        return ''
-                elif (event.type == pygame.KEYDOWN) and (event.key == pygame.K_RETURN):
-                    if is_name_saved:
-                        same = add_player(nazwa, haslo)
-                        if same:
-                            return nazwa
-                        else:
-                            sign_up(screen)
-                    else:
-                        is_name_saved = True
+        eve = str(read_event())
+        if 'down)' in eve:
+            if 'esc' in eve:
+                if is_name_saved:
+                    is_name_saved = False
                 else:
-                    if is_name_saved:
-                        # pob_has.input_Thread()   # jakiś problem w pg_str ?
-                        if flaga_has is not True:
-                            pob_has.pg_str_input()
-                            flaga_has = True
+                    return ''
+            elif 'enter' in eve:
+                if is_name_saved:
+                    same = add_player(nazwa, haslo)
+                    if same:
+                        return nazwa
                     else:
-                        # pob_naz.input_Thread()
-                        if pob_has.finish is False or pob_naz.finish is False:
-                            print("finish false!!!")
-                        if flaga_naz is not True:
-                            pob_naz.pg_str_input()
-                            flaga_naz = True
+                        sign_up(screen)
+                else:
+                    is_name_saved = True
+                    pob_has.pg_str_input()
 
         # Rysowanie okna
         instr1 = font.render("Wpisz nazwę użytkownika:", True, (0, 0, 0), (255, 255, 255))

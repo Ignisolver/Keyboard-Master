@@ -248,9 +248,9 @@ def game_loop_learn(screen=None, player_nick=None):
     font = pygame.font.Font('freesansbold.ttf', 70)
     while True:
         for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                if event.key == 13:
-                    sys.exit(0)
+            # if event.type == pygame.KEYDOWN:
+            #     if event.key == 13:
+            #         sys.exit(0)
                 letter = Keyborder.code2letter[event.key]
                 if letter == char:
                     char = choose_letter()

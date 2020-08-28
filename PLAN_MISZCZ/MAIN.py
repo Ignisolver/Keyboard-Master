@@ -112,7 +112,6 @@ def main():
     screen = window_maker()
     # if get_system_name() == 'Linux':
     #     root_logging()
-    player = choose_player(screen)
     # uwaga: hakerski sposób na przechytrzenie pygame+threading+windows
     continuation = Thread(target=continue_main, args=[screen, player], daemon=True)
     continuation.start()
@@ -131,6 +130,7 @@ def continue_main(screen, player):
     :param screen:
     :return:
     """
+    player = choose_player(screen)
     functions = {'sta': show_statistics,
                  'ler': game_loop_learn,
                  'cha': game_loop_chalange,
