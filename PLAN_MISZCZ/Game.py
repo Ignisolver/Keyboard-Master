@@ -150,34 +150,40 @@ def game_loop_chalange(level, player_nick=None, screen=None):
     ipt = ""
     font = pygame.font.Font('freesansbold.ttf', 70)
     font1 = pygame.font.Font('freesansbold.ttf', 20)
+    start = True
     while True:
-        for event in pygame.event.get():
-            # Ostrzeżenie o liczbie liter
-            if len(ipt) > len(word):
-                warn = "Uwaga! Za dużo liter"
+        if start is False:
+            event = str(read_event())
+        else:
+            event = ''
+            start =False
+        # Ostrzeżenie o liczbie liter
+        if len(ipt) > len(word):
+            warn = "Uwaga! Za dużo liter"
+        else:
+            warn = ""
+        # if event.type == pygame.QUIT:
+        #     sys.exit(0)
+        if 'down)' in event:
+            if ipt == "" and 'enter' in event: #event.key == 13 and
+                delta = 0
+            if 'backspace' in event:
+                if len(ipt):
+                    ipt = ipt[:-1]
             else:
-                warn = ""
-            if event.type == pygame.QUIT:
-                sys.exit(0)
-            elif event.type == pygame.KEYDOWN:
-                if event.key == 13 and ipt == "":
-                    delta = 0
-                if event.key == pygame.K_BACKSPACE:
-                    if len(ipt):
-                        ipt = ipt[:-1]
-                else:
-                    # Koniec
-                    if event.key == pygame.K_ESCAPE:
-                        save_score(level, czas * 10, player_nick)
-                        return None
-                    letter = Keyborder.code2letter[event.key]
+                # Koniec
+                if 'esc' in event:
+                    save_score(level, czas * 10, player_nick)
+                    return None
+                if len(event[event.find('(')+1:event.find(' ')]):
+                    letter = event[event.find('(')+1:event.find(' ')]
                     ipt += letter
-                # Zatwierdzanie Poprawnego Wyniku
-                if ipt == word and event.key == 13:
-                    word = choose_word(level)
-                    ipt = ""
-                    czas += delta
-                    delta = 0
+            # Zatwierdzanie Poprawnego Wyniku
+            if ipt == word and 'enter' in event:
+                word = choose_word(level)
+                ipt = ""
+                czas += delta
+                delta = 0
         # Zarzadzanie kolorem czcionki
         if len(ipt) == 1:
             if ipt == word[0]:
