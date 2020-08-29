@@ -241,14 +241,9 @@ def game_loop_learn(screen=None, player_nick=None):
         enter przerywa grę
         :return: None
         """
-    pygame.init()
     # Inicjalizacja, wartosci Pomocnicze
     white = (255, 255, 255)
-    res = (1200, 650)
-    screen = pygame.display.set_mode(res)
-    pygame.display.set_caption("Mistrz Klawiatury")
     screen.fill(white)
-    # Wartosci Początkowe
     char = choose_letter()
     letter = ''
     font = pygame.font.Font('freesansbold.ttf', 70)
