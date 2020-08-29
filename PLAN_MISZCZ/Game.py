@@ -175,7 +175,7 @@ def game_loop_chalange(level, player_nick=None, screen=None):
                 if 'esc' in event:
                     save_score(level, czas * 10, player_nick)
                     return None
-                if len(event[event.find('(')+1:event.find(' ')]):
+                if len(event[event.find('(')+1:event.find(' ')]) == 1:
                     letter = event[event.find('(')+1:event.find(' ')]
                     ipt += letter
             # Zatwierdzanie Poprawnego Wyniku
