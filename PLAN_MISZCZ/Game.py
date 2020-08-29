@@ -309,6 +309,12 @@ def save_score(level, score, nick):
     :param nick: nick
     :return:
     """
+    if level == "hard":
+        level = 3
+    elif level == "medium":
+        level = 2
+    else:
+        level = 1
     score_to_db = str(score * level)
     cu.execute("insert into " + nick + "_stat_today (score,date) values (" + score_to_db + ",date('now'))")
     cu.execute("insert into " + nick + "_stat_ever (score,date) values (" + score_to_db + ",date('now'))")
