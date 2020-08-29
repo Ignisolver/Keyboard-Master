@@ -252,14 +252,28 @@ def game_loop_learn(screen=None, player_nick=None):
     char = choose_letter()
     letter = ''
     font = pygame.font.Font('freesansbold.ttf', 70)
+    start = True
     while True:
-        for event in pygame.event.get():
-             if event.type == pygame.KEYDOWN:
-            #     if event.key == 13:
-            #         sys.exit(0)
-                letter = Keyborder.code2letter[event.key]
-                if letter == char:
-                    char = choose_letter()
+        if start is False:
+            event = str(read_event())
+        else:
+            event = ''
+            start = False
+        if 'down)' in event:
+            if 'esc' in event:
+                return None
+            if len(event[event.find('(')+1:event.find(' ')]) == 1:
+                letter = event[event.find('(')+1:event.find(' ')]
+        if letter == char:
+            char = choose_letter()
+
+        #for event in pygame.event.get():
+        #     if event.type == pygame.KEYDOWN:
+        #    #     if event.key == 13:
+        #    #         sys.exit(0)
+        #        letter = Keyborder.code2letter[event.key]
+        #        if letter == char:
+        #            char = choose_letter()
         # Rysowanie
         pygame.display.update()
         screen.fill(white)
