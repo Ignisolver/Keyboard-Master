@@ -1,7 +1,11 @@
+import os
 import sqlite3
+import threading
+import wave
 from threading import Thread
 from time import sleep
 
+import pyaudio
 import pygame
 from Game import Keyborder
 from Game import game_loop_learn, game_loop_chalange
@@ -18,6 +22,48 @@ cu = cx.cursor()
 
 
 # FUNKCJE INICJALIZACYJNE
+
+class WavePlayerLoop(threading.Thread):
+    CHUNK = 1024
+
+    def __init__(self, filepath, loop=True):
+        """
+        Initialize `WavePlayerLoop` class.
+        PARAM:
+            -- filepath (String) : File Path to wave file.
+            -- loop (boolean)    : True if you want loop playback.
+                                   False otherwise.
+        """
+        super(WavePlayerLoop, self).__init__()
+        self.filepath = os.path.abspath(filepath)
+        self.loop = loop
+
+    def run(self):
+        wf = wave.open(self.filepath, 'rb')
+        player = pyaudio.PyAudio()
+        stream = player.open(format=player.get_format_from_width(wf.getsampwidth()),
+                             channels=wf.getnchannels(),
+                             rate=wf.getframerate(),
+                             output=True)
+
+        data = wf.readframes(self.CHUNK)
+        while self.loop:
+            stream.write(data)
+            data = wf.readframes(self.CHUNK)
+            if data == b'':
+                wf.rewind()
+                data = wf.readframes(self.CHUNK)
+
+        stream.close()
+        player.terminate()
+
+    def play(self):
+        self.start()
+
+    def stop(self):
+        self.loop = False
+
+
 def do_order_in_database():
     """
     Gustaw
@@ -106,6 +152,8 @@ def window_maker():
 
 # GŁÓWNA FUNKCJA PROGRAMU
 def main():
+    music = WavePlayerLoop(r"..\Others\song.wav")
+    music.play()
     pygame.init()
     do_order_in_database()
     # stworzenie okna

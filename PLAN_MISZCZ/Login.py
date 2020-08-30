@@ -1,7 +1,9 @@
 import sqlite3
+
 import pygame
 from Game import Keyborder
 from keyboard import read_event
+
 database = r"..\db\mistrz_klawiatury.db"
 cx = sqlite3.connect(database, check_same_thread=False)
 cu = cx.cursor()
@@ -121,7 +123,7 @@ def check_pass(nazwa, haslo, screen=None):
             eve = str(read_event())
         else:
             eve = ''
-            start =False
+            start = False
         wpis = pob_str.current_input
         dl_wpis = len(wpis)
         if 'down)' in eve:

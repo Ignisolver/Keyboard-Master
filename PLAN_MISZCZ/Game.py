@@ -1,6 +1,5 @@
 import random
 import sqlite3
-import sys
 from threading import Thread
 
 import pygame
@@ -156,7 +155,7 @@ def game_loop_chalange(level, player_nick=None, screen=None):
             event = str(read_event())
         else:
             event = ''
-            start =False
+            start = False
         # Ostrzeżenie o liczbie liter
         if len(ipt) > len(word):
             warn = "Uwaga! Za dużo liter"
@@ -165,7 +164,7 @@ def game_loop_chalange(level, player_nick=None, screen=None):
         # if event.type == pygame.QUIT:
         #     sys.exit(0)
         if 'down)' in event:
-            if ipt == "" and 'enter' in event: #event.key == 13 and
+            if ipt == "" and 'enter' in event:  # event.key == 13 and
                 delta = 0
             if 'backspace' in event:
                 if len(ipt):
@@ -175,8 +174,8 @@ def game_loop_chalange(level, player_nick=None, screen=None):
                 if 'esc' in event:
                     save_score(level, czas * 10, player_nick)
                     return None
-                if len(event[event.find('(')+1:event.find(' ')]) == 1:
-                    letter = event[event.find('(')+1:event.find(' ')]
+                if len(event[event.find('(') + 1:event.find(' ')]) == 1:
+                    letter = event[event.find('(') + 1:event.find(' ')]
                     ipt += letter
             # Zatwierdzanie Poprawnego Wyniku
             if ipt == word and 'enter' in event:
@@ -257,12 +256,12 @@ def game_loop_learn(screen=None, player_nick=None):
         if 'down)' in event:
             if 'esc' in event:
                 return None
-            if len(event[event.find('(')+1:event.find(' ')]) == 1:
-                letter = event[event.find('(')+1:event.find(' ')]
+            if len(event[event.find('(') + 1:event.find(' ')]) == 1:
+                letter = event[event.find('(') + 1:event.find(' ')]
         if letter == char:
             char = choose_letter()
 
-        #for event in pygame.event.get():
+        # for event in pygame.event.get():
         #     if event.type == pygame.KEYDOWN:
         #    #     if event.key == 13:
         #    #         sys.exit(0)
