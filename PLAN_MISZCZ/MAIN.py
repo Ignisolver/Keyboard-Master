@@ -166,6 +166,7 @@ def main():
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                music.stop()
                 pygame.quit()
                 exit(0)
         sleep(0.1)

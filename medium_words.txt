@@ -4,7 +4,7 @@ mleko
 domek
 drzewo
 laptop
-krzeslo
+krzesło
 taras
 lampa
 program
@@ -14,7 +14,7 @@ jesiotr
 maczuga
 pistolet
 pisak
-piskle
+pisklę
 alkohol
 gawron
 bocian
