@@ -29,7 +29,6 @@ def download_input(period, nick):
 
 
 def show_statistics(period, screen=None, player_nick=None):
-    # todo komunikat o escape
     """
     # Ignacy - DONE
     #czyści okno i rysuje swoje
@@ -53,7 +52,9 @@ def show_statistics(period, screen=None, player_nick=None):
         nic = True
         font = pygame.font.Font('freesansbold.ttf', 50)
         instr = font.render("Nie ma nic do pokazania", True, (0, 0, 0), (255, 255, 255))
+        back = font.render("Powrót (ESC)", True, (0, 0, 0), (255, 255, 255))
         screen.blit(instr, (100, 100))
+        screen.blit(back, (80, 280))
         pygame.display.flip()
     if nic is False:
         if amount_of_scores > 10:
@@ -72,6 +73,11 @@ def show_statistics(period, screen=None, player_nick=None):
         pole_width = unit
         rectangles = [pygame.Rect(x0 + i * unit_q * int(unit), y_max, int(pole_width), 2) for i in
                       range(amount_of_scores)]
+
+        # instrukcja
+        font_b = pygame.font.Font('freesansbold.ttf', 50)
+        back = font_b.render("Powrót (ESC)", True, (0, 0, 0), (255, 255, 255))
+        screen.blit(back, (870, 595))
 
         # dane
         scores_points = [day[2] for day in scores]

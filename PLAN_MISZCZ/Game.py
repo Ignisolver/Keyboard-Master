@@ -14,7 +14,7 @@ class Keyborder():
     """
     aby korzystać z funkcji wprowadania tekstu nalerzy utworzyć obiekt tej klasy
     - wywołanie metody pg_str_input spowoduje że w atrybucie current_input będzie się znajdował ciąg znaków
-    który cały czas będzie się aktualizował ( w zależności od tego co będzie wpisywae na klawiaturze) - działa w
+    który cały czas będzie się aktualizował ( w zależności od tego co będzie wpisywane na klawiaturze) - działa w
     osobnym wątku aż do naciśnięcia enter - po naciśnięciu current_input się nie usuwa
     obsługuje backspace,alt,shift
     - atrybut finish przechowuje zmienną bool (enter został już wciśnięty - funkcja przestała działać - True
