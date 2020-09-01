@@ -201,7 +201,7 @@ def game_loop_chalange(level, player_nick=None, screen=None):
         pygame.display.update()
         screen.fill(white)
         # Wyraz Wylosowany
-        tekst = font.render(word, True, (0, 0, 0))
+        tekst = font.render("napisz: " + word, True, (0, 0, 0))
         tekst_prost = tekst.get_rect()
         tekst_prost.center = (600, 163)
         screen.blit(tekst, tekst_prost)
@@ -220,6 +220,9 @@ def game_loop_chalange(level, player_nick=None, screen=None):
         tekst3_prost = tekst3.get_rect()
         tekst3_prost.center = (900, 30)
         screen.blit(tekst3, tekst3_prost)
+        font_b = pygame.font.Font('freesansbold.ttf', 50)
+        back = font_b.render("Potwierdź (ENTER) / Powrót (ESC)", True, (0, 0, 0), (255, 255, 255))
+        screen.blit(back, (300, 595))
         pygame.display.flip()
 
 
@@ -272,7 +275,7 @@ def game_loop_learn(screen=None, player_nick=None):
         pygame.display.update()
         screen.fill(white)
         # Litera Wylosowana
-        tekst = font.render(char, True, (0, 0, 0))
+        tekst = font.render("NACIŚNIJ> " + char, True, (0, 0, 0))
         tekst_prost = tekst.get_rect()
         tekst_prost.center = (600, 163)
         screen.blit(tekst, tekst_prost)
@@ -281,6 +284,9 @@ def game_loop_learn(screen=None, player_nick=None):
         tekst1_prost = tekst1.get_rect()
         tekst1_prost.center = (600, 325)
         screen.blit(tekst1, tekst1_prost)
+        font_b = pygame.font.Font('freesansbold.ttf', 50)
+        back = font_b.render("Powrót (ESC)", True, (0, 0, 0), (255, 255, 255))
+        screen.blit(back, (870, 595))
         pygame.display.flip()
 
 
