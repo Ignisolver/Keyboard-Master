@@ -82,7 +82,7 @@ def show_statistics(period, screen=None, player_nick=None):
         # dane
         scores_points = [day[2] for day in scores]
         maxym = max(scores_points)
-        scores_points = [i * 100/maxym for i in scores_points]
+        scores_points = [i * 100 / maxym for i in scores_points]
         scores_high = [y_max - y_length * i / 84 for i in scores_points]
 
         # ładowanie tła pokazywania statystyk
@@ -102,7 +102,7 @@ def show_statistics(period, screen=None, player_nick=None):
             text = font.render(napis, True, black)
             text = pygame.transform.rotate(text, -70)
             textRect = text.get_rect()
-            centr = int(sum([rectangles[nr].bottomright[0], rectangles[nr].bottomleft[0]]) / 2)-15
+            centr = int(sum([rectangles[nr].bottomright[0], rectangles[nr].bottomleft[0]]) / 2) - 15
             # pygame.draw.rect(screen, (0, 150, 255), pygame.Rect(*rectangles[nr].bottomleft,10,10))
             textRect.topleft = (centr, rectangles[nr].bottomleft[1] + 5)
             pygame.draw.rect(screen, (0, 150, 100), pygame.Rect(*textRect.topleft, 10, 10))
