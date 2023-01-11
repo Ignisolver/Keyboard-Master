@@ -132,6 +132,7 @@ def game_loop_chalange(level, player_nick=None, screen=None):
         :param level: poziom gry (easy/medium/hard)
         :return: None
         """
+
     pygame.init()
     # Inicjalizacja - wartosci Pomocnicze
     white = (255, 255, 255)
@@ -139,7 +140,6 @@ def game_loop_chalange(level, player_nick=None, screen=None):
     clock = pygame.time.Clock()
     delta = 0
     res = (1200, 650)
-    screen = pygame.display.set_mode(res)
     # Ustawienia Okna
     screen.fill(white)
     # Wartosci Początkowe

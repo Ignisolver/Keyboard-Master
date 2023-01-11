@@ -190,7 +190,6 @@ def continue_main(screen, player):
         option = main_window(screen)
         code = option[0]
         args = option[1:]
-        print(option)
         functions[code](*args, player_nick=player, screen=screen)
 
 
