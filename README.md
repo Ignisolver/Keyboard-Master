@@ -560,4 +560,5 @@ Funkcja służy do dopisywania nowego gracza do bazy, jako parametry przyjmuje n
 
 ## Autorzy
 Porjekt był realizowany w ramach projektu na studia wspólnie z trzema kolegami.
+Podczas tworzenia projektu korzystano z GitHub oraz Asana
 
