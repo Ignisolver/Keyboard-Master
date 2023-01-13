@@ -539,7 +539,19 @@ Funkcja może być wywołana, aby sprawdzić, czy logujący się użytkownik jes
 Funkcja służy do dopisywania nowego gracza do bazy, jako parametry przyjmuje nick, oraz hasło, które może być alfanumeryczne, następnie przeszukuje tabelę z użytkownikami w poszukiwaniu powtórzeń nicku, jeżeli nie znajdzie, zostaną utworzone cztery tabele na zapisywanie statystyk danego gracza, a sama funkcja zwróci wartość ```python True```, w przeciwnym wypadku, tabela nie zostaną utowrzone i zostanie zwrócone ```python False```.
 
 
+## Działanie aplikacji
+
+![obraz](https://user-images.githubusercontent.com/62255841/212265652-3d9dcd1a-41a8-43c4-911f-3a8194a6acec.png)
+![obraz](https://user-images.githubusercontent.com/62255841/212265720-72e93f14-4c29-45ae-9eb8-617e1f3e21c4.png)
+![obraz](https://user-images.githubusercontent.com/62255841/212265772-79d3cf01-03a2-4d76-bcf2-3bfd3b9954ee.png)
+![obraz](https://user-images.githubusercontent.com/62255841/212265825-f8cde4fa-291c-4c78-833a-af50dc5bce07.png)
+![obraz](https://user-images.githubusercontent.com/62255841/212265887-34735e72-d350-4c2c-8fd9-3dbb5f39aebe.png)
+![obraz](https://user-images.githubusercontent.com/62255841/212265944-f20dd626-5eac-442a-95a1-22f0536812ec.png)
+![obraz](https://user-images.githubusercontent.com/62255841/212266197-5e1afab4-7084-451e-976b-94161d7dd221.png)
+![obraz](https://user-images.githubusercontent.com/62255841/212266273-fd74b956-4e24-42a2-a535-fcc65d44c291.png)
+![obraz](https://user-images.githubusercontent.com/62255841/212267516-234f07e0-432b-4b48-a0d3-afa483c0ad73.png)
 
 
-
+## Autorzy
+Porjekt był realizowany w ramach projektu na studia wspólnie z trzema kolegami.
 
